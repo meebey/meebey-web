@@ -20,6 +20,9 @@ body{
 .inlinepage{
 	padding: 10px;
 }
+.inlinepage .tags {
+        display: none;  
+}
 .pagedate{
 	font-family: times;
 	font-size: .8em;
