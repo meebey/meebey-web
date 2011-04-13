@@ -7,7 +7,7 @@ I was running a SVN snapshot of Jaws and haven't updated nor maintained that one
 
 I have been keeping an eye on [Joey Hess][]' [ikiwiki][] for quite some time, but never felt the desire to blog something important and thus postponed solving my website mess. 
 
-For those who don't know ikiwiki yet, it is a wiki compiler based on a version control system like git which generates the website when you push your commits to the git repository :) The wiki syntax is markdown but also supports other engines. ikiwiki is written in Perl which is not my favourite language, but I have seen worse. 
+For those who don't know ikiwiki yet, it is a wiki compiler based on a version control system like git which generates the website when you push your commits to the git repository. The wiki syntax is markdown but also supports other engines. ikiwiki is written in Perl which is not my favourite language, but I have seen worse :-D.
 
 When I wrote the Debian packaging tools for the Common Language Infrastructure, which are based on debhelper, I had to study code written by Joey Hess. Putting the syntax aside (I mean it's Perl, it can't be beautiful because of that) he does well designed and implemented software and this is the reason ikikwi was a great candidate despite the used language.
 
