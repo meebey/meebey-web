@@ -4,8 +4,7 @@
 [[!inline pages=sidebar raw=yes]]
 """]]
 
-[[!inline pages="page(./posts/*) and !*/Discussion" show="10"
-actions=yes rootpage="posts"]]
+[[!inline pages="page(./posts/*) and !*/Discussion" show="10" actions=yes]]
 
 
 This blog is powered by [ikiwiki](http://ikiwiki.info).
