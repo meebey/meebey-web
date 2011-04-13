@@ -17,6 +17,9 @@ body{
 	border-right: dashed 1px;
 	padding-right: 30px;
 }
+.inlinepage{
+	padding: 10px;
+}
 .pagedate{
 	font-family: times;
 	font-size: .8em;
