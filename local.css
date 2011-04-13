@@ -1,12 +1,12 @@
 body{
-	font-family:Palatino,georgia,"times new roman",serif; 
+	font-family:Palatino,georgia,sans-serif; 
 	font-size: 1.03em;
 	margin-left: auto;
 	margin-right: auto;
 	width: 800px;
 }
 .actions{
-	font-family:Palatino,georgia,"times new roman",serif; 
+	font-family:Palatino,georgia,sans-serif; 
 	font-size: .95em;
 	text-align: left;
 }
