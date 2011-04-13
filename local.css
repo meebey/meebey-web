@@ -41,9 +41,12 @@ ol{
 }
 /* Headings */
 .header{
-	font-family: georgia;
 	font-size: 1.25em;
 	line-height: 1em;	
+	font-weight: bolder;
+}
+.title {
+	font-family: Tahoma, sans-serif;
 	font-weight: bolder;
 }
 h1{
