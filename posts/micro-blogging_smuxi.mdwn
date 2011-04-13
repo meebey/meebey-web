@@ -1,0 +1,35 @@
+[[!meta title="Micro-Blogging / Smuxi"]]
+[[!meta date="2009-04-05 15:53:02 +0200"]]
+[[!tag debian gnome mono]]
+
+You are wondering if forgot my password of the blogging account? No
+I didn't, I just don't have much time to do blogging. I try to
+invest more time to just do things than to talk about what I have
+done or will do. Blogging needs time: you need a topic to blog
+about, you have to login, make a point, do spellchecking and so on.
+The result: you see about every 3 months a blog post from me. Don't
+get me wrong, I am doing geeky stuff **every** single day (except
+when I am on vacation maybe, but that was how many years ago,
+eh?).  
+**Micro-Blogging** to the rescue! You probably know micro-blogging
+ala [twitter.com][] already, but for me thats something new
+![wink.png][] You just post a single message with no more than 140
+characters and you are **done**. So if you want to follow my
+activities, feel free to subscribe to my micro-blog found on
+twitter: [http://twitter.com/meebey][]
+
+**Smuxi** is doing nice progress now, I made 2 important changes to
+archive constant progress: switch from [Subversion][] to [Git][]
+and with that switch from [Trac][] to [Redmine][]. Now everything
+is kept in feature-branches and I can switch more often between
+features and bug fixes without messing all up. More details about
+this can be found in [this Smuxi blog post][].
+
+  [twitter.com]: http://twitter.com/
+  [wink.png]: http://www.meebey.net/jaws//plugins/Emoticons/images/wink.png
+  [http://twitter.com/meebey]: http://twitter.com/meebey
+  [Subversion]: http://subversion.tigris.org/
+  [Git]: http://git-scm.com/
+  [Trac]: http://trac.edgewall.org/
+  [Redmine]: http://www.redmine.org/
+  [this Smuxi blog post]: http://www.smuxi.org/blog/show/GIT_Redmine_and_Features
