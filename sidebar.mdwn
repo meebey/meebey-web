@@ -7,4 +7,4 @@
 [[Archives]]
 
 [[Tags]]:
-[[!pagestats style="list" pages="./tags/*" among="./posts/*"]]
+[[!pagestats style="list" pages="./tags/* and !./tags/planet-*" among="./posts/*"]]
