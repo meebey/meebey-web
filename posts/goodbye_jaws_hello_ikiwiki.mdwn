@@ -1,0 +1,22 @@
+[[!meta title="Goodbye Jaws, Hello ikiwiki"]]
+[[!tag debian gnome mono]]
+
+Yes, it's that time of the year: I am blogging. I was using [Jaws][] as my blogging tool and CMS for the past few years more or less and I am finally switching to something new.
+
+I was running a SVN snapshot of Jaws and haven't updated nor maintained that one for about 3 years. This reduced my abilility to blog a lot as I had to look after bugs and jumping through the hoops to make a post. At some point I wanted to replace Jaws with something better that fits my needs but didn't find anything.
+
+I have been keeping an eye on [Joey Hess][]' [ikiwiki][] for quite some time, but never felt the desire to blog something important and thus postponed solving my website mess. 
+
+For those who don't know ikiwiki yet, it is a wiki compiler based on a version control system like git which generates the website when you push your commits to the git repository :) The wiki syntax is markdown but also supports other engines. ikiwiki is written in Perl which is not my favourite language, but I have seen worse. 
+
+When I wrote the Debian packaging tools for the Common Language Infrastructure, which are based on debhelper, I had to study code written by Joey Hess. Putting the syntax aside (I mean it's Perl, it can't be beautiful because of that) he does well designed and implemented software and this is the reason ikikwi was a great candidate despite the used language.
+
+[Jo Shields][] suggested dogfeeding myself with a .NET based blog, but ASP.NET is just junk, but with [Manos de Mono][] I am actually considering it! Manos is written in beautiful C# without any ASP.NET close to it, but is extremely new and has no blogging or wiki engine written for it yet. I was involved in Jaws's development and I didn't want to run into the same issue again for now (more hacking the tools, less using them).
+
+So last night I finally made the decision, installed ikiwiki and made my first post with it, yay! The markdown syntax feels very naturaly to me. I usually end up searching for the syntax documentation every 2nd paragraph, but not on this one...
+
+[Jaws] http://www.jaws-project.com/
+[Joey Hess] http://kitenet.net/~joey/
+[ikiwiki] http://ikiwiki.info/
+[Jo Shields] http://apebox.org/
+[Manos de Mono] http://manosdemono.org/
