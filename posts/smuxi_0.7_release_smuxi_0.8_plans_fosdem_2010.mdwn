@@ -1,0 +1,65 @@
+[[!meta title="Smuxi 0.7 Release + Smuxi 0.8 Plans + FOSDEM 2010"]]
+[[!meta date="2010-01-17 04:19:41 +0100"]]
+[[!tag debian gnome mono]]
+
+Merry Christmas! Happy New Year! Yeah, it's that time of year
+again, I am writing a blog post ![bigsmile.png][]. As some of you
+have probably already noticed I managed to get
+[Smuxi 0.7 released][] a few days ago. Almost all of my Xmas
+vacation I was hacking on Smuxi. This is the best Smuxi release
+ever (guaranteed!). The most notable features I implemented in the
+0.7 release are: Twitter support, handling for high latency
+networks (UTMS, WLAN, busy DSL) and an improved IRC experience
+through tweaks such as splitting oversized messages and new context
+menus. This release also contains very nice contributions from
+[David Paleino][] [[2]][] and [ClÃ©ment Bourgeois][]. Both joined
+the hackfest during my Xmas vacation and made the hacking sessions
+on Smuxi even more fun. Thanks for that guys! [Here][] you can find
+a full list of changes.
+
+As everbody likes screenshots and as screenshots say a thousand
+words, here they are:
+
+Quick Connect  
+[![image][]][]
+
+Twitter  
+[![image][1]][]
+
+User Menu  
+[![image][2]][]
+
+Which direction will Smuxi head in after the 0.7 release? For the
+[0.8 release][], I plan to focus on making the IRC support feature
+complete. That means we will get DCC, SSL, IPv6 and logging
+support. Nothing of that sounds very special but I am already
+investigating how Smuxi can be integrated with the promising new
+[Zeitgeist project][]. I interviewed one of the developers for
+potential communication between Smuxi and Zeitgeist.
+
+Last but not least, I want to announce that I will be attending
+[FOSDEM 2010][] in Brussels. I also will give a
+[talk about Smuxi][] there, scheduled on 2010-02-07 at 16:30. If
+you want to have a chat, a beer, do some GPG keysigning, or ask me
+any questions, I am available ![bigsmile.png][]
+
+PS: If you want more updates than once per year, just
+[follow me on Twitter][]
+
+  [bigsmile.png]: http://www.meebey.net/jaws//plugins/Emoticons/images/bigsmile.png
+  [Smuxi 0.7 released]: http://www.smuxi.org/blog/show/Smuxi_07_Release
+  [David Paleino]: http://www.hanskalabs.net/
+  [[2]]: http://twitter.com/dpaleino
+  [ClÃ©ment Bourgeois]: http://twitter.com/moonpyk
+  [Here]: http://projects.qnetp.net/versions/show/10
+  [image]: http://www.smuxi.org/jaws/data/phoo/2010_01_17/medium/smuxi-0.7-linux-quick-connect.png
+  [![image][]]: http://www.smuxi.org/jaws/data/phoo/2010_01_17/smuxi-0.7-linux-quick-connect.png
+  [1]: http://www.smuxi.org/jaws/data/phoo/2010_01_17/medium/smuxi-0.7-linux-twitter.png
+  [![image][1]]: http://www.smuxi.org/jaws/data/phoo/2010_01_17/smuxi-0.7-linux-twitter.png
+  [2]: http://www.smuxi.org/jaws/data/phoo/2010_01_17/medium/smuxi-0.7-user-menu.png
+  [![image][2]]: http://www.smuxi.org/jaws/data/phoo/2010_01_17/smuxi-0.7-user-menu.png
+  [0.8 release]: http://projects.qnetp.net/versions/show/2
+  [Zeitgeist project]: http://zeitgeist-project.com/
+  [FOSDEM 2010]: http://www.fosdem.org/2010/
+  [talk about Smuxi]: http://www.fosdem.org/2010/schedule/events/mono_smuxi
+  [follow me on Twitter]: http://twitter.com/meebey
