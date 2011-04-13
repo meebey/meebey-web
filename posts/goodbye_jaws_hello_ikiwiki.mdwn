@@ -15,8 +15,8 @@ When I wrote the Debian packaging tools for the Common Language Infrastructure, 
 
 So last night I finally made the decision, installed ikiwiki and made my first post with it, yay! The markdown syntax feels very naturaly to me. I usually end up searching for the syntax documentation every 2nd paragraph, but not on this one...
 
-[Jaws] http://www.jaws-project.com/
-[Joey Hess] http://kitenet.net/~joey/
-[ikiwiki] http://ikiwiki.info/
-[Jo Shields] http://apebox.org/
-[Manos de Mono] http://manosdemono.org/
+  [Jaws] http://www.jaws-project.com/
+  [Joey Hess] http://kitenet.net/~joey/
+  [ikiwiki] http://ikiwiki.info/
+  [Jo Shields] http://apebox.org/
+  [Manos de Mono] http://manosdemono.org/
