@@ -48,6 +48,7 @@ ol{
 .title {
 	font-family: Tahoma, sans-serif;
 	font-weight: bolder;
+	padding-bottom: 5px;
 }
 h1{
 	font-size: 2em;
