@@ -1,0 +1,68 @@
+[[!meta title="""Smuxi 0.8 "Godsend" Release"""]]
+[[!meta date="2010-09-08 20:16:00"]]
+[[!tag debian gnome mono]]
+
+5 weeks after the 0.7.2.2 "Lovegood" release, I am very happy to announce the
+major feature release, **0.8** codenamed **"Godsend"**. Major feature
+highlights of this release are desktop notifications (with full support of
+actions, icons, updates, append and sound), messaging menu / indicators (as
+provided by Ubuntu's [Ayatana project][1]) and working Twitter support with
+OAuth (basic auth was disabled by Twitter on 31st August). This version also
+fixes all bugs that were reported since the release of 0.7.2.2.
+
+Desktop Notifications
+
+![][2]
+
+Messaging Menu
+
+![][3]
+
+Further on, Smuxi comes with the following improvements in its user
+interface:
+
+  * More distinct nick colors by using a combination of colors
+  * Use of nick colors for userlists
+  * Emphasis of own nick in bold, making it easier to distinguish sent messages
+  * Toggle-able menubar
+  * Full screen mode support for enhanced netbook experience
+  * Browse mode support
+  * Remembering of tab order when reconnecting to a smuxi-server
+  * Sound support by notification daemons which support this extension
+  * Display of IRC network name instead of hostname in the tab
+  * Addition of "Open Log" button for easy viewing of logs.
+
+Smuxi provides better connectivity and security by supporting: HTTP and SOCKS
+proxies as well as secure connections to IRC servers by using SSL with
+optional certificate validation.
+
+Last but not least, it comes with an enhanced Twitter experience by supporting
+the use of multiple Twitter accounts at the same time, reformatting tweets
+that contain newlines and showing the full retweet instead of a truncated
+version.
+
+Updated languages includes: French (Clément BOURGEOIS) and German (Bianca Mix)
+
+The [#smuxi IRC channel][4] can now also be found, in addition to OFTC, on
+other popular IRC networks such as freenode and GIMPnet. The messages on
+ #smuxi are automatically relayed between the 3 IRC networks.
+
+If you like Smuxi and want to support it by making micro-donations, [Smuxi is
+available on Flattr][5].
+
+There are also many other nice FOSS projects available on Flattr, see the
+[Flattr-FOSS project][6].
+
+Smuxi is available for download from [here][7].
+
+Binary Packages of Smuxi 0.8 are ready to be used by Debian/Experimental,
+Ubuntu/Maverick, Ubuntu/Lucid (via PPA), OpenSUSE, Foresight Linux, FreeBSD,
+and Windows.
+
+   [1]: https://wiki.ubuntu.com/Ayatana
+   [2]: http://www.smuxi.org/attachments/52/smuxi-0.8-dev-notify-osd.png
+   [3]: http://www.smuxi.org/attachments/51/smuxi-0.8-dev-messaging-menu.png
+   [4]: irc://irc.oftc.net/smuxi
+   [5]: https://flattr.com/thing/51924/Smuxi-IRC-Client
+   [6]: http://raphaelhertzog.com/2010/09/01/free-software-to-flattr-sep-2010/
+   [7]: http://www.smuxi.org/page/Download
