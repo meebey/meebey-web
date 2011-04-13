@@ -1,0 +1,4 @@
+[[!meta title="pages tagged smuxi"]]
+
+[[!inline pages="tagged(smuxi)" actions="no" archive="yes"
+feedshow=10]]
