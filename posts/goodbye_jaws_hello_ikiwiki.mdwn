@@ -18,6 +18,6 @@ So last night I finally made the decision, installed ikiwiki and made my first p
   [Jaws]: http://www.jaws-project.com/
   [Joey Hess]: http://kitenet.net/~joey/
   [ikiwiki]: http://ikiwiki.info/
-  [markdown syntax] http://daringfireball.net/projects/markdown/syntax
+  [markdown syntax]: http://daringfireball.net/projects/markdown/syntax
   [Jo Shields]: http://apebox.org/
   [Manos de Mono]: http://manosdemono.org/
