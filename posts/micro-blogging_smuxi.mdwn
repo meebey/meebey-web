@@ -1,6 +1,6 @@
 [[!meta title="Micro-Blogging / Smuxi"]]
 [[!meta date="2009-04-05 15:53:02 +0200"]]
-[[!tag debian gnome mono]]
+[[!tag twitter smuxi]]
 
 You are wondering if forgot my password of the blogging account? No
 I didn't, I just don't have much time to do blogging. I try to
