@@ -1,4 +1,5 @@
 [[!meta title="Goodbye Jaws, Hello ikiwiki"]]
+[[!meta date="2011-04-13 23:34:00"]]
 [[!tag debian mono planet-debian planet-mono planet-gnome]]
 
 Yes, it's that time of the year: I am blogging. I was using [Jaws][] as my blogging tool and CMS for the past few years more or less and I am finally switching to something new.
