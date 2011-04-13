@@ -1,0 +1,8 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ subject="comment 1"
+ date="2011-04-13T22:05:20Z"
+ content="""
+Compiled pages are fast and awesome!
+I'm using jekyll for my pages :)
+"""]]
