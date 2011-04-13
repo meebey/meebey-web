@@ -5,7 +5,9 @@ Yes, it's that time of the year: I am blogging. I was using [Jaws][] as my blogg
 
 I was running a SVN snapshot of Jaws and haven't updated nor maintained that one for about 3 years. This reduced my abilility to blog a lot as I had to look after bugs and jumping through the hoops to make a post. At some point I wanted to replace Jaws with something better that fits my needs but didn't find anything.
 
-I have been keeping an eye on [Joey Hess][]' [ikiwiki][] for quite some time, but never felt the desire to blog something important and thus postponed solving my website mess. 
+I have been keeping an eye on [Joey Hess][]' [ikiwiki][] for quite some time, but never felt the desire to blog something important and thus postponed solving my website mess.
+
+[[!img images/ikiwiki_large.png alt="ikiwiki logo"]]
 
 For those who don't know ikiwiki yet, it is a wiki compiler based on a version control system like git which generates the website when you push your commits to the git repository. The wiki uses the [markdown syntax][] but also supports other engines. ikiwiki is written in Perl which is not my favourite language, but I have seen worse. :-D
 
