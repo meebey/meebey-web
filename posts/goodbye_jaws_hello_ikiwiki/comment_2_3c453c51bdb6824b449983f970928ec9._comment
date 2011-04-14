@@ -1,0 +1,7 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ subject="asp..."
+ date="2011-04-13T23:40:14Z"
+ content="""
+Junk is putting it nicely when describing ASP.NET. ASP.NET MVC however is a completely different story. It's similar (from my limited experience) to Ruby, only with .NET/Mono goodness. I can also vouch for mono support/running it on a production Fedora server.
+"""]]
