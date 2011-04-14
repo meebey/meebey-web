@@ -8,8 +8,8 @@ to Debian/Experimental.
 With Mono 2.10 I had to make the biggest changes in Mono packaging since
 the big [Mono 2.0 upload][3]. The runtime no longer supports the 1.0
 and 2.0 runtime profile, instead it now supports the 2.0 and 4.0 runtime
-profile. This meant I had to drop all libmono*2.0-cil packages and add
-libmono*4.0-cil packages. This sounds like a lot of s/2.0/4.0/ work but it
+profile. This meant I had to drop all libmono*1.0-cil packages and add
+libmono*4.0-cil packages. This sounds like a lot of s/1.0/4.0/ work but it
 actually wasn't. Mono 2.10 ships a lot of new libraries over 2.6 and I had
 again to decide where they should go. "Where should this $library go?" I have
 been playing this game for the past 7 years maintaining Mono and I finally
