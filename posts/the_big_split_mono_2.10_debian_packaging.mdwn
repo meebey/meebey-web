@@ -1,5 +1,5 @@
 [[!meta title="The Big Split: Mono 2.10 Debian Packaging"]]
-[[!tag debian mono packaging planet-debian planet-mono twitterfeed]]
+[[!tag debian mono packaging planet-debian planet-mono planet-twitterfeed]]
 
 Most probably haven't noticed yet but I finished the [Mono 2.10.1
 debian packaging effort][1] of the past 3 months and [uploaded it][2]
