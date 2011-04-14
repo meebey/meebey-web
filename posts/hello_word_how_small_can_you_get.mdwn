@@ -52,8 +52,8 @@ eglib library some day.
 
 After I had this great result, I wondered how big other runtimes in
 Debian are.... like.... Java and Python? The results are interesting...
-~~A minimal Python install takes 3.9MB to download and 13.4MB on the harddisk.
-Yes, that's almost double the size of Mono, I was surprised too.~~
+<del>A minimal Python install takes 3.9MB to download and 13.4MB on the harddisk.
+Yes, that's almost double the size of Mono, I was surprised too.</del>
 **Update**: I got comments that Debian has a python2.5-minimal
 package available, which is true. So here the numbers of the
 smallest Python install you can get on Debian: 1.1MB to download,
@@ -72,7 +72,7 @@ you can get when you want to run anything on it.
 sizes are considered, not just the naked software size.
 
 So, if you want to run Hello World on a virtual machine: use
-~~Mono~~ Python! :-P just kidding...  
+<del>Mono</del> Python! :-P just kidding...  
 Small runtimes are important when it comes to acceptance and
 adaption of new technologies, as nobody wants to kill all his
 computer resources for it. And I often hear the replies on Linux
