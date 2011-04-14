@@ -1,0 +1,89 @@
+[[!meta title="Hello World, how small can you get?"]]
+[[!meta date="2007-07-09 00:30:00 +0200"]]
+[[!tag debian mono java python]]
+
+Today I was checking how much diskspace is need when a small CLI
+(.NET) application like gfax is installed. The last 2 years I am
+optimizing the Mono packages in Debian to reduce dependency chains.
+Dependency chains can cause a small application to become very big
+(at least it looks that way) when they are installed, as modern
+Linux distributions automaticly install all required dependencies.
+
+So first I worked against GUI dependencies for non-GUI
+applications, those are annoying for servers, you don't want to
+install a X server or other GUI libraries when you only serve
+webpages using ASP.NET.  
+Splitting CLI 1.0/1.1 vs 2.0 also seemed to be a very good
+candidate to split apart, as applications usually are target at
+1.0/1.1 or 2.0.  
+Then I split Base-Class-Libraries that have dependencies on native
+libraries (via P/Invoke), as those packages must depend on those
+native libraries, like DB drivers.  
+Last but not least I split debug symbols in a different package, as
+those are not needed for normal production usage, and embedded
+systems don't have much diskspace. The mono-dbg package is 28.2MB
+in size when installed, that's alot.  
+The Mono source package in Debian is now building 67 binary
+packages, but thanks to APT nobody has to care for that, every part
+is installed when needed.
+
+So today I was checking the results of it, how much will a small
+application download and install?  
+I am testing with a clean minimal Debian system, that way all
+dependency chains will show up very easily.  
+Installing GFax + required libraries today takes 43MB to download
+and 138MB on the harddisk. GFax is a small GNOME application, it
+uses libraries like: Mono, GTK\#, GNOME\#, Evolution\#, GConf\#.  
+So someone might say: "of course, it is based on that bloaty Mono
+virtual machine!", well let's check a different application.  
+What about a GTK\# only application (no GNOME) like graphmonkey +
+required libraries? That will download 19.5MB and uses 56.4MB on
+the harddisk. That's alot less, isn't it? graphmonkey only uses
+Mono and GTK\#.  
+So it's not Mono taking all no diskspace? Well after all my
+packaging optimizations, it's not Mono :)
+So how big is a install of a minimal Mono runtime + all required
+libraries then?  
+Minimal as in enough to run famous the "Hello World".  
+It's 2.4MB to download and 7MB on the harddisk, yes you read it
+correctly, the super monster bloaty virtual machine just needs 7MB.
+Mono only has glib as dependency which will be replaced by the
+eglib library some day.
+
+After I had this great result, I wondered how big other runtimes in
+Debian are.... like.... Java and Python? The results are interesting...
+~~A minimal Python install takes 3.9MB to download and 13.4MB on the harddisk.
+Yes, that's almost double the size of Mono, I was surprised too.~~
+**Update**: I got comments that Debian has a python2.5-minimal
+package available, which is true. So here the numbers of the
+smallest Python install you can get on Debian: 1.1MB to download,
+3.2MB on the harddisk. So Mono is not smaller than Python
+:-D I also noticed that I could reduce the minimal
+install size of Mono by 2.7MB if I put the I18N libraries into a
+different package. That would make 4.3MB for a minimal Mono install
+then.
+
+So and Java? Here it becomes a bit unfair as SUN's license is not
+allowing to ship parts of a Java runtime. So the Java package in a
+distribution *must* be one package. 34.5MB to download and 95.2MB
+on the harddisk. Yes, that's alot, but thats the smallest install
+you can get when you want to run anything on it.  
+**Update**: Please be aware that the package size + dependency
+sizes are considered, not just the naked software size.
+
+So, if you want to run Hello World on a virtual machine: use
+~~Mono~~ Python! :-P just kidding...  
+Small runtimes are important when it comes to acceptance and
+adaption of new technologies, as nobody wants to kill all his
+computer resources for it. And I often hear the replies on Linux
+IRC channels, when people ask which software they can use to do
+$task: "No I don't want o install 100MB just for $task" and they
+decide to try some other software with less dependencies and less
+resource usage.  
+Also for the embedded area, resources are very limited, every MB
+still counts there.
+
+For the completeness of my report, here the naked numbers of other
+available Java runtimes packages in Debian: sablevm 22.0MB
+(63.2MB), kaffe 52.2MB (118MB), jamvm 28.3MB (65.4MB), cocoa 28.8MB
+(66.0MB).
