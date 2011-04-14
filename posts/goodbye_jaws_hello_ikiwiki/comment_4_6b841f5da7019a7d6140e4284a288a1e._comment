@@ -1,0 +1,7 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ subject="comment 4"
+ date="2011-04-14T21:33:20Z"
+ content="""
+How about rewriting ikiwiki in go.
+"""]]
