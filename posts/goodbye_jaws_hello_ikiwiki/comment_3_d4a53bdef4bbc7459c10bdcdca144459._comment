@@ -1,0 +1,8 @@
+[[!comment format=mdwn
+ username="meebey"
+ ip="169.254.0.2"
+ subject="comment 3"
+ date="2011-04-14T18:26:45Z"
+ content="""
+ASP.NET MVC is not much better, because the most annoying part is the web environment, say apache+mod_mono+some obscure structure. I can accept fiddle around with the build environment but when it comes to deployment it needs to be simple and just work and not even more work and this is where ASP.NET fails IMHO regardless of used framework on top of it.
+"""]]
