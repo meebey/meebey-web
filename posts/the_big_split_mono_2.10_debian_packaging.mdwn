@@ -1,0 +1,110 @@
+[[!meta title="The Big Split: Mono 2.10 Debian Packaging"]]
+[[!tag debian mono packaging]]
+
+Most probably haven't noticed yet but I finished the [Mono 2.10.1
+debian packaging effort][1] of the past 3 months and [uploaded it][2]
+to Debian/Experimental.
+
+With Mono 2.10 I had to make the biggest changes in Mono packaging since
+the big [Mono 2.0 upload][3]. The runtime no longer supports the 1.0
+and 2.0 runtime profile, instead it now supports the 2.0 and 4.0 runtime
+profile. This meant I had to drop all libmono*2.0-cil packages and add
+libmono*4.0-cil packages. This sounds like a lot of s/2.0/4.0/ work but it
+actually wasn't. Mono 2.10 ships a lot of new libraries over 2.6 and I had
+again to decide where they should go. "Where should this $library go?" I have
+been playing this game for the past 7 years maintaining Mono and I finally
+gave up on it... What, where, when, why? I could give now a 2 hours talk
+of the issues behind the current packaging approach (keeping the number of
+library packages low) but instead I will do something else. Please, just
+take a look at this picture for a second:
+
+[[!img images/mono-2.6.7-debian-packages-graph.png size="400x" title="Brain Melting Device" alt="Brain Melting Device"]]
+
+If your browser crashed, your eyes hurt or your brain simply melted, I think
+you have got the idea.
+
+## The Big Split
+The cure? [cli-common-dev][]! This is a package that contains 2 extremely
+important debhelper packaging tools for packaging Mono/CLI related packages
+called [dh_makeclilibs][] and [dh_clideps][]. If you don't know these, they
+do exact the same thing as dh_makeshlibs and dh_shlibdeps do. dh_makeclilibs
+generates library dependency tracking information and dh_clideps consumes
+that information to automatically generate the package dependencies for
+you. So each library of the 4.0 runtime profile has now it's own package,
+simple as that, the rest does cli-common-dev for me and you.
+
+"Hey, that Mono packaging bastard is polluting the Debian archive because of
+his laziness!" No, I am not. This packaging change not only has the advantage
+of simplifying the packaging and with that bringing new Mono versions faster
+to you but also reduces the typical install size for applications as they will
+only pull in the really used libraries of Mono instead of groups of them. I
+don't have any numbers handy right now as none of the applications are built
+against Mono 2.10 (yet), but when the transition starts we will get numbers.
+
+## New Features
+There is also a new SGen flavor of Mono available called [mono-runtime-sgen][]
+which is no longer using the conservative non-generational [Boehm's garbage
+collector][4] but [SGen] which is a simple generational garbage collector with
+[promising advantages][5].
+
+And here some more Mono 2.8/2.10 news from
+/usr/share/doc/mono-runtime/NEWS.Debian.gz:
+
+  * SGen Precise Stack Scanning
+  * Enhanced SIMD with new methods for Vector data type conversions and
+  swapping elements in vectors
+  * ASP.NET MVC 3.0 (not included, only supported)
+  * The C# Interactive Shell can now be used as shebang: #!/usr/bin/csharp
+  * .NET 4.0 runtime
+  * C# 4.0 compiler
+  * ASP.NET 4.0
+  * Managed Extensibility Framework (MEF)
+  * System.Data.Services.Client (OData)
+  * glib was replaced with eglib
+  * Removed .NET 1.1 runtime
+
+## Architecture Regressions
+With the initial upload of Mono 2.10.1 to Debian/Experimental the architecture
+world broke apart and it [regressed][6] on all Mono architectures except for
+i386 and amd64 :-D There is a reason it's called _experimental_ isn't there?
+
+In [mono 2.10.1-3][] I could solve all regressions except for kfreebsd-*
+and armel. [Jo Shields][] fixed the remaining regressions and the world
+started to look good again in [mono 2.10.1-4][]! He also took care of
+[mono-basic][], mod-mono and xsp, but mod-mono and xsp are still waiting for
+the [translation call deadline][] to pass by so they can also be uploaded
+to Debian/Experimental.
+
+## Planned Transition
+As mentioned above, there will be a Mono 2.10 transition needed when the
+packages hit Debian/Unstable. There is no ETA yet on this when it will happen
+as I have to coordinate this with debian-release first. But as things are not
+showtime ready in experimental anyhow, this will not happen too soonish. The
+Mono 2.10 transition plan will be covered in a following post.
+
+## GIVMENOWPLX
+OMG, all this rumbling about Mono 2.10 and I still haven't said a word on
+how to obtain it, sorry about this, just do this and I will shut up now:
+
+    echo "deb http://ftp.debian.org/debian experimental main" >> /etc/apt/sources.list
+    apt-get update
+    apt-get install -t experimental mono-complete
+
+(this is the easiest way of getting only mono 2.10.1 from experimental)
+
+  [1]: http://git.debian.org/?p=pkg-mono/packages/mono.git;a=shortlog;h=e862be411733b7d77c55d671c6e3be8cfbf9e6f8
+  [2]: http://packages.qa.debian.org/m/mono/news/20110405T205040Z.html
+  [3]: http://packages.debian.org/changelogs/pool/main/m/mono/current/changelog#versionversion2.0-1
+  [4]: http://www.hpl.hp.com/personal/Hans_Boehm/gc/
+  [5]: http://developers.sones.de/2010/09/01/taking-the-new-and-shiny-mono-simple-generational-garbage-collector-mono-sgen-for-a-walk/
+  [6]: https://buildd.debian.org/status/logs.php?pkg=mono&ver=2.10.1-1
+  [cli-common-dev]: http://packages.debian.org/search?searchon=names&keywords=cli-common-dev
+  [dh_makeclilibs]: http://git.debian.org/?p=pkg-cli-common/packages/cli-common.git;a=blob;f=dh_makeclilibs;hb=HEAD
+  [dh_clideps]: http://git.debian.org/?p=pkg-cli-common/packages/cli-common.git;a=blob;f=dh_clideps;hb=HEAD
+  [mono 2.10.1-3]: https://buildd.debian.org/status/logs.php?pkg=mono&ver=2.10.1-3
+  [mono 2.10.1-4]: https://buildd.debian.org/status/logs.php?pkg=mono&ver=2.10.1-4
+  [mono-basic]: http://packages.qa.debian.org/m/mono-basic/news/20110409T221714Z.html
+  [translation call deadline]: http://lists.debian.org/debian-l10n-basque/2011/04/msg00001.html
+  [Jo Shields]: http://apebox.org/
+  [SGen]: http://www.mono-project.com/Compacting_GC
+  [mono-runtime-sgen]: http://packages.debian.org/search?searchon=names&keywords=mono-runtime-sgen
