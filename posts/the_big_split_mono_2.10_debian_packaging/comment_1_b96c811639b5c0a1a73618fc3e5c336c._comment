@@ -1,0 +1,8 @@
+[[!comment format=mdwn
+ username="http://www.joachim-breitner.de/"
+ nickname="nomeata"
+ subject="Now, you are a bit cheating..."
+ date="2011-04-15T09:50:40Z"
+ content="""
+If you run the .dot graph through \"tred\" before rendering, the result does not look as crazy any more. Anyways, you are not the only group suffering from such graphs: http://pkg-haskell.alioth.debian.org/haskell-pkg-graph.pdf
+"""]]
