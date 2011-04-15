@@ -18,7 +18,9 @@ of the issues behind the current packaging approach (keeping the number of
 library packages low) but instead I will do something else. Please, just
 take a look at this picture for a second:
 
-[[!img images/mono-2.6.7-debian-packages-graph.png size="400x" title="Brain Melting Device" alt="Brain Melting Device"]]
+[[!img images/mono-2.6.7-debian-packages-graph_small.png
+       link="images/mono-2.6.7-debian-packages-graph.png"
+       title="Brain Melting Device" alt="Brain Melting Device"]]
 
 If your browser crashed, your eyes hurt or your brain simply melted, I think
 you have got the idea.
