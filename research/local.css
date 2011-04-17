@@ -1,0 +1,15 @@
+@import "/local.css";
+
+.harddisk_performance_table {
+    background-color: black;
+    border-spacing: 1px;
+}
+
+.harddisk_performance_table thead {
+    background-color: white;
+}
+
+.harddisk_performance_table tbody {
+    background-color: white;
+}
+
