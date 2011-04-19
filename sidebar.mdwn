@@ -11,7 +11,7 @@
  * [SmartIrc4net]
 
 ### Research ####
- * [[Harddisk Performance]]
+ * [[Harddisk Performance|research/harddisk_performance]]
 
 ### [[Tags]] ###
 [[!pagestats style="list" pages="./tags/* and !./tags/planet-*" among="./posts/*"]]
