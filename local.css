@@ -29,6 +29,10 @@ body{
 .pagelicense p {
 	margin: 0;
 }
+/* hide inlined license footers */
+#content .pagelicense {
+	display: none;
+}
 /*Elements*/
 hr{
 	width: 50%;
