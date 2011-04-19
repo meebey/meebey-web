@@ -1,0 +1,89 @@
+# Western Digital RE3 500 GB #
+
+[[!table header="no" class="harddisk_performance_table" data="""
+Manufacturer:   | Western Digital
+Type:           | RE3
+Model:          | WD5002ABYS
+Capacity:       | 500 GB
+Spindle Speed:  | 7200 RPM
+Interface:      | SATA II
+Cache:          | 16 MB
+NCQ:            | Yes
+"""]]
+
+    lspci | grep AHCI
+    00:1f.2 SATA controller: Intel Corporation 82801JI (ICH10 Family) SATA AHCI Controller
+
+    uname -a
+    Linux finnix 2.6.30-1-amd64-finnix #1 SMP Tue Aug 4 22:38:20 PDT 2009 x86_64 GNU/Linux
+
+    egrep 'ata[0-9]\.' /var/log/dmesg
+    [   73.892742] ata4.00: ATA-8: WDC WD5002ABYS-02B1B0, 02.03B03, max UDMA/133
+    [   73.892746] ata4.00: 976773168 sectors, multi 0: LBA48 NCQ (depth 31/32)
+    [   73.893728] ata4.00: configured for UDMA/133
+
+    dd if=/dev/sda of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 142.779 s, 118 MB/s
+
+    dd if=/dev/zero of=/dev/sda bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 144.199 s, 116 MB/s
+
+    parted /dev/sda mklabel msdos
+    parted /dev/sda mkpart p 2048s 128g
+    mkfs.ext3 /dev/sda1
+    mount -o noatime /dev/sda1 /mnt
+    bonnie++ -d /mnt -u root -n 0
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          12G   519  99 87859  15 48113   8  1893  98 121418   9 366.9   7
+
+    cd /tmp; wget http://smp.if.uj.edu.pl/~baryluk/seeker_baryluk; chmod +x seeker_baryluk
+
+    cat /sys/block/sda/queue/scheduler
+    noop anticipatory deadline [cfq]
+    cat /sys/block/sda/device/queue_depth
+    31
+    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; ./seeker_baryluk /dev/sda $threads | grep Results; sleep 1; done
+    Threads: 01 Results: 83 seeks/second, 12.014 ms random access time (204038342 < offsets < 499974195848)
+    Threads: 02 Results: 97 seeks/second, 10.285 ms random access time (170815091 < offsets < 500062259283)
+    Threads: 04 Results: 111 seeks/second, 8.942 ms random access time (34439820 < offsets < 500022463436)
+    Threads: 08 Results: 128 seeks/second, 7.804 ms random access time (57693906 < offsets < 500089709185)
+    Threads: 16 Results: 150 seeks/second, 6.634 ms random access time (438857480 < offsets < 500007910710)
+    Threads: 32 Results: 173 seeks/second, 5.768 ms random access time (61391589 < offsets < 500022480203)
+
+    echo 1 > /sys/block/sda/device/queue_depth
+    cat /sys/block/sda/device/queue_depth
+    1
+    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; ./seeker_baryluk /dev/sda $threads | grep Results; sleep 1; done
+    Threads: 01 Results: 83 seeks/second, 11.914 ms random access time (58367864 < offsets < 500058736029)
+    Threads: 02 Results: 83 seeks/second, 12.029 ms random access time (501567874 < offsets < 500074638299)
+    Threads: 04 Results: 87 seeks/second, 11.385 ms random access time (387419219 < offsets < 499754998591)
+    Threads: 08 Results: 81 seeks/second, 12.346 ms random access time (15675677 < offsets < 500059812870)
+    Threads: 16 Results: 81 seeks/second, 12.225 ms random access time (142048947 < offsets < 499702017960)
+    Threads: 32 Results: 82 seeks/second, 12.146 ms random access time (411845861 < offsets < 499937197365)
+
+    echo 31 > /sys/block/sda/device/queue_depth
+    cat /sys/block/sda/device/queue_depth
+    31
+    echo deadline > /sys/block/sda/queue/scheduler
+    cat /sys/block/sda/queue/scheduler
+    noop anticipatory [deadline] cfq
+    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; ./seeker_baryluk /dev/sda $threads | grep Results; sleep 1; done
+    Threads: 01 Results: 83 seeks/second, 12.010 ms random access time (13071137 < offsets < 499922316510)
+    Threads: 02 Results: 96 seeks/second, 10.366 ms random access time (432999594 < offsets < 500023661841)
+    Threads: 04 Results: 111 seeks/second, 8.998 ms random access time (97984859 < offsets < 499904118733)
+    Threads: 08 Results: 128 seeks/second, 7.780 ms random access time (119206594 < offsets < 499478309103)
+    Threads: 16 Results: 150 seeks/second, 6.630 ms random access time (132076057 < offsets < 500040405044)
+    Threads: 32 Results: 172 seeks/second, 5.792 ms random access time (55839942 < offsets < 499983687373)
+
+    echo noop > /sys/block/sda/queue/scheduler
+    cat /sys/block/sda/queue/scheduler
+    [noop] anticipatory deadline cfq 
+    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; ./seeker_baryluk /dev/sda $threads | grep Results; sleep 1; done
+    Threads: 01 Results: 84 seeks/second, 11.862 ms random access time (345577047 < offsets < 499760306645)
+    Threads: 02 Results: 96 seeks/second, 10.370 ms random access time (125585434 < offsets < 500018353787)
+    Threads: 04 Results: 111 seeks/second, 8.982 ms random access time (22335837 < offsets < 500091223143)
+    Threads: 08 Results: 128 seeks/second, 7.788 ms random access time (53590313 < offsets < 499979130361)
+    Threads: 16 Results: 150 seeks/second, 6.652 ms random access time (398619857 < offsets < 500089374535)
+    Threads: 32 Results: 173 seeks/second, 5.777 ms random access time (3865589 < offsets < 500044353073)

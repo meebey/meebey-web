@@ -1,0 +1,52 @@
+= Western Digital VelociRaptor 300 GB / WD3000HLFS =
+
+Manufacturer:   Western Digital
+Type:           VelociRaptor
+Model:          WD3000HLFS
+Capacity:       300 GB
+Spindle Speed:  10000 RPM
+Interface:      SATA II
+Cache:          16 MB
+NCQ:            Yes
+
+    lspci | grep AHCI
+    00:1f.2 SATA controller: Intel Corporation 82801JI (ICH10 Family) SATA AHCI Controller
+
+    uname -a
+    Linux finnix 2.6.30-1-amd64-finnix #1 SMP Tue Aug 4 22:38:20 PDT 2009 x86_64 GNU/Linux
+
+    egrep 'ata[0-9]\.' /var/log/dmesg
+    [   55.291274] ata6.00: ATA-8: WDC WD3000HLFS-01G6U4, 04.04V06, max UDMA/133
+    [   55.291278] ata6.00: 586072368 sectors, multi 0: LBA48 NCQ (depth 31/32)
+    [   55.299284] ata6.00: configured for UDMA/133
+
+    dd if=/dev/sda of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 134.407 s, 125 MB/s
+
+    dd if=/dev/zero of=/dev/sda bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 135.462 s, 124 MB/s
+
+    parted /dev/sda mklabel msdos
+    parted /dev/sda mkpart p 2048s 128g
+    blockdev --rereadpt /dev/sda
+    mkfs.ext3 /dev/sda1
+    mount -o noatime /dev/sda1 /mnt
+    bonnie++ -d /mnt -u root -n 0
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          12G   599  99 95169  15 52749   7  2080  99 130603   8 506.8   9
+
+    cd /tmp; http_proxy=http://proxy.gsd-software.net:8080 wget http://smp.if.uj.edu.pl/~baryluk/seeker_baryluk; chmod +x seeker_baryluk
+
+    cat /sys/block/sda/queue/scheduler
+    noop anticipatory deadline [cfq]
+    cat /sys/block/sda/device/queue_depth
+    31
+    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; ./seeker_baryluk /dev/sda $threads | grep Results; sleep 1; done
+    Threads: 01 Results: 141 seeks/second, 7.051 ms random access time (64767341 < offsets < 299892812799)
+    Threads: 02 Results: 160 seeks/second, 6.247 ms random access time (30559069 < offsets < 300058975328)
+    Threads: 04 Results: 182 seeks/second, 5.466 ms random access time (55372698 < offsets < 299988130826)
+    Threads: 08 Results: 230 seeks/second, 4.345 ms random access time (19120308 < offsets < 300050473004)
+    Threads: 16 Results: 274 seeks/second, 3.640 ms random access time (6371852 < offsets < 300002586649)
+    Threads: 32 Results: 314 seeks/second, 3.178 ms random access time (13561407 < offsets < 300059393542)

@@ -1,0 +1,54 @@
+# Western Digital Caviar Black 640GB #
+
+[[!table header="no" class="harddisk_performance_table" data="""
+Manufacturer:   | Western Digital
+Type:           | Caviar Black
+Model:          | WD6401AALS
+Capacity:       | 640 GB
+Spindle Speed:  | 7200 RPM
+Interface:      | SATA II
+Cache:          | 32 MB
+NCQ:            | Yes
+"""]]
+
+    lspci | grep AHCI
+    00:1f.2 SATA controller: Intel Corporation 82801JI (ICH10 Family) SATA AHCI Controller
+
+    uname -a
+    Linux finnix 2.6.30-1-amd64-finnix #1 SMP Tue Aug 4 22:38:20 PDT 2009 x86_64 GNU/Linux
+
+    egrep 'ata[0-9]\.' /var/log/dmesg
+    [   74.991247] ata6.00: ATA-8: WDC WD6401AALS-00L3B2, 01.03B01, max UDMA/133
+    [   74.991251] ata6.00: 1250263728 sectors, multi 0: LBA48 NCQ (depth 31/32)
+    [   74.992193] ata6.00: configured for UDMA/133
+
+    dd if=/dev/sdb of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 145.542 s, 115 MB/s
+
+    dd if=/dev/zero of=/dev/sdb bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 147.083 s, 114 MB/s
+
+    parted /dev/sdb mklabel msdos
+    parted /dev/sdb mkpart p 2048s 128g
+    mkfs.ext3 /dev/sdb1
+    mount -o noatime /dev/sdb1 /mnt
+    bonnie++ -d /mnt -u root -n 0
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          12G   534  99 85924  14 47178   7  1948  98 113695   8 380.2   7
+    finnix          12G   523  99 86426  14 47244   7  1901  96 116232   9 374.6   8
+
+    cd /tmp; wget http://smp.if.uj.edu.pl/~baryluk/seeker_baryluk; chmod +x seeker_baryluk
+
+    cat /sys/block/sdb/queue/scheduler
+    noop anticipatory deadline [cfq] 
+    cat /sys/block/sdb/device/queue_depth
+    31
+    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; ./seeker_baryluk /dev/sdb $threads | grep Results; sleep 1; done
+    Threads: 01 Results: 81 seeks/second, 12.336 ms random access time (103651691 < offsets < 639694498017)
+    Threads: 02 Results: 93 seeks/second, 10.714 ms random access time (270933140 < offsets < 639912513721)
+    Threads: 04 Results: 107 seeks/second, 9.308 ms random access time (900518 < offsets < 639371592671)
+    Threads: 08 Results: 125 seeks/second, 7.953 ms random access time (131833645 < offsets < 639993930574)
+    Threads: 16 Results: 147 seeks/second, 6.795 ms random access time (47481837 < offsets < 640075880405)
+    Threads: 32 Results: 171 seeks/second, 5.822 ms random access time (11695706 < offsets < 639914243812)

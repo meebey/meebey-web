@@ -1,0 +1,56 @@
+# Western Digital Scorpio Blue 250 GB #
+
+[[!table header="no" class="harddisk_performance_table" data="""
+Manufacturer:   | Western Digital
+Type:           | Scorpio Blue
+Model:          | WD2500BEVT
+Capacity:       | 250 GB
+Spindle Speed:  | 5400 RPM
+Interface:      | SATA II
+Cache:          | 8 MB
+NCQ:            | Yes
+"""]]
+
+## CPU Model ##
+
+    grep name /proc/cpuinfo | uniq
+    model name	: Intel(R) Core(TM)2 Duo CPU     T6670  @ 2.20GHz
+
+## CPU Cores ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | sort | uniq | wc -l
+    2
+
+## Kernel ##
+
+    uname -a
+    Linux redhorse 2.6.32-5-amd64 #1 SMP Mon Mar 7 21:35:22 UTC 2011 x86_64 GNU/Linux
+
+## Disk Controller ##
+
+    lspci | grep AHCI
+    00:1f.2 SATA controller: Intel Corporation ICH9M/M-E SATA AHCI Controller (rev 03)
+
+## Disk Status ##
+
+    egrep 'ata[0-9]\.' /var/log/dmesg
+    [    1.365110] ata1.00: ATA-8: WDC WD2500BEVT-22A23T0, 01.01A01, max UDMA/133
+    [    1.365113] ata1.00: 488397168 sectors, multi 16: LBA48 NCQ (depth 31/32), AA
+    [    1.366311] ata1.00: configured for UDMA/133
+
+## Memory Performance ##
+
+    dd if=/dev/zero of=/dev/null bs=32M count=1000
+    33554432000 bytes (34 GB) copied, 16.2022 s, 2.1 GB/s
+
+## HDD Performance ##
+
+    dd if=/dev/sda of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 205.755 s, 81.5 MB/s
+
+    bonnie++ -d / -u root -n 0
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    redhorse         8G   568  98 54478  17 26960   6  2919  87 71634   7 135.3   3
+
