@@ -1,10 +1,23 @@
-[[!if test="enabled(calendar)" then="""
-[[!calendar pages="page(./posts/*) and !*/Discussion"]]
-"""]]
+### Blog ###
+ * [[Posts]]
+ * [[Recent Comments|comments]]
+ * [[Archives]]
 
-[[Recent Comments|comments]]
+### Projects ####
+ * [Debian]
+ * [Mono]
+ * [GNOME]
+ * [Smuxi IRC Client] [Smuxi]
+ * [SmartIrc4net]
 
-[[Archives]]
+### Research ####
+ * [[Harddisk Performance]]
 
-[[Tags]]:
+### [[Tags]] ###
 [[!pagestats style="list" pages="./tags/* and !./tags/planet-*" among="./posts/*"]]
+
+  [Debian]: http://www.debian.org/
+  [Mono]: http://www.mono-project.org/
+  [GNOME]: http://www.gnome.org/
+  [Smuxi]: http://www.smuxi.org/ "Smuxi IRC Client"
+  [SmartIrc4net]: http://smartirc4net.meebey.net/
