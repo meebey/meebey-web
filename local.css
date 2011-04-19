@@ -23,11 +23,12 @@ body{
 .inlinepage .tags {
         display: none;  
 }
-.pagedate{
-	font-family: times;
+.pagecopyright, .pagelicense, .pagedate {
 	font-size: .8em;
 }
-
+.pagelicense p {
+	margin: 0;
+}
 /*Elements*/
 hr{
 	width: 50%;
