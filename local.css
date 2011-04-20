@@ -31,10 +31,12 @@ body{
 }
 .sidebar h3 {
 	font-size: 1.2em;
-	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+	margin-bottom: 0;
 }
 .sidebar ul {
-	margin: 0;
+	margin-top: 0.5em;
+	margin-bottom: 1.2em;
 }
 /* hide inlined license footers */
 #content .pagelicense {
