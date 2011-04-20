@@ -3,6 +3,10 @@
  * [[Recent Comments|comments]]
  * [[Archives]]
 
+### Micro-Blog ###
+ * [[meebey @ Twitter|http://twitter.com/meebey]]
+ * [[meebey @ identi.ca|http://identi.ca/meebey]]
+
 ### Projects ####
  * [Debian]
  * [Mono]
