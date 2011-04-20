@@ -30,8 +30,11 @@ body{
 	margin: 0;
 }
 .sidebar h3 {
-	margin: 0px 10px;
 	font-size: 1.2em;
+	margin-bottom: 0.5em;
+}
+.sidebar ul {
+	margin: 0;
 }
 /* hide inlined license footers */
 #content .pagelicense {
