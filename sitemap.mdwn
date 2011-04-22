@@ -1,3 +1,4 @@
+[[!meta link="" ref="canonical"]]
 [[!map pages="page(*) and
               !ikiwiki* and !templates* and !shortcuts and !smileys and
               !sitemap* and !archives and !tags* and
