@@ -23,5 +23,5 @@
   [Debian]: http://www.debian.org/
   [Mono]: http://www.mono-project.org/
   [GNOME]: http://www.gnome.org/
-  [Smuxi]: http://www.smuxi.org/ "Smuxi IRC Client"
+  [Smuxi]: http://www.smuxi.org/
   [SmartIrc4net]: http://smartirc4net.meebey.net/
