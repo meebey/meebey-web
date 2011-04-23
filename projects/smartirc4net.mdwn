@@ -1,0 +1,86 @@
+[[!meta title="SmartIrc4net - C# IRC library"]]
+
+## About ##
+SmartIrc4net is a multi-threaded and thread-safe IRC library written in C#. It allows you to communicate with IRC servers. The API features full channel syncing and is split in 3 layers: IrcConnection, IrcCommands and IrcClient.
+
+## [[News|tags/smartirc4net]] ##
+
+## Download ##
+
+ * Source Tarball: [smartirc4net-0.4.5.1.tar.gz]
+
+## Reviews / Opinions ##
+
+What people said about SmartIrc4net on the ##csharp IRC channel (freenode)
+
+##### smellyhippy #####
+"SmartIrc4net is the best IRC library IMO that I know of. Very powerful, well abstracted and easy to use, just like momma used to make :D"
+
+##### tobehz #####
+"SmartIrc4net is a good IRC library"
+
+##### Galisus #####
+"I just want to thank you for the wonderful library, it's exactly what I need." ... "You have NO idea how much I love you right now."
+My reply: "this way its probably better :)" ... "on sourceforge.net you can donate all your love :-P"
+
+##### ultramagnus #####
+"In my opinion SmartIrc4net is excellent.. it suits my needs and lets me focus on cool features that I've implemented, such as wikipedia info fetching, dynamic plugin system RSS feed fetching and so on. Furthermore, the ability to trust other people's code is a valued property with programmers in my opinion." ... "SmartIrc4net is excellently designed, right the way it should be done in .NET"
+
+##### ed-209 #####
+"holy... meebey, your IRC library is awesome"
+
+## Documentation ##
+
+ * [API Documentation]
+ * [Examples]
+ * [DeveloperLand Article]
+ * [ASP Free Article] by Peyton McCullough
+
+## Bug Reports / Features Requests ##
+
+http://projects.qnetp.net/projects/show/smartirc4net
+
+## Support ##
+
+### FAQ ###
+
+TODO
+
+### IRC ###
+SmartIrc4net has it's own IRC channel for criticism, discussions, ideas or bugs.
+You are invited to join #smartirc on irc.freenode.net
+
+### Forum ###
+
+[Help Forum] on SourceForge
+
+### Source Repository ###
+
+Git is used as source repository for SmartIrc4net. You can access the repository using a webinterface or a git client directly.
+
+ * Webinterface: [[http://git.qnetp.net/?p=smartirc4net.git;a=summary]]
+ * Repository URL: git://git.qnetp.net/smartirc4net.git
+
+## Projects using SmartIrc4net ##
+
+ * [Smuxi IRC Client]
+ * [U-Lyss IRC-Bot] 
+ * [DG Network]
+ * [Abbot]
+ * [Spike.NET]
+ * [Prelude Chatbot]
+ * [VandalSniper]
+
+  [smartirc4net-0.4.5.1.tar.gz]: http://www.smuxi.org/jaws/data/files/smartirc4net-0.4.5.1.tar.gz
+  [API Documentation]: http://smartirc4net.meebey.net/docs/0.4.0/html/
+  [Examples]: http://git.qnetp.net/?p=smartirc4net.git;a=tree;f=examples;hb=HEAD
+  [DeveloperLand Article]: http://www.developerland.net/Web/General/245.aspx
+  [ASP Free Article]: http://www.aspfree.com/c/a/.NET/Using-SmartIrc4net/
+  [Help Forum]: http://sourceforge.net/forum/forum.php?forum_id=390839
+  [Smuxi IRC Client]: http://www.smuxi.org/
+  [U-Lyss IRC-Bot]: http://ulyssircbot.sourceforge.net/
+  [DG Network]: http://www.danielgrunwald.de/jufo/2005/
+  [Abbot]: http://abbot.berlios.de/
+  [Spike.NET]: http://sourceforge.net/projects/spikenet
+  [Prelude Chatbot]: http://prelude.lennart-lopin.de/
+  [VandalSniper]: http://en.wikipedia.org/wiki/User:Crazycomputers/VandalSniper
