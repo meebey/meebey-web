@@ -47,6 +47,9 @@ Git is used as source repository for SmartIrc4net. You can access the repository
 ## Projects using SmartIrc4net ##
 
  * [Smuxi IRC Client]
+ * [SparkleShare]
+ * [Low Orbit Ion Cannon] [LOIC]
+ * [MonkeyWrench]
  * [U-Lyss IRC-Bot] 
  * [DG Network]
  * [Abbot]
@@ -69,3 +72,6 @@ Git is used as source repository for SmartIrc4net. You can access the repository
   [Spike.NET]: http://sourceforge.net/projects/spikenet
   [Prelude Chatbot]: http://prelude.lennart-lopin.de/
   [VandalSniper]: http://en.wikipedia.org/wiki/User:Crazycomputers/VandalSniper
+  [LOIC]: https://github.com/NewEraCracker/LOIC/wiki "LOIC"
+  [MonkeyWrench]: https://github.com/mono/monkeywrench
+  [SparkleShare]: http://www.sparkleshare.org/
