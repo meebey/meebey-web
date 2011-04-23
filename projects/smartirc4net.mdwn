@@ -38,12 +38,12 @@ My reply: "this way its probably better :)" ... "on sourceforge.net you can dona
 
 ## Bug Reports / Features Requests ##
 
-http://projects.qnetp.net/projects/show/smartirc4net
+ * [Known Issues]
+ * [Report Bug]
 
 ## Support ##
 
 ### FAQ ###
-
 TODO
 
 ### IRC ###
@@ -51,7 +51,6 @@ SmartIrc4net has it's own IRC channel for criticism, discussions, ideas or bugs.
 You are invited to join #smartirc on irc.freenode.net
 
 ### Forum ###
-
 [Help Forum] on SourceForge
 
 ### Source Repository ###
@@ -76,6 +75,8 @@ Git is used as source repository for SmartIrc4net. You can access the repository
   [Examples]: http://git.qnetp.net/?p=smartirc4net.git;a=tree;f=examples;hb=HEAD
   [DeveloperLand Article]: http://www.developerland.net/Web/General/245.aspx
   [ASP Free Article]: http://www.aspfree.com/c/a/.NET/Using-SmartIrc4net/
+  [Known Issues]: http://projects.qnetp.net/projects/smartirc4net/issues
+  [Report Bug]: http://projects.qnetp.net/projects/smartirc4net/issues/new
   [Help Forum]: http://sourceforge.net/forum/forum.php?forum_id=390839
   [Smuxi IRC Client]: http://www.smuxi.org/
   [U-Lyss IRC-Bot]: http://ulyssircbot.sourceforge.net/
