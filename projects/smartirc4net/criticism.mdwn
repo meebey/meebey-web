@@ -1,0 +1,19 @@
+[[!meta title="Criticism"]]
+
+What people said about SmartIrc4net on the ##csharp IRC channel (freenode)
+
+##### smellyhippy #####
+"SmartIrc4net is the best IRC library IMO that I know of. Very powerful, well abstracted and easy to use, just like momma used to make :D"
+
+##### tobehz #####
+"SmartIrc4net is a good IRC library"
+
+##### Galisus #####
+"I just want to thank you for the wonderful library, it's exactly what I need." ... "You have NO idea how much I love you right now."
+My reply: "this way its probably better :)" ... "on sourceforge.net you can donate all your love :-P"
+
+##### ultramagnus #####
+"In my opinion SmartIrc4net is excellent.. it suits my needs and lets me focus on cool features that I've implemented, such as wikipedia info fetching, dynamic plugin system RSS feed fetching and so on. Furthermore, the ability to trust other people's code is a valued property with programmers in my opinion." ... "SmartIrc4net is excellently designed, right the way it should be done in .NET"
+
+##### ed-209 #####
+"holy... meebey, your IRC library is awesome"
