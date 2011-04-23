@@ -12,7 +12,7 @@
  * [Mono]
  * [GNOME]
  * [Smuxi IRC Client] [Smuxi]
- * [SmartIrc4net]
+ * [[SmartIrc4net|projects/smartirc4net]]
 
 ### Research ####
  * [[Harddisk Performance|research/harddisk_performance]]
