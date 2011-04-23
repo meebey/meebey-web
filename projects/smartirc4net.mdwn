@@ -25,8 +25,7 @@ SmartIrc4net is a multi-threaded and thread-safe IRC library written in C#. It a
 
 ## Support ##
 
-### FAQ ###
-TODO
+### [[FAQ]] ###
 
 ### IRC ###
 SmartIrc4net has it's own IRC channel for criticism, discussions, ideas or bugs.

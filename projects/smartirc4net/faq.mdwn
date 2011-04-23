@@ -1,0 +1,45 @@
+[[!meta title="FAQ"]]
+[[!sidebar content="""
+[[!toc startlevel=2]]
+"""]]
+
+# Frequently Asked Questions #
+
+## Why does SmartIrc4net connect but is not joining any channel or sending any message? ##
+This happens when you don't give the parser/event handling time to do any processing, means you didn't call IrcClient.Listen(). This is required though because the library is asynchronous and for thread control you need to call Listen() or ListenOnce(). Listen() will block forever, ListenOnce() will only go 1 cycle through the queue and returns after that.
+
+## Why does my program quit with the message "excess flood"? ##
+This is a complicated problem with no easy solution.
+
+First: the IRC server disconnects you, and not SmartIrc4net.
+Second: it's not the fault of your program neither SmartIrc4net.
+Third: the disconnect happens because the IRC server thinks you abuse their service (by sending too fast commands/messages for example). Many IRC servers have an implemented penalty system, to prevent DoS. The penalty system is IRC server specific and gives each command received from the IRC client points. How much points for which commands and when the IRC client will be disconnected is from IRC server to IRC server different. SmartIrc4net uses a send queue to speed up and also control how fast messages go out, the time between each message can be set with the IrcConnection.SendDelay property given in milli seconds. So you can try to set this to an higher value (default is 200ms), like 500 or even 800 if required. This will solve the excess flood problem in most cases, but it still can happen that your program does joins/parts/kick/op etc while it sends many messages and becomes disconnected. The problem can't be solved at IRC library layer though, since it would need to know for each IRC server how their penalty system exactly works.
+A possible workaround is when you are the admin of the IRC server, to give your client oper status, that usually bypasses all penalty checks. Another workaround is to throttle actions in your program by queing them and send one action every second for example. The IRC client irssi for example does 3-5 seconds pause between /op commands.
+
+## Why is SmartIrc4net not receving or sending private messages (also known as queries)? ##
+If you tested on freenode, please change the IRC server!
+
+Freenode uses a modified IRC server and does some funky filtering for private messages, coloring and formatting (like bold, underline, etc). For testing I can suggest IRCnet, they have the most RFC conform IRC server.
+
+## Why is SmartIrc4net not receiving or sending color / formatting control chars? ##
+See above
+
+## Why do IrcClient.GetChannelUser(channel, nick) or IrcClient.GetChannel(channel) return null? ##
+If you want to use this Feature you have to activate Channel Syncing
+
+    irc.ActiveChannelSyncing = true
+
+That way on every join the Library will perform an automatic whoIs which will give the information needed to fill the information in the IrcUser Class.
+
+If you you want to have information like HalfOp you do it like this:
+
+First activate the NonRfc function somewhere
+
+    irc.SupportNonRfc = true;
+
+and then use:
+
+    NonRfcChannelUser user = (NonRfcChannelUser) irc.GetChannelUser(channel, nick);
+    if (user.IsHalfOp) {
+        /* do half op activity */
+    }
