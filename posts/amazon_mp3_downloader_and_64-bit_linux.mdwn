@@ -35,7 +35,7 @@ the regular Amazon store, plays the song samples directly, purchase songs,
 downloads the songs and imports them into Banshee's database so you can play
 them right away. And as if this wasn't good enough yet, with the the purchase
 of MP3 songs on Amazon using Banshee automatically makes a [donation to
-the GNOME foundation] [1].
+the GNOME foundation].
 
 As I am the only one who forgot or [wasn't aware] [0] of this awesome solution
 this deserved some blogging.
