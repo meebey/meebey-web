@@ -1,0 +1,4 @@
+[[!meta title="pages tagged amazon"]]
+
+[[!inline pages="tagged(amazon)" actions="no" archive="yes"
+feedshow=10]]
