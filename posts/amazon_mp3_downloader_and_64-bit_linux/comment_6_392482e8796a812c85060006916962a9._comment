@@ -1,0 +1,8 @@
+[[!comment format=mdwn
+ username="meebey"
+ ip="169.254.0.2"
+ subject="@Jon"
+ date="2011-04-25T22:12:39Z"
+ content="""
+That was the first thing I checked on #debian-devel. APT and dpkg are both multi-arch capable but the archive lacks multi-arch enabled packages, not even the libc6 package has the needed fields yet.
+"""]]
