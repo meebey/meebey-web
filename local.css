@@ -124,6 +124,9 @@ textarea{
 	width: 500px;
 	margin-bottom: 10px;
 }
+input {
+	border: solid 1px;
+}
 input#comments{
 	font-family: "Inconsolata", "monaco", "droid sans mono",fixed;
 	font-size: .9em;
