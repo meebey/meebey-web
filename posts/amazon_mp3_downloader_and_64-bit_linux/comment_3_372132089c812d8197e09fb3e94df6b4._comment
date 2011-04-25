@@ -1,0 +1,7 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ subject="Amazon"
+ date="2011-04-25T10:05:46Z"
+ content="""
+You could also complain to Amazon themselves, asking them to provide a direct download options. If they reply that they need a specific software to allow downloading several files, give them a copy of the manpage of zip(1).
+"""]]
