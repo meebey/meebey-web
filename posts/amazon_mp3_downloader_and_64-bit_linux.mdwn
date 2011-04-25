@@ -1,0 +1,53 @@
+[[!meta title="Amazon MP3 Downloader and 64-bit Linux"]]
+[[!tag amazon mp3 banshee gnome linux debian planet-debian planet-mono planet-gnome]]
+
+Last night I wanted to buy [an album] on [Amazon] and I couldn't do the
+checkout as the site required me to install the Amazon MP3 Downloader to make
+the purchase and download of the album. The downloader is not needed for a
+single song though, but buying each song separately would be more expensive and
+more work. The good news is that it automatically offered me packages for
+different Linux distros: Ubuntu, Debian, Fedora and OpenSUSE instead of telling
+me off for using Linux and leaving me behind with a Windows only download.
+But here comes the catch, all offered packages are only for the Intel 32-bit
+architecture.
+
+Now this is a showstopper for me, as I am running an AMD64 Debian which is a
+64-bit architecture. I first tried to download and run the [32-bit debian
+package] nonetheless as there was some hope with the ia32-libs and ia32-libs-gtk
+package. But this was not working as the application needs gtkmm libraries like
+libglademm and bailed when I tried to run it. So I filed
+[a wishlist bug report] [#623936] against ia32-libs-gtk for inclusion of gtkmm
+and possibly other needed libraries to run the Amazon MP3 downloader on AMD64.
+
+So I bought the album using [MusicLoad] instead which simply puts all songs in
+a single archive on-the-fly and let me download that archive.
+
+When I tweeted [my frustration on Twitter] [tweet] I was hinted by [Jo Shields]
+and also by [Gabriel Burt] that there would have been a much simpler solution to
+this issue by using [Banshee] which includes an Amazon MP3 Store plugin:
+
+[[!img images/banshee_amazon_mp3_store_small.png
+link="images/banshee_amazon_mp3_store.png"
+alt="Banshee screenshot showing the Amazon MP3 Store plugin"]]
+
+This plugin allows you to log into your Amazon account browse their store like
+the regular Amazon store, plays the song samples directly, purchase songs,
+downloads the songs and imports them into Banshee's database so you can play
+them right away. And as if this wasn't good enough yet, with the the purchase
+of MP3 songs on Amazon using Banshee automatically makes a [donation to
+the GNOME foundation] [1].
+
+As I am the only one who forgot or [wasn't aware] [0] of this awesome solution
+this deserved some blogging.
+
+  [an album]: http://www.amazon.de/Turbo-Original-Motion-Picture-Soundtrack/dp/B004USZYZY/
+  [Amazon]: http://www.amazon.com/
+  [32-bit debian package]: http://www.amazon.de/gp/dmusic/help/amd-installer-redirect.html/ref=dm_amd_linux_debian?ie=UTF8&forceos=LINUX&callingPage=%2Fgp%2Fdmusic%2Fhelp%2Famd.html&linux_Debian.x=1
+  [#623936]: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=623936
+  [MusicLoad]: http://www.musicload.de/
+  [tweet]: https://twitter.com/meebey/status/62317987356606465
+  [Jo Shields]: https://twitter.com/directhex/status/62318153513967616
+  [Gabriel Burt]: https://twitter.com/gabaug/status/62319841545170944
+  [Banshee]: http://banshee.fm/
+  [donation to the GNOME foundation]: http://banshee.fm/about/revenue/
+  [0]: https://twitter.com/slide_o_mix/status/62344979946799105
