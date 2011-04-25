@@ -1,0 +1,7 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ subject="nn"
+ date="2011-04-25T09:06:23Z"
+ content="""
+And just in case you're curious, those .AMZ files are just XML documents single-DES-CBC encrypted with a fixed key and IV hardcoded into the downloader binary.  It's trivially reverse-engineered, which was probably deliberate on the part of the engineer who wrote it after being told to encrypt the silly thing in the first place.
+"""]]
