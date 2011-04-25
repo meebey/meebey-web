@@ -1,0 +1,8 @@
+[[!comment format=mdwn
+ username="josh"
+ ip="169.254.0.2"
+ subject="clamz"
+ date="2011-04-25T08:40:32Z"
+ content="""
+You might also try clamz, also available as a Debian package.
+"""]]
