@@ -140,6 +140,12 @@ input#comments{
 	background-color: #fff;	
         border: solid 1px;
 }
+input#subject {
+	width: 60%;
+}
+textarea#editcontent {
+	width: 60%;
+}
 input[type="submit"]{
 	font-family: 
 	font-size: .9em;
