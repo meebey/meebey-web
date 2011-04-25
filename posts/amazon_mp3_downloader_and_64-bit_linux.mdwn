@@ -1,5 +1,6 @@
 [[!meta title="Amazon MP3 Downloader and 64-bit Linux"]]
-[[!tag amazon mp3 banshee gnome linux debian planet-debian planet-mono planet-gnome]]
+[[!tag amazon mp3 banshee gnome linux debian planet-debian planet-mono
+planet-gnome planet-twitterfeed]]
 
 Last night I wanted to buy [an album] on [Amazon] and I couldn't do the
 checkout as the site required me to install the Amazon MP3 Downloader to make
