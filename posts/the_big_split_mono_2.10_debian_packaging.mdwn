@@ -95,7 +95,7 @@ how to obtain it, sorry about this, just do this and I will shut up now:
 
 (this is the easiest way of getting only mono 2.10.1 from experimental)
 
-Update: mono-addins 0.4 breaks with mono 2.10.1 so you need to make sure you
+**Update:** mono-addins 0.4 breaks with mono 2.10.1 so you need to make sure you
 have the 0.6 version from Debian/Unstable installed!
 
   [1]: http://git.debian.org/?p=pkg-mono/packages/mono.git;a=shortlog;h=e862be411733b7d77c55d671c6e3be8cfbf9e6f8
