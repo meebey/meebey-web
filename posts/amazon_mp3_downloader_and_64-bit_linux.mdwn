@@ -40,6 +40,9 @@ the GNOME foundation].
 As I am the only one who forgot or [wasn't aware] [0] of this awesome solution
 this deserved some blogging.
 
+Update: some people pointed out that [clamz] is also available to make MP3
+purchases on Amazon.
+
   [an album]: http://www.amazon.de/Turbo-Original-Motion-Picture-Soundtrack/dp/B004USZYZY/
   [Amazon]: http://www.amazon.com/
   [32-bit debian package]: http://www.amazon.de/gp/dmusic/help/amd-installer-redirect.html/ref=dm_amd_linux_debian?ie=UTF8&forceos=LINUX&callingPage=%2Fgp%2Fdmusic%2Fhelp%2Famd.html&linux_Debian.x=1
@@ -51,3 +54,4 @@ this deserved some blogging.
   [Banshee]: http://banshee.fm/
   [donation to the GNOME foundation]: http://banshee.fm/about/revenue/
   [0]: https://twitter.com/slide_o_mix/status/62344979946799105
+  [clamz]: http://code.google.com/p/clamz/
