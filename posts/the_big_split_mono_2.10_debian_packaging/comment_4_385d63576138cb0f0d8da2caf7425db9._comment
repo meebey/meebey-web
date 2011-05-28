@@ -1,0 +1,11 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ claimedauthor="csokun"
+ url="http://chornsokun.wordpress.com"
+ subject="comment 4"
+ date="2011-05-22T01:18:27Z"
+ content="""
+@meebey, I tried the instruction on my Ubuntu 11.04 box but I hit by this warning
+W: GPG error: http://ftp.debian.org experimental InRelease: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY AED4B06F473041FA
+how can I pass this warning?
+"""]]
