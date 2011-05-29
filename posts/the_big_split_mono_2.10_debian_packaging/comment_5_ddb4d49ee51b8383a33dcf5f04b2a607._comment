@@ -1,0 +1,8 @@
+[[!comment format=mdwn
+ username="meebey"
+ ip="169.254.0.2"
+ subject="comment 5"
+ date="2011-05-29T11:49:56Z"
+ content="""
+@csokun that message goes away if you install the debian-archive-keyring package which includes the key that your APT is whining about
+"""]]
