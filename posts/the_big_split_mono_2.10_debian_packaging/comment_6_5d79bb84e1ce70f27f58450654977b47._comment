@@ -1,0 +1,8 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ claimedauthor="t-master"
+ subject="Broken packages"
+ date="2011-05-31T11:35:37Z"
+ content="""
+If I try to install mono-complete or mod-mono from the experimental repo I just get a Broken packages error (installing mono-runtime however works)
+"""]]
