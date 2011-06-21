@@ -1,0 +1,57 @@
+# Western Digital RE4 2000 GB #
+
+[[!table header="no" class="harddisk_performance_table" data="""
+Manufacturer:   | Western Digital
+Type:           | RE4
+Model:          | WD2003FYYS
+Capacity:       | 2000 GB
+Spindle Speed:  | 7200 RPM
+Interface:      | SATA II
+Cache:          | 64 MB
+NCQ:            | Yes
+"""]]
+
+    lspci | grep ATA
+    00:1f.2 IDE interface: Intel Corporation 82801EB (ICH5) SATA Controller (rev 02)
+
+    uname -a
+    Linux finnix 2.6.30-1-amd64-finnix #1 SMP Tue Aug 4 22:38:20 PDT 2009 x86_64 GNU/Linux
+
+    egrep 'ata[0-9]\.' /var/log/dmesg
+    [   24.780083] ata1.00: ATA-8: WDC WD2003FYYS-02W0B0, 01.01D01, max UDMA/133
+    [   24.780087] ata1.00: 3907029168 sectors, multi 16: LBA48 NCQ (depth 31/32)
+    [   24.783924] ata1.00: configured for UDMA/133
+
+    blockdev --getra /dev/sda
+    256
+    cat /sys/block/sda/queue/scheduler
+    noop anticipatory deadline [cfq]
+    cat /sys/block/sda/device/queue_depth
+    31
+
+    dd if=/dev/sda of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 111.586 s, 150 MB/s
+
+    dd if=/dev/zero of=/dev/sda bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 112.638 s, 149 MB/s
+
+    parted /dev/sda mklabel msdos
+    parted /dev/sda mkpart p 2048s 128g
+    blockdev --rereadpt /dev/sda
+    mkfs.ext3 /dev/sda1
+    mount -o noatime /dev/sda1 /mnt
+    bonnie++ -d /mnt -u root -n 0
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          16G   909  99 110990  12 61113   6  1899  67 134773   7 440.4   9
+
+    cd /tmp; http_proxy=http://proxy.lan.gsd-software.net:8080 wget http://smp.if.uj.edu.pl/~baryluk/seeker_baryluk; chmod +x seeker_baryluk
+    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; ./seeker_baryluk /dev/sda $threads | grep Results; sleep 1; done
+    Threads: 01 Results: 86 seeks/second, 11.628 ms random access time (731086870 < offsets < 1999161521128)
+    Threads: 02 Results: 98 seeks/second, 10.128 ms random access time (276297484 < offsets < 1999811774499)
+    Threads: 04 Results: 115 seeks/second, 8.668 ms random access time (2135151258 < offsets < 2000244047466)
+    Threads: 08 Results: 132 seeks/second, 7.524 ms random access time (1172187742 < offsets < 2000141637439)
+    Threads: 16 Results: 158 seeks/second, 6.303 ms random access time (243611787 < offsets < 2000249829338)
+    Threads: 32 Results: 183 seeks/second, 5.462 ms random access time (189166056 < offsets < 1999829206746)
+
