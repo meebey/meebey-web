@@ -1,7 +1,7 @@
 # Harddisk Performance #
 
 [[!table class="harddisk_performance_table" data="""
-Harddisk              | Model          | dd                 || bonnie++                                                           |||||| [seeker_baryluk]
+Harddisk              | Model          | dd                 || bonnie++                                                           |||||| [seeker_baryluk][]
                       |                |                    || read                   || write                 || rewrite    |         |
                       |                | read     | write    | char      | block       | char     | block       | block      | seeks/s | seeks/s
 WD Scorpio Blue 250GB | [[WD2500BEVT]] |  81 MB/s | ?        | 2919 KB/s |  71634 KB/s | 568 KB/s |  54478 KB/s | 26960 KB/s | 135.3   |
