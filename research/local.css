@@ -13,3 +13,11 @@
     background-color: white;
 }
 
+.harddisk_performance_table th {
+    padding: 3px 10px;
+}
+
+.harddisk_performance_table td {
+    padding: 3px 10px;
+}
+
