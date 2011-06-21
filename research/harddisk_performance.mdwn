@@ -2,9 +2,9 @@
 
 [[!table class="harddisk_performance_table" data="""
 Harddisk              | Model          | dd                 || bonnie++                                                           |||||| [[seeker_baryluk|http://smp.if.uj.edu.pl/~baryluk/seeker_baryluk.c]]
-                      |                |                    || read                   || write                 || rewrite    |         |
+                      |                |                    || read                   || write                 || rewrite    |         | 
                       |                | read     | write    | char      | block       | char     | block       | block      | seeks/s | seeks/s
-WD Scorpio Blue 250GB | [[WD2500BEVT]] |  81 MB/s | ?        | 2919 KB/s |  71634 KB/s | 568 KB/s |  54478 KB/s | 26960 KB/s | 135.3   |
+WD Scorpio Blue 250GB | [[WD2500BEVT]] |  81 MB/s | ?        | 2919 KB/s |  71634 KB/s | 568 KB/s |  54478 KB/s | 26960 KB/s | 135.3   |   ?
 WD Caviar Black 640GB | [[WD6401AALS]] | 115 MB/s | 114 MB/s | 1948 KB/s | 113695 KB/s | 534 KB/s |  85924 KB/s | 47178 KB/s | 380.2   |  81
 WD RE3 500GB          | [[WD5002ABYS]] | 118 MB/s | 116 MB/s | 1893 KB/s | 121418 KB/s | 519 KB/s |  87859 KB/s | 48113 KB/s | 366.9   |  83
 WD RE4 1000GB         | [[WD1003FBYX]] | 138 MB/s | 137 MB/s | 2028 KB/s | 141690 KB/s | 584 KB/s |  99667 KB/s | 55828 KB/s | 394.2   |  83
