@@ -28,8 +28,8 @@ NCQ:            | Yes
 
 ## Disk Controller ##
 
-    lspci | grep ATA
-    00:1f.2 IDE interface: Intel Corporation 82801EB (ICH5) SATA Controller (rev 02)
+    lspci | grep AHCI
+    00:1f.2 SATA controller: Intel Corporation Cougar Point 6 port SATA AHCI Controller (rev 05)
 
 ## Disk Status ##
 
