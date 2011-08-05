@@ -4,6 +4,7 @@
 Manufacturer:   | Western Digital
 Type:           | Caviar Black
 Model:          | WD1002FAEX
+Firmware:       | 05.01D05
 Capacity:       | 1000 GB
 Spindle Speed:  | 7200 RPM
 Interface:      | SATA II

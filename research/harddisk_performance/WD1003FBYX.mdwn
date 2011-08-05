@@ -4,6 +4,7 @@
 Manufacturer:   | Western Digital
 Type:           | RE4
 Model:          | WD1003FBYX
+Firmware:       | 01.01V01
 Capacity:       | 1000 GB
 Spindle Speed:  | 7200 RPM
 Interface:      | SATA II

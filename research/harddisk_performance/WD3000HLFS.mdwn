@@ -1,13 +1,16 @@
 = Western Digital VelociRaptor 300 GB / WD3000HLFS =
 
-Manufacturer:   Western Digital
-Type:           VelociRaptor
-Model:          WD3000HLFS
-Capacity:       300 GB
-Spindle Speed:  10000 RPM
-Interface:      SATA II
-Cache:          16 MB
-NCQ:            Yes
+[[!table header="no" class="harddisk_performance_table" data="""
+Manufacturer:   | Western Digital
+Type:           | VelociRaptor
+Model:          | WD3000HLFS
+Firmware:       | 04.04V06
+Capacity:       | 300 GB
+Spindle Speed:  | 10000 RPM
+Interface:      | SATA II
+Cache:          | 16 MB
+NCQ:            | Yes
+"""]]
 
     lspci | grep AHCI
     00:1f.2 SATA controller: Intel Corporation 82801JI (ICH10 Family) SATA AHCI Controller

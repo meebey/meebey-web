@@ -4,6 +4,7 @@
 Manufacturer:   | Western Digital
 Type:           | RE3
 Model:          | WD5002ABYS
+Firmware:       | 02.03B03
 Capacity:       | 500 GB
 Spindle Speed:  | 7200 RPM
 Interface:      | SATA II

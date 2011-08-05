@@ -4,6 +4,7 @@
 Manufacturer:   | Western Digital
 Type:           | Scorpio Blue
 Model:          | WD2500BEVT
+Firmware:       | 01.01A01
 Capacity:       | 250 GB
 Spindle Speed:  | 5400 RPM
 Interface:      | SATA II

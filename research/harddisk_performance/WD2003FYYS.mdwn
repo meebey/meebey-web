@@ -4,6 +4,7 @@
 Manufacturer:   | Western Digital
 Type:           | RE4
 Model:          | WD2003FYYS
+Firmware:       | 01.01D01
 Capacity:       | 2000 GB
 Spindle Speed:  | 7200 RPM
 Interface:      | SATA II

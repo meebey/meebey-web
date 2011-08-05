@@ -4,6 +4,7 @@
 Manufacturer:   | Western Digital
 Type:           | Caviar Black
 Model:          | WD6401AALS
+Firmware:       | 01.03B01
 Capacity:       | 640 GB
 Spindle Speed:  | 7200 RPM
 Interface:      | SATA II
