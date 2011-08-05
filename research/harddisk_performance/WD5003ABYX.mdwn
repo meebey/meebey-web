@@ -1,0 +1,86 @@
+# Western Digital RE4 500 GB #
+
+[[!table header="no" class="harddisk_performance_table" data="""
+Manufacturer:   | Western Digital
+Type:           | RE4
+Model:          | WD5003ABYX
+Firmware:       | 01.01S01
+Capacity:       | 500 GB
+Spindle Speed:  | 7200 RPM
+Interface:      | SATA II
+Cache:          | 64 MB
+NCQ:            | Yes
+"""]]
+
+## CPU Model ##
+
+    grep name /proc/cpuinfo | uniq
+    model name	: Intel(R) Xeon(R) CPU           E5620  @ 2.40GHz
+
+## CPU Threads ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | wc -l
+    16
+
+## Cores per CPU ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | sort | uniq | wc -l
+    4
+
+## Kernel ##
+
+    uname -a
+    Linux finnix 2.6.30-1-amd64-finnix #1 SMP Tue Aug 4 22:38:20 PDT 2009 x86_64 GNU/Linux
+
+## Disk Controller ##
+
+    lspci | grep AHCI
+    00:1f.2 SATA controller: Intel Corporation 82801JI (ICH10 Family) SATA AHCI Controller
+
+## Disk Status ##
+
+    egrep 'ata[0-9]\.|SATA link up' /var/log/dmesg
+    [  126.918597] ata6: SATA link up 3.0 Gbps (SStatus 123 SControl 300)
+    [  126.925138] ata6.00: ATA-8: WDC WD5003ABYX-01WERA0, 01.01S01, max UDMA/133
+    [  126.925141] ata6.00: 976773168 sectors, multi 0: LBA48 NCQ (depth 31/32)
+    [  126.925847] ata6.00: configured for UDMA/133
+
+## Memory Performance ##
+
+    dd if=/dev/zero of=/dev/null bs=32M count=1000
+    33554432000 bytes (34 GB) copied, 5.18068 s, 6.5 GB/s
+
+## HDD Performance ##
+
+    blockdev --getra /dev/sda
+    256
+    cat /sys/block/sda/queue/scheduler
+    noop anticipatory deadline [cfq]
+    cat /sys/block/sda/device/queue_depth
+    31
+    dd if=/dev/sda of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 120.719 s, 139 MB/s
+    dd if=/dev/zero of=/dev/sda bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 122.809 s, 137 MB/s
+
+    parted /dev/sda mklabel msdos
+    parted /dev/sda mkpart p 2048s 64g
+    blockdev --rereadpt /dev/sda
+    mkfs.ext3 /dev/sda1
+    mount -o noatime /dev/sda1 /mnt
+    bonnie++ -d /mnt -u root -n 0 -r 6000
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          12G   563  99 104358  20 57636  10  2083  98 134882  15 177.5   5
+
+    cd /tmp; http_proxy=http://proxy.lan.gsd-software.net:8080 wget http://debian.gsd-software.net/benchmark/seeker_baryluk_x86
+    chmod +x seeker_baryluk_x86
+    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; ./seeker_baryluk_x86 /dev/sda $threads | grep Results; sleep 1; done
+    Threads: 01 Results: 81 seeks/second, 12.225 ms random access time (278405122 < offsets < 499780700023)
+    Threads: 02 Results: 94 seeks/second, 10.612 ms random access time (148997879 < offsets < 499532002815)
+    Threads: 04 Results: 108 seeks/second, 9.197 ms random access time (119484188 < offsets < 500065629302)
+    Threads: 08 Results: 124 seeks/second, 8.004 ms random access time (288034746 < offsets < 499953204665)
+    Threads: 16 Results: 145 seeks/second, 6.893 ms random access time (32753530 < offsets < 499799881023)
+    Threads: 32 Results: 164 seeks/second, 6.067 ms random access time (230029943 < offsets < 500056582346)
+
