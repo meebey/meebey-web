@@ -1,5 +1,4 @@
-# Western Digital Scorpio Blue 250 GB #
-
+[[!meta title="Western Digital Scorpio Blue 250 GB"]]
 [[!table header="no" class="harddisk_performance_table" data="""
 Manufacturer:   | Western Digital
 Type:           | Scorpio Blue

@@ -1,5 +1,4 @@
-# Western Digital Caviar Black 1000 GB #
-
+[[!meta title="Western Digital Caviar Black 1000 GB"]]
 [[!table header="no" class="harddisk_performance_table" data="""
 Manufacturer:   | Western Digital
 Type:           | Caviar Black

@@ -1,5 +1,4 @@
-# Western Digital RE4 1000 GB #
-
+[[!meta title="Western Digital RE4 1000 GB"]]
 [[!table header="no" class="harddisk_performance_table" data="""
 Manufacturer:   | Western Digital
 Type:           | RE4
