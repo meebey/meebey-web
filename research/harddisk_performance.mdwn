@@ -1,5 +1,4 @@
-# Harddisk Performance #
-
+[[!meta title="Harddisk Performance"]]
 [[!table class="harddisk_performance_table" data="""
 Harddisk              | Model          | dd                 || bonnie++                                                           |||||| [[seeker_baryluk|http://smp.if.uj.edu.pl/~baryluk/seeker_baryluk.c]]
                       |                |                    || read                   || write                 || rewrite    |         | 
