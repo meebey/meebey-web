@@ -1,0 +1,11 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ claimedauthor="Kakadu"
+ url="http://github.com/Kakadu"
+ subject="What about F#?"
+ date="2011-09-23T17:50:00Z"
+ content="""
+Are you planning to add fsharp packages to the repository? Today I've found that fsharp .deb package [downloadable from here](http://fsxplat.codeplex.com/releases/view/55463) conficts in vesion with mscorlib.dll. So I've recompiled [F#](https://github.com/fsharp/fsharp) and it works! :-)
+
+The big problem is to compile F# PowerPack for mono, but it is an another story...
+"""]]
