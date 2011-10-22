@@ -1,0 +1,86 @@
+[[!meta title="Western Digital Caviar Green Advanced Format 2 TB"]]
+[[!table header="no" class="harddisk_performance_table" data="""
+Manufacturer:   | Western Digital
+Type:           | Caviar Green Advanced Format
+Model:          | WD20EARS
+Firmware:       | 51.0AB51
+Capacity:       | 2 TB
+Spindle Speed:  | 5,400 - 7,200 RPM
+Interface:      | SATA II
+Cache:          | 64 MB
+NCQ:            | Yes
+"""]]
+
+## CPU Model ##
+
+    grep name /proc/cpuinfo | uniq
+    model name	: Intel(R) Core(TM)2 Quad CPU    Q6600  @ 2.40GHz
+
+## CPU Threads ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | wc -l
+    4
+
+## Cores per CPU ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | sort | uniq | wc -l
+    4
+
+## Kernel ##
+
+    uname -a
+    Linux finnix 2.6.30-1-amd64-finnix #1 SMP Tue Aug 4 22:38:20 PDT 2009 x86_64 GNU/Linux
+
+## Disk Controller ##
+
+    lspci | grep AHCI
+    00:1f.2 SATA controller: Intel Corporation 82801IR/IO/IH (ICH9R/DO/DH) 6 port SATA AHCI Controller (rev 02)
+
+## Disk Status ##
+
+    egrep 'ata[0-9]\.|SATA link up' /var/log/dmesg
+    [    5.124053] ata6: SATA link up 3.0 Gbps (SStatus 123 SControl 300)
+    [    5.127625] ata6.00: ATA-8: WDC WD20EARS-00MVWB0, 51.0AB51, max UDMA/133
+    [    5.127628] ata6.00: 3907029168 sectors, multi 0: LBA48 NCQ (depth 31/32)
+    [    5.131084] ata6.00: configured for UDMA/133
+
+## Memory Performance ##
+
+    dd if=/dev/zero of=/dev/null bs=32M count=1000
+    33554432000 bytes (34 GB) copied, 11.5232 s, 2.9 GB/s
+
+## HDD Performance ##
+
+    blockdev --getra /dev/sdd
+    256
+    cat /sys/block/sdd/queue/scheduler
+    noop anticipatory deadline [cfq]
+    cat /sys/block/sdd/device/queue_depth
+    31
+    dd if=/dev/sdd of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 135.634 s, 124 MB/s
+    dd if=/dev/zero of=/dev/sdd bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 136.95 s, 123 MB/s
+
+    parted /dev/sdd mklabel msdos
+    parted /dev/sdd mkpart p 2048s 64g
+    blockdev --rereadpt /dev/sdd
+    mkfs.ext3 /dev/sdd1
+    mount -o noatime /dev/sdd1 /mnt
+    bonnie++ -d /mnt -u root -n 0 -r 6000
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          12G   627  99 82236  15 47714   7 2003   82 120429  8 236.6   3
+    Latency             12950us   4322ms    1006ms    116ms     24839us   269ms
+
+    cd /tmp; wget http://debian.gsd-software.net/benchmark/seeker_baryluk_x86
+    chmod +x seeker_baryluk_x86
+    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; ./seeker_baryluk_x86 /dev/sdd $threads | grep Results; sleep 1; done
+    Threads: 01 Results: 59 seeks/second, 16.704 ms random access time (313579242 < offsets < 2000342397980)
+    Threads: 02 Results: 72 seeks/second, 13.825 ms random access time (895481326 < offsets < 1999391403414)
+    Threads: 04 Results: 84 seeks/second, 11.848 ms random access time (81725884 < offsets < 2000175818206)
+    Threads: 08 Results: 97 seeks/second, 10.228 ms random access time (721878910 < offsets < 2000335835503)
+    Threads: 16 Results: 116 seeks/second, 8.601 ms random access time (90157897 < offsets < 1999233661791)
+    Threads: 32 Results: 131 seeks/second, 7.587 ms random access time (830738701 < offsets < 1999999757540)
+
