@@ -1,0 +1,80 @@
+[[!meta title="Hitachi Ultrastar A7K1000 500GB"]]
+[[!table header="no" class="harddisk_performance_table" data="""
+Manufacturer:   | Hitachi
+Type:           | Ultrastar A7K1000
+Model:          | HUA721050KLA330
+Firmware:       | GK6OA70M
+Capacity:       | 500 GB
+Spindle Speed:  | 7200 RPM
+Interface:      | SATA II
+Cache:          | 32 MB
+NCQ:            | Yes
+"""]]
+
+## CPU Model ##
+
+    grep name /proc/cpuinfo | uniq
+    model name	: Intel(R) Core(TM)2 Quad CPU    Q6600  @ 2.40GHz
+
+## CPU Threads ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | wc -l
+    4
+
+## Cores per CPU ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | sort | uniq | wc -l
+    4
+
+## Kernel ##
+
+    uname -a
+    Linux finnix 2.6.30-1-amd64-finnix #1 SMP Tue Aug 4 22:38:20 PDT 2009 x86_64 GNU/Linux
+
+## Disk Controller ##
+
+    lspci | grep AHCI
+    00:1f.2 SATA controller: Intel Corporation 82801IR/IO/IH (ICH9R/DO/DH) 6 port SATA AHCI Controller (rev 02)
+
+## Disk Status ##
+
+    egrep 'ata[0-9]\.|SATA link up' /var/log/dmesg
+    [    2.932025] ata3: SATA link up 3.0 Gbps (SStatus 123 SControl 300)
+    [    2.949736] ata3.00: ATA-7: Hitachi HUA721050KLA330, GK6OA70M, max UDMA/133
+    [    2.949739] ata3.00: 976773168 sectors, multi 0: LBA48 NCQ (depth 31/32)
+    [    2.950589] ata3.00: configured for UDMA/133
+
+## Memory Performance ##
+
+    dd if=/dev/zero of=/dev/null bs=32M count=1000
+    33554432000 bytes (34 GB) copied, 11.5232 s, 2.9 GB/s
+
+## HDD Performance ##
+
+    blockdev --getra /dev/sdc
+    256
+    cat /sys/block/sdc/queue/scheduler
+    noop anticipatory deadline [cfq]
+    cat /sys/block/sdc/device/queue_depth
+    31
+    dd if=/dev/sdc of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 193.814 s, 86.6 MB/s
+
+    mount -o noatime /dev/sdc2 /mnt
+    bonnie++ -d /mnt -u root -n 0 -r 6000
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          12G   633  98 73830  13 36246   4  2195  91 78584   4 228.8   2
+    Latency             12967us   1215ms    707ms     122ms     26454us   171ms
+
+    cd /tmp; wget http://debian.gsd-software.net/benchmark/seeker_baryluk_x86
+    chmod +x seeker_baryluk_x86
+    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; ./seeker_baryluk_x86 /dev/sdc $threads | grep Results; sleep 1; done
+    Threads: 01 Results: 81 seeks/second, 12.320 ms random access time (24322543 < offsets < 499940218995)
+    Threads: 02 Results: 80 seeks/second, 12.428 ms random access time (90421354 < offsets < 499803562637)
+    Threads: 04 Results: 92 seeks/second, 10.826 ms random access time (724720379 < offsets < 499984225794)
+    Threads: 08 Results: 109 seeks/second, 9.132 ms random access time (2641800 < offsets < 499998297388)
+    Threads: 16 Results: 127 seeks/second, 7.849 ms random access time (201549777 < offsets < 500044041013)
+    Threads: 32 Results: 144 seeks/second, 6.909 ms random access time (165172154 < offsets < 500069696101)
+
