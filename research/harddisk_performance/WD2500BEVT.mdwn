@@ -54,3 +54,14 @@ NCQ:            | Yes
     Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
     redhorse         8G   568  98 54478  17 26960   6  2919  87 71634   7 135.3   3
 
+    cd /tmp; wget http://debian.gsd-software.net/benchmark/seeker_baryluk_amd64
+    chmod +x seeker_baryluk_amd64
+    
+    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; ./seeker_baryluk_amd64 /dev/sda $threads | grep Results; sleep 1; done
+    Threads: 01 Results: 54 seeks/second, 18.248 ms random access time (97870889 < offsets < 249762289938)
+    Threads: 02 Results: 60 seeks/second, 16.547 ms random access time (59971384 < offsets < 249807930105)
+    Threads: 04 Results: 71 seeks/second, 13.921 ms random access time (128346689 < offsets < 250003753160)
+    Threads: 08 Results: 82 seeks/second, 12.161 ms random access time (96473340 < offsets < 249809317290)
+    Threads: 16 Results: 92 seeks/second, 10.811 ms random access time (31916665 < offsets < 250038385742)
+    Threads: 32 Results: 101 seeks/second, 9.843 ms random access time (27785735 < offsets < 249933085210)
+
