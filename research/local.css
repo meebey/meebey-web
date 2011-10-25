@@ -21,3 +21,23 @@
     padding: 3px 10px;
 }
 
+.raid_performance_table {
+    background-color: black;
+    border-spacing: 1px;
+}
+
+.raid_performance_table thead {
+    background-color: white;
+}
+
+.raid_performance_table tbody {
+    background-color: white;
+}
+
+.raid_performance_table th {
+    padding: 3px 10px;
+}
+
+.raid_performance_table td {
+    padding: 3px 10px;
+}

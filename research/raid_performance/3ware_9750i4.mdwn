@@ -1,0 +1,51 @@
+[[!meta title="3ware 9750i4"]]
+[[!table header="no" class="" data="""
+Manufacturer:   | 3ware
+Model:          | 9750i4
+BIOS:           | BE9X 5.11.00.006
+Firmware:       | FH9X 5.12.00.007
+"""]]
+
+## CPU Model ##
+
+    grep name /proc/cpuinfo | uniq
+    model name	: Intel(R) Xeon(R) CPU           E5620  @ 2.40GHz 
+
+## CPU Threads ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | wc -l
+    16
+
+## Cores per CPU ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | sort | uniq | wc -l
+    4
+
+## Kernel ##
+
+    uname -a
+    Linux finnix 2.6.36-2-amd64-finnix #1 SMP Mon Dec 20 22:16:37 PST 2010 x86_64 GNU/Linux
+
+## Memory Performance ##
+
+    dd if=/dev/zero of=/dev/null bs=32M count=1000
+    33554432000 bytes (34 GB) copied, 5.27556 s, 6.4 GB/s
+
+## RAID Controller ##
+
+    lspci | grep 3ware
+    04:00.0 RAID bus controller: 3ware Inc 9750 SAS2/SATA-II RAID PCIe (rev 05)
+
+## RAID Status ##
+
+    egrep '3ware|sd' /var/log/dmesg
+    [   16.969281] LSI 3ware SAS/SATA-RAID Controller device driver for Linux v3.26.02.000.
+    [   17.359579] 3w-sas: scsi7: Found an LSI 3ware 9750-4i Controller at 0xfad9c000, IRQ: 24.
+    [   18.051405] sd 7:0:0:0: Attached scsi generic sg1 type 0
+    [   18.051430] sd 7:0:0:0: [sda] 3906166784 512-byte logical blocks: (1.99 TB/1.81 TiB)
+    [   18.053559] sd 7:0:0:0: [sda] Write Protect is off
+    [   18.053562] sd 7:0:0:0: [sda] Mode Sense: 23 00 10 00
+    [   18.053730] sd 7:0:0:0: [sda] Write cache: enabled, read cache: enabled, supports DPO and FUA
+    [   18.101498]  sda: unknown partition table
+    [   18.104209] sd 7:0:0:0: [sda] Attached SCSI disk
+

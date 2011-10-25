@@ -1,0 +1,46 @@
+## RAID Setup ##
+
+Controller: [[3ware_9750i4|3ware 9750i4]]
+Level: RAID10 256K
+Disks: 4 x [[WD5003ABYX|Western Digital RE4 500 GB]]
+
+Write Cache Setting: Enabled
+Read Cache Setting: Intelligent
+Drive Queuing Mode: Enabled
+StorSave Profile: Performance
+
+## RAID Performance ##
+
+    blockdev --getra /dev/sda
+    256
+    cat /sys/block/sda/queue/scheduler
+    noop anticipatory deadline [cfq]
+    cat /sys/block/sda/device/queue_depth
+    254
+    echo 3 > /proc/sys/vm/drop_caches
+    dd if=/dev/sda of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 62.6009 s, 268 MB/s
+    dd if=/dev/zero of=/dev/sda bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 62.1946 s, 270 MB/s
+
+    parted /dev/sda mklabel msdos
+    parted /dev/sda mkpart p 2048s 64g
+    blockdev --rereadpt /dev/sda
+    mkfs.ext3 /dev/sda1
+    mount -o noatime /dev/sda1 /mnt
+    echo 3 > /proc/sys/vm/drop_caches
+    bonnie++ -d /mnt -u root -n 0 -r 6000
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          12G   703  99 173012 27 98373  11  1572  70 424133 19  1337  11
+
+    cd /tmp; http_proxy=http://proxy.lan.gsd-software.net:8080 wget http://debian.gsd-software.net/benchmark/seeker_baryluk_x86; chmod +x seeker_baryluk_x86
+    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; ./seeker_baryluk_x86 /dev/sda $threads | grep Results; sleep 1; done
+    Threads: 01 Results: 81 seeks/second, 12.250 ms random access time (1267472288 < offsets < 999958396632)
+    Threads: 02 Results: 162 seeks/second, 6.150 ms random access time (233414732 < offsets < 999739729078)
+    Threads: 04 Results: 254 seeks/second, 3.934 ms random access time (604051800 < offsets < 999830804432)
+    Threads: 08 Results: 323 seeks/second, 3.095 ms random access time (743179 < offsets < 999754763564)
+    Threads: 16 Results: 396 seeks/second, 2.521 ms random access time (43744686 < offsets < 999938468151)
+    Threads: 32 Results: 459 seeks/second, 2.175 ms random access time (36676564 < offsets < 999955478395)
+
