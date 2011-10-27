@@ -1,4 +1,7 @@
-[[!meta title="3ware 9750i4"]]
+[[!meta title="System Setup"]]
+
+## RAID Controller Specification ##
+
 [[!table header="no" class="" data="""
 Manufacturer:   | 3ware
 Model:          | 9750i4
