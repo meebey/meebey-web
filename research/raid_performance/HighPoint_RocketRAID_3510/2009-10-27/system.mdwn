@@ -1,0 +1,35 @@
+[[!meta title="System Setup"]]
+
+## RAID Controller Specification ##
+
+[[!table header="no" class="" data="""
+Manufacturer:   | HighPoint
+Model:          | RocketRAID 3510
+Firmware:       | 1.3.44.7
+"""]]
+
+## CPU Model ##
+
+    grep name /proc/cpuinfo | uniq
+    model name	: Intel(R) Core(TM)2 Quad CPU    Q9550  @ 2.83GHz
+
+## CPU Threads ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | wc -l
+    4
+
+## Cores per CPU ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | sort | uniq | wc -l
+    4
+
+## Memory Performance ##
+
+    dd if=/dev/zero of=/dev/null bs=32M count=1000
+    33554432000 bytes (34 GB) copied, 11.3874 s, 2.9 GB/s
+
+## RAID Controller ##
+
+    lspci | grep HighPoint
+    01:00.0 RAID bus controller: HighPoint Technologies, Inc. Device 3510 (rev 09)
+

@@ -1,0 +1,30 @@
+## RAID Setup ##
+
+[[!table header="no" class="" data="""
+RAID Controller: | HighPoint RocketRAID 3510
+RAID Level:      | RAID0 64K
+Disks:           | 4 x Western Digital Caviar Black 750 GB
+Cache Policy:    | Write-Back
+
+Read Ahead:      | Enabled
+Write Cache:     | Enabled
+NCQ:             | Enabled
+"""]]
+
+## RAID Performance ##
+
+    dd if=/dev/sda of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 45.6764 s, 367 MB/s
+    dd if=/dev/zero of=/dev/sda bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 46.1722 s, 363 MB/s
+
+    mkfs.ext3 -b 4096 -E stride=64 -E stripe-width=256 /dev/sda1
+    mount -o noatime /dev/sda1 /mnt
+    bonnie++ -u root -f -n 0 -r 8000 -d /mnt
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          16G           270420  56 122937  19           336078  21 777.5  16
+    Latency                         351ms     451ms               206ms
+69574us
+
