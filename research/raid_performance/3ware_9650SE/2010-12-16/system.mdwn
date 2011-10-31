@@ -1,0 +1,75 @@
+[[!meta title="System Setup"]]
+
+## RAID Controller Specification ##
+
+[[!table header="no" class="" data="""
+Manufacturer:   | 3ware
+Model:          | 3650SE
+Firmware:       | FE9X 4.08.00.006
+"""]]
+
+## CPU Model ##
+
+    grep name /proc/cpuinfo | uniq
+    model name	: Intel(R) Xeon(R) CPU           E5520  @ 2.27GHz
+
+## CPU Threads ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | wc -l
+    4
+
+## Cores per CPU ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | sort | uniq | wc -l
+    4
+
+## Kernel ##
+
+    uname -a
+    Linux finnix 2.6.30-1-x86-finnix #1 SMP Tue Aug 4 21:45:45 PDT 2009 i686 GNU/Linux
+
+## Memory Performance ##
+
+    dd if=/dev/zero of=/dev/null bs=32M count=1000
+    33554432000 bytes (34 GB) copied, 3.79795 s, 8.8 GB/s
+
+## RAID Controller ##
+
+    lspci -vv
+    02:00.0 RAID bus controller: 3ware Inc 9650SE SATA-II RAID PCIe (rev 01)
+	    Subsystem: 3ware Inc 9650SE SATA-II RAID PCIe
+	    Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	    Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	    Latency: 0, Cache Line Size: 256 bytes
+	    Interrupt: pin A routed to IRQ 16
+	    Region 0: Memory at f6000000 (64-bit, prefetchable) [size=32M]
+	    Region 2: Memory at faadf000 (64-bit, non-prefetchable) [size=4K]
+	    Region 4: I/O ports at b800 [size=256]
+	    Expansion ROM at faae0000 [disabled] [size=128K]
+	    Capabilities: [40] Power Management version 2
+		    Flags: PMEClk- DSI- D1+ D2+ AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+		    Status: D0 NoSoftRst- PME-Enable- DSel=0 DScale=0 PME-
+	    Capabilities: [50] MSI: Enable- Count=1/32 Maskable- 64bit+
+		    Address: 0000000000000000  Data: 0000
+	    Capabilities: [70] Express (v1) Legacy Endpoint, MSI 00
+		    DevCap:	MaxPayload 512 bytes, PhantFunc 0, Latency L0s <128ns, L1 <2us
+			    ExtTag- AttnBtn- AttnInd- PwrInd- RBE+ FLReset-
+		    DevCtl:	Report errors: Correctable- Non-Fatal- Fatal- Unsupported-
+			    RlxdOrd+ ExtTag- PhantFunc- AuxPwr- NoSnoop+
+			    MaxPayload 128 bytes, MaxReadReq 512 bytes
+		    DevSta:	CorrErr+ UncorrErr- FatalErr- UnsuppReq+ AuxPwr- TransPend-
+		    LnkCap:	Port #0, Speed 2.5GT/s, Width x8, ASPM L0s L1, Latency L0 <512ns, L1 <64us
+			    ClockPM- Surprise- LLActRep+ BwNot-
+		    LnkCtl:	ASPM Disabled; RCB 128 bytes Disabled- Retrain- CommClk-
+			    ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+		    LnkSta:	Speed 2.5GT/s, Width x4, TrErr- Train- SlotClk- DLActive+ BWMgmt- ABWMgmt-
+	    Capabilities: [100] Advanced Error Reporting
+		    UESta:	DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq+ ACSViol-
+		    UEMsk:	DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+		    UESvrt:	DLP+ SDES- TLP- FCP+ CmpltTO- CmpltAbrt- UnxCmplt- RxOF+ MalfTLP+ ECRC- UnsupReq- ACSViol-
+		    CESta:	RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr+
+		    CEMsk:	RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr+
+		    AERCap:	First Error Pointer: 00, GenCap+ CGenEn- ChkCap+ ChkEn-
+	    Kernel driver in use: 3w-9xxx
+	    Kernel modules: 3w-9xxx
+

@@ -1,0 +1,32 @@
+## RAID Setup ##
+
+[[!table header="no" class="" data="""
+RAID Controller:     | 3ware 9650SE
+RAID Level:          | RAID10 256K
+Disks:               | 4 x Western Digital RE3 500 GB
+                     |
+Write Cache Setting: | Enabled
+Read Cache Setting:  | Intelligent
+Drive Queuing Mode:  | Enabled
+StorSave Profile:    | Balanced
+"""]]
+
+## RAID Performance ##
+
+    dd if=/dev/sda of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 71.311 s, 235 MB/s    
+    dd if=/dev/zero of=/dev/sda bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 72.8608 s, 230 MB/s
+
+    parted /dev/sda mklabel msdos
+    parted /dev/sda mkpart p 2048s 128g
+    mkfs.ext3 -b 4096 -E stride=64 -E stripe-width=128 /dev/sda1
+    mount -o noatime /dev/sda1 /mnt
+    bonnie++ -d /mnt -u root -n 0
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          12G   560  99 166177 30 79475 13  1899  95 225856  18 597.3  12
+    finnix          12G   550  99 164446 31 78881 13  1880  95 227057  19 799.9  16
+    finnix          12G   546 100 163233 31 79898 13  1925  97 226681  17 813.4  17
+

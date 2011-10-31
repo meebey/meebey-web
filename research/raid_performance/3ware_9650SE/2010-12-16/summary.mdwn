@@ -1,0 +1,10 @@
+[[!table class="raid_performance_table" data="""
+Controller   | Level                                     | FUA    | RC  | WC  | Disks                         | dd                 || bonnie++                                                             |||||| [[seeker_baryluk|http://smp.if.uj.edu.pl/~baryluk/seeker_baryluk.c]] |
+             |                                           |        |     |     |                               |                    || read                   || write                 || rewrite      |         |         |
+             |                                           |        |     |     |                               | read     | write    | char      | block       | char     | block       | block        | seeks/s | seeks/s | ms/seek
+3ware 9650SE | [[RAID0 64K|WD5002ABYS/RAID0_64K_WB]]     | Ignore | Yes | Yes | 4x[[WD RE3 500GB|WD5002ABYS]] | 470 MB/s | 473 MB/s | 1937 KB/s | 357005 KB/s | 540 KB/s | 283994 KB/s | 124144 KB/s  |  850.3  | ?       | ?
+3ware 9650SE | [[RAID0 64K|WD5002ABYS/RAID0_64K_WT]]     | Honor  | Yes | Yes | 4x[[WD RE3 500GB|WD5002ABYS]] | 469 MB/s | 473 MB/s | 1775 KB/s | 349105 KB/s | 540 KB/s | 280611 KB/s | 124322 KB/s  |  833.0  | ?       | ?
+3ware 9650SE | [[RAID0 256K|WD5002ABYS/RAID0_256K_WT]]   | Honor  | Yes | Yes | 4x[[WD RE3 500GB|WD5002ABYS]] | 460 MB/s | 458 MB/s | 1894 KB/s | 428526 KB/s | 567 KB/s | 249938 KB/s | 121427 KB/s  |  799.4  | ?       | ?
+3ware 9650SE | [[RAID10 256K|WD5002ABYS/RAID10_256K_WT]] | Honor  | Yes | Yes | 4x[[WD RE3 500GB|WD5002ABYS]] | 235 MB/s | 230 MB/s | 1899 KB/s | 225856 KB/s | 560 KB/s | 166177 KB/s |  79475 KB/s  |  597.3  | ?       | ?
+"""]]
+
