@@ -1,0 +1,8 @@
+[[!table class="raid_performance_table" data="""
+Controller   | Level                                     | FUA    | RC  | WC  | Disks                       | dd                 || bonnie++                                                             |||||| [[seeker_baryluk|http://smp.if.uj.edu.pl/~baryluk/seeker_baryluk.c]] |
+             |                                           |        |     |     |                             |                    || read                   || write                 || rewrite      |         |         |
+             |                                           |        |     |     |                             | read     | write    | char      | block       | char     | block       | block        | seeks/s | seeks/s | ms/seek
+3ware 9650SE | [[RAID10 256K|WD2003FYYS/RAID10_256K_WT]] | Honor  | Yes | No  | 4x[[WD RE4 2TB|WD2003FYYS]] | 299 MB/s | 211 MB/s | 2049 KB/s | 292174 KB/s | 563 KB/s | 153523 KB/s |  84247 KB/s  |  597.8  | 84      | 11.895
+3ware 9650SE | [[RAID10 256K|WD2003FYYS/RAID10_256K_WT]] | Honor  | Yes | Yes | 4x[[WD RE4 2TB|WD2003FYYS]] | 300 MB/s | 284 MB/s | 1975 KB/s | 275122 KB/s | 585 KB/s | 275122 KB/s | 108096 KB/s  |  608.8  | ?       | ?
+"""]]
+

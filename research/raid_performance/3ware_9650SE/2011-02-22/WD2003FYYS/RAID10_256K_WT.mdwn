@@ -1,0 +1,72 @@
+## RAID Setup WC OFF ##
+
+[[!table header="no" class="" data="""
+RAID Controller:     | 3ware 9650SE
+RAID Level:          | RAID10 256K
+Disks:               | 4 x Western Digital RE4 2000 GB
+                     |
+Write Cache Setting: | Disabled
+Read Cache Setting:  | Intelligent
+Drive Queuing Mode:  | Enabled
+StorSave Profile:    | Balanced
+"""]]
+
+## RAID Performance WC OFF ##
+
+    dd if=/dev/sda of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 56.0381 s, 299 MB/s
+
+    lvcreate data-fast -n test -L 32g
+    dd if=/dev/zero of=/dev/data-fast/test bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 79.4135 s, 211 MB/s
+
+    mkfs.ext3 -b 4096 -E stride=64 -E stripe-width=128 /dev/data-fast/test
+    mount -o noatime /dev/data-fast/test /mnt
+    bonnie++ -d /mnt -u root -n 0
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          12G   563  99 153523 26 84247  13  2049  99 292174 21 597.8  13
+
+    cat /sys/block/sdb/queue/scheduler
+    noop anticipatory deadline [cfq]
+    cat /sys/block/sdb/device/queue_depth
+    254
+    cd /tmp; http_proxy=http://proxy.gsd-software.net:8080 wget http://smp.if.uj.edu.pl/~baryluk/seeker_baryluk; chmod +x seeker_baryluk
+    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; ./seeker_baryluk /dev/sdb $threads | grep Results; sleep 1; done
+    Threads: 01 Results: 84 seeks/second, 11.895 ms random access time (974994305 < offsets < 3994280682071)
+    Threads: 02 Results: 166 seeks/second, 6.005 ms random access time (1655876718 < offsets < 3999256645656)
+    Threads: 04 Results: 259 seeks/second, 3.854 ms random access time (761879086 < offsets < 3998661172497)
+    Threads: 08 Results: 333 seeks/second, 3.002 ms random access time (312727063 < offsets < 3999696575773)
+    Threads: 16 Results: 382 seeks/second, 2.613 ms random access time (19132984 < offsets < 3999676178060)
+    Threads: 32 Results: 412 seeks/second, 2.422 ms random access time (434897278 < offsets < 3999690548287)
+
+## RAID Setup WC ON ##
+
+[[!table header="no" class="" data="""
+RAID Controller:     | 3ware 9650SE
+RAID Level:          | RAID10 256K
+Disks:               | 4 x Western Digital RE4 2000 GB
+                     |
+Write Cache Setting: | Enabled
+Read Cache Setting:  | Intelligent
+Drive Queuing Mode:  | Enabled
+StorSave Profile:    | Balanced
+"""]]
+
+## RAID Performance WC ON ##
+
+    dd if=/dev/sdb of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 55.9486 s, 300 MB/s
+
+    dd if=/dev/zero of=/dev/data-fast/test bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 59.1244 s, 284 MB/s
+
+    mkfs.ext3 -b 4096 -E stride=64 -E stripe-width=128 /dev/data-fast/test
+    mount -o noatime /dev/data-fast/test /mnt
+    bonnie++ -d /mnt -u root -n 0
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          12G   585  99 181292 32 108096 17  1975  93 275122  19 608.8  14 
+
