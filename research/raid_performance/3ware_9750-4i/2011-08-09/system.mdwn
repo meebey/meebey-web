@@ -4,7 +4,7 @@
 
 [[!table header="no" class="" data="""
 Manufacturer:   | 3ware
-Model:          | 9750i4
+Model:          | 9750-4i
 BIOS:           | BE9X 5.11.00.006
 Firmware:       | FH9X 5.12.00.007
 """]]
