@@ -1,0 +1,12 @@
+[[!table class="raid_performance_table" data="""
+Controller   | Level                                     | FUA    | RC  | WC  | Disks            | dd                 || bonnie++                                                            |||||| [[seeker_baryluk|http://smp.if.uj.edu.pl/~baryluk/seeker_baryluk.c]] |
+             |                                           |        |     |     |                  |                    || read                   || write                 || rewrite     |         |         |
+             |                                           |        |     |     |                  | read     | write    | char      | block       | char     | block       | block       | seeks/s | seeks/s | ms/seek
+3ware 9750-4i | [[RAID0 64K|WD5003ABYX/RAID0_64K_WB]]     | Ignore | Yes | Yes | 4x[[WD RE4 500GB|WD5003ABYX]] | 461 MB/s | 529 MB/s | 2255 KB/s | 828928 KB/s | 682 KB/s | 313303 KB/s | 162218 KB/s |  637.1  | 80      | 12.371
+3ware 9750-4i | [[RAID10 64K|WD5003ABYX/RAID10_64K_WT]]   | Honor  | Yes | No  | 4x[[WD RE4 500GB|WD5003ABYX]] | 236 MB/s | 182 MB/s | 2261 KB/s | 401659 KB/s | 668 KB/s | 167197 KB/s | 102749 KB/s |  595.4  | 81      | 12.285
+3ware 9750-4i | [[RAID10 64K|WD5003ABYX/RAID10_64K_WT]]   | Honor  | Yes | Yes | 4x[[WD RE4 500GB|WD5003ABYX]] | 232 MB/s | 264 MB/s | 2146 KB/s | 268495 KB/s | 570 KB/s | 150370 KB/s | 112440 KB/s |  661.7  | 80      | 12.438
+3ware 9750-4i | [[RAID10 64K|WD5003ABYX/RAID10_64K_WB]]   | Ignore | Yes | Yes | 4x[[WD RE4 500GB|WD5003ABYX]] | 246 MB/s | 257 MB/s | 2095 KB/s | 336360 KB/s | 708 KB/s | 151926 KB/s |  87302 KB/s |  729.9  | 80      | 12.412
+3ware 9750-4i | [[RAID10 256K|WD5003ABYX/RAID10_256K_WT]] | Honor  | Yes | Yes | 4x[[WD RE4 500GB|WD5003ABYX]] | 275 MB/s | 308 MB/s | 2142 KB/s | 321816 KB/s | 685 KB/s | 173651 KB/s | 100215 KB/s | 1183.0  | 81      | 12.315
+3ware 9750-4i | [[RAID10 256K|WD5003ABYX/RAID10_256K_WB]] | Ignore | Yes | Yes | 4x[[WD RE4 500GB|WD5003ABYX]] | 268 MB/s | 270 MB/s | 1572 KB/s | 424133 KB/s | 703 KB/s | 173012 KB/s |  98373 KB/s | 1337.0  | 81      | 12.250
+"""]]
+
