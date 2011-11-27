@@ -1,5 +1,6 @@
 [[!meta title="Micro-Blogging / Smuxi"]]
 [[!meta date="2009-04-05 15:53:02 +0200"]]
+[[!meta updated="2009-04-05 15:53:02 +0200"]]
 [[!tag twitter smuxi]]
 
 You are wondering if forgot my password of the blogging account? No

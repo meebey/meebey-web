@@ -1,5 +1,6 @@
 [[!meta title="Hello World, how small can you get?"]]
 [[!meta date="2007-07-09 00:30:00 +0200"]]
+[[!meta updated="2007-07-09 00:30:00 +0200"]]
 [[!tag debian mono java python]]
 
 Today I was checking how much diskspace is need when a small CLI

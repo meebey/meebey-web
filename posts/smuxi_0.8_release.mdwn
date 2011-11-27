@@ -1,5 +1,6 @@
 [[!meta title="""Smuxi 0.8 "Godsend" Release"""]]
 [[!meta date="2010-09-08 20:16:00"]]
+[[!meta updated="2010-09-08 20:16:00"]]
 [[!tag smuxi]]
 
 5 weeks after the 0.7.2.2 "Lovegood" release, I am very happy to announce the
