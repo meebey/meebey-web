@@ -17,6 +17,9 @@ body{
 .inlinepage .tags {
         display: none;  
 }
+.inlinepage h4 {
+	font-size: 90%;
+}
 .pagecopyright, .pagelicense, .pagedate {
 	font-size: .8em;
 }
