@@ -1,2 +1,3 @@
 [[!meta title="Smuxi 0.8.9 'One Giant Leap' Release"]]
-[[!inline pages="internal(projects/smuxi/posts/ Smuxi 0.8.9 &quot;One Giant Leap&quot; Release )" raw=yes]]
+[[!tag smuxi]]
+[[!inline pages="""internal(projects/smuxi/posts/_Smuxi_0.8.9_"One_Giant_Leap"_Release_)""" raw=yes]]
