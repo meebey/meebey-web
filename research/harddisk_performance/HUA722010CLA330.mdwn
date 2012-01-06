@@ -1,0 +1,91 @@
+[[!meta title="Hitachi Ultrastar A7K2000 1000GB"]]
+[[!table header="no" class="harddisk_performance_table" data="""
+Manufacturer:   | Hitachi
+Type:           | Ultrastar 
+Model:          | HUA722010CLA330
+Firmware:       | JP4OA3EA
+Capacity:       | 1000 GB
+Spindle Speed:  | 7200 RPM
+Interface:      | SATA II
+Cache:          | 32 MB
+NCQ:            | Yes
+"""]]
+
+## CPU Model ##
+
+    grep name /proc/cpuinfo | uniq
+    model name	: Intel(R) Xeon(R) CPU           E5620  @ 2.40GHz
+
+## CPU Threads ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | wc -l
+    16
+
+## Cores per CPU ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | sort | uniq | wc -l
+    4
+
+## Kernel ##
+
+    uname -a
+    Linux finnix 2.6.30-1-amd64-finnix #1 SMP Tue Aug 4 22:38:20 PDT 2009 x86_64 GNU/Linux
+
+## Disk Controller ##
+
+    lspci | grep AHCI
+    00:1f.2 SATA controller: Intel Corporation 82801JI (ICH10 Family) SATA AHCI Controller
+
+## Disk Status ##
+
+    egrep 'ata[0-9]\.|SATA link up' /var/log/dmesg
+    [   84.070248] ata6: SATA link up 3.0 Gbps (SStatus 123 SControl 300)
+    [   84.071072] ata6.00: ATA-8: Hitachi HUA722010CLA330, JP4OA3EA, max UDMA/133
+    [   84.071076] ata6.00: 1953525168 sectors, multi 16: LBA48 NCQ (depth 31/32)
+    [   84.072046] ata6.00: configured for UDMA/133
+
+## Memory Performance ##
+
+    dd if=/dev/zero of=/dev/null bs=32M count=1000
+    33554432000 bytes (34 GB) copied, 5.30267 s, 6.3 GB/s
+
+## HDD Performance ##
+
+    blockdev --getra /dev/sda
+    256
+    cat /sys/block/sda/queue/scheduler
+    noop anticipatory deadline [cfq]
+    cat /sys/block/sdc/device/queue_depth
+    31
+    dd if=/dev/sda of=/dev/null bs=1M count=48000
+    50331648000 bytes (50 GB) copied, 365.603 s, 138 MB/s
+    dd if=/dev/zero of=/dev/sda bs=1M count=48000
+    50331648000 bytes (50 GB) copied, 376.343 s, 134 MB/s
+
+    parted /dev/sda mklabel msdos
+    parted /dev/sda mkpart p 2048s 64g
+    blockdev --rereadpt /dev/sda && sleep 3
+    mkfs.ext3 /dev/sda1
+    mount -o noatime /dev/sda1 /mnt
+    echo 3 > /proc/sys/vm/drop_caches
+    bonnie++ -d /mnt -u root
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix       48312M   589  99 126000 24 61271  11  1765  86 120256 13  83.7   4
+    Latency             14681us     679ms     659ms   61491us     207ms     509ms
+    Version  1.96       ------Sequential Create------ --------Random Create--------
+    finnix              -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+                  files  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+                     16  9675  13 +++++ +++ +++++ +++ +++++ +++ +++++ +++ +++++ +++
+
+    cd /tmp; wget http://debian.gsd-software.net/benchmark/seeker_baryluk_x86
+    chmod +x seeker_baryluk_x86
+    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; echo 3 > /proc/sys/vm/drop_caches; ./seeker_baryluk_x86 /dev/sda $threads | grep Results; sleep 1; done
+    Threads: 01 Results: 77 seeks/second, 12.965 ms random access time (8469319 < offsets < 998818697680)
+    Threads: 02 Results: 89 seeks/second, 11.202 ms random access time (31049204 < offsets < 1000127748789)
+    Threads: 04 Results: 97 seeks/second, 10.242 ms random access time (323193693 < offsets < 999685974372)
+    Threads: 08 Results: 111 seeks/second, 8.931 ms random access time (613778829 < offsets < 999782304966)
+    Threads: 16 Results: 129 seeks/second, 7.746 ms random access time (71366966 < offsets < 999775679112)
+    Threads: 32 Results: 148 seeks/second, 6.740 ms random access time (53977474 < offsets < 1000009399081)
+
