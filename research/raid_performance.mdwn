@@ -2,7 +2,7 @@
 
 [[!inline pages="./*/*/summary" show=0 raw=yes feeds=no]]
 
-[[!table class="" data="""
+[[!table class="raid_performance_table" data="""
 Legend ||
 FUA | Honor/Ignore Force Unit Access (Write-Through/Write-Back)
 RC  | Read-Cache Enabled
