@@ -1,7 +1,10 @@
 [[!meta title="RAID Performance"]]
 
-FUA = Honor/Ignore Force Unit Access (Write-Through/Write-Back)
-RC  = Read-Cache Enabled
-WC  = Write-Cache Enabled
-
 [[!inline pages="./*/*/summary" show=0 raw=yes feeds=no]]
+
+[[!table header="no" class="" data="""
+FUA | Honor/Ignore Force Unit Access (Write-Through/Write-Back)
+RC  | Read-Cache Enabled
+WC  | Write-Cache Enabled
+WJ  | Write-Journaling Enabled
+"""]]
