@@ -1,0 +1,143 @@
+## Overall RAID Setup ##
+
+[[!table header="no" class="" data="""
+Controller:           | [[3ware 9750-i8]]
+Level:                | RAID10 256K
+Disks:                | 4 x [[HUA722010CLA330|Hitachi Ultrastar A7K2000 1000GB]]
+Write Cache Setting:  | Disabled
+Read Cache Setting:   | Intelligent
+Drive Queuing Mode:   | Enabled
+"""]]
+
+## RAID Setup ##
+
+[[!table header="no" class="" data="""
+BBU:                  | N/A
+[[StorSave Profile]]: | Balanced
+Write Journaling      | Disabled
+FUA                   | Honor FUA
+"""]]
+
+## RAID Performance ##
+
+    tw_cli /c7/bbu show status
+    Error: (CLI:059) Battery Backup Unit is not present
+    tw_cli /c7/u0 show wrcache storsave
+    /c7/u0 Write Cache = off
+    /c7/u0 Storsave Policy = balance
+
+    dd if=/dev/sdb of=/dev/null bs=1M count=48000
+    50331648000 bytes (50 GB) copied, 202.642 s, 248 MB/s
+    dd if=/dev/zero of=/dev/sdb bs=1M count=48000
+    50331648000 bytes (50 GB) copied, 329.132 s, 153 MB/s
+
+    parted /dev/sdb mklabel msdos
+    parted /dev/sdb mkpart p 2048s 64g && sleep 2
+    blockdev --rereadpt /dev/sdb && sleep 2
+    mkfs.ext3 /dev/sdb1
+    mount -o noatime /dev/sdb1 /mnt
+    echo 3 > /proc/sys/vm/drop_caches
+    bonnie++ -d /mnt -u root
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix       48312M   666  97 151802  24 93975  12  2319  99 244137  13 357.9  21
+    Latency             19616us    3101ms     494ms   13924us     200ms     392ms
+    Version  1.96       ------Sequential Create------ --------Random Create--------
+    finnix              -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+                  files  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+                     16  7195   8 +++++ +++ +++++ +++ +++++ +++ +++++ +++ +++++ +++
+    Latency             26956us     881us     781us     330us       4us      40us
+
+    umount /mnt
+    parted /dev/sdb rm 1
+    parted /dev/sdb mkpart p 2048s 64g && sleep 3
+    blockdev --rereadpt /dev/sdb && sleep 3
+    mkfs.ext3 /dev/sdb1
+    mount -o noatime /dev/sdb1 /mnt
+    echo 3 > /proc/sys/vm/drop_caches
+    bonnie++ -d /mnt -u root -n 16:16384:16384 -f
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix       48312M           154681  24 93171  12           248631  14 375.6  21
+    Latency                        3579ms     491ms               200ms     345ms
+    Version  1.96       ------Sequential Create------ --------Random Create--------
+    finnix              -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+    files:max:min        /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+         16:16384:16384  2701  42 +++++ +++ 10229  14  6693  22 +++++ +++ +++++ +++
+    Latency               374ms    1006us     842us    9526us     257us     257us
+
+    umount /mnt
+    parted /dev/sdb rm 1
+    parted /dev/sdb mkpart p 2048s 64g && sleep 3
+    blockdev --rereadpt /dev/sdb && sleep 3
+    mkfs.ext3 /dev/sdb1
+    mount -o noatime /dev/sdb1 /mnt
+    echo 3 > /proc/sys/vm/drop_caches
+    bonnie++ -d /mnt -u root -n 64:16384:16384 -f
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix       48312M           153083  24 93978  12           260459  15 385.6  22
+    Latency                        3178ms     436ms               199ms     391ms
+    Version  1.96       ------Sequential Create------ --------Random Create--------
+    finnix              -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+    files:max:min        /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+         64:16384:16384  4938  42 129082  98 21243  31  7688  27 +++++ +++ 39886  60
+    Latency             45253us    1031us    1065us   44547us     284us   28653us
+
+    cd /tmp; wget http://debian.gsd-software.net/benchmark/seeker_baryluk_x86; chmod +x seeker_baryluk_x86
+    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; echo 3 > /proc/sys/vm/drop_caches; ./seeker_baryluk_x86 /dev/sdb $threads | grep Results; sleep 1; done
+    Threads: 01 Results: 74 seeks/second, 13.381 ms random access time (116976575 < offsets < 1999759715104)
+    Threads: 02 Results: 151 seeks/second, 6.583 ms random access time (212371845 < offsets < 1999659129629)
+    Threads: 04 Results: 240 seeks/second, 4.157 ms random access time (129793297 < offsets < 1999556148818)
+    Threads: 08 Results: 315 seeks/second, 3.174 ms random access time (182034341 < offsets < 1999570011404)
+    Threads: 16 Results: 373 seeks/second, 2.676 ms random access time (19370368 < offsets < 1999884510979)
+    Threads: 32 Results: 422 seeks/second, 2.367 ms random access time (106969622 < offsets < 1999759273662)
+
+## RAID Setup ##
+
+[[!table header="no" class="" data="""
+BBU:                  | N/A
+[[StorSave Profile]]: | Protection
+Write Journaling      | Enabled
+FUA                   | Honor FUA
+"""]]
+
+## RAID Performance ##
+
+    ./tw_cli /c7/u0 show storsave
+    /c7/u0 Storsave Policy = protection
+
+    dd if=/dev/sdb of=/dev/null bs=1M count=48000
+    50331648000 bytes (50 GB) copied, 201.53 s, 250 MB/s
+    dd if=/dev/zero of=/dev/sdb bs=1M count=48000
+    0331648000 bytes (50 GB) copied, 320.415 s, 157 MB/s
+
+    parted /dev/sdb mklabel msdos
+    parted /dev/sdb mkpart p 2048s 64g && sleep 2
+    blockdev --rereadpt /dev/sdb && sleep 2
+    mkfs.ext3 /dev/sdb1
+    mount -o noatime /dev/sdb1 /mnt
+    echo 3 > /proc/sys/vm/drop_caches
+    bonnie++ -d /mnt -u root
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    finnix       48312M   680  97 151651  24 92821  12  2254  98 267256  15 381.3  22
+    Latency             12029us    2993ms     656ms   14659us     209ms     341ms
+    Version  1.96       ------Sequential Create------ --------Random Create--------
+    finnix              -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+                  files  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+                     16  7600   9 +++++ +++ 29443  25 31493  35 +++++ +++ +++++ +++
+    Latency              7626us     767us     782us    9290us      18us      30us
+
+    cd /tmp; wget http://debian.gsd-software.net/benchmark/seeker_baryluk_x86; chmod +x seeker_baryluk_x86
+    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; echo 3 > /proc/sys/vm/drop_caches; ./seeker_baryluk_x86 /dev/sdb $threads | grep Results; sleep 1; done
+    Threads: 01 Results: 75 seeks/second, 13.181 ms random access time (1733272212 < offsets < 1996530069570)
+    Threads: 02 Results: 154 seeks/second, 6.453 ms random access time (88655362 < offsets < 1999955877456)
+    Threads: 04 Results: 242 seeks/second, 4.117 ms random access time (258330255 < offsets < 1999703604457)
+    Threads: 08 Results: 313 seeks/second, 3.189 ms random access time (81921972 < offsets < 1999706957182)
+    Threads: 16 Results: 371 seeks/second, 2.691 ms random access time (531253245 < offsets < 1999885270930)
+    Threads: 32 Results: 417 seeks/second, 2.397 ms random access time (107967989 < offsets < 1999530629924)
+
