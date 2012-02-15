@@ -1,0 +1,97 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ claimedauthor="Andrus"
+ subject="how to install"
+ date="2012-02-15T18:57:40Z"
+ content="""
+I tried this on clean squeeze x64 but got broken packages error below. 
+
+How to install ?
+ 
+apt-get install –reinstall mono-complete monodevelop mono-devel -t experimental
+ Reading package lists… Done
+ Building dependency tree
+ Reading state information… Done
+ Some packages could not be installed. This may mean that you have
+ requested an impossible situation or if you are using the unstable
+ distribution that some required packages have not yet been created
+ or been moved out of Incoming.
+ The following information may help to resolve the situation:
+ 
+The following packages have unmet dependencies:
+ mono-complete : Depends: mono-1.0-devel (= 2.6.7-5) but it is not going to be i nstalled
+ Depends: mono-2.0-devel (= 2.6.7-5) but it is not going to be i nstalled
+ Depends: monodoc-base (= 2.6.7-5) but it is not going to be ins talled
+ Depends: libmono-cil-dev (= 2.6.7-5) but it is not going to be installed
+ mono-devel : Depends: libmono-system-data-linq2.0-cil (>= 1.0) but it is not go ing to be installed
+ Depends: libmono-system-runtime1.0-cil (>= 1.0) but it is not goin g to be installed
+ Depends: libmono-system-web1.0-cil (>= 1.0) but it is not going to be installed
+ Depends: libmono-system-web2.0-cil (>= 1.9.1) but it is not going to be installed
+ Depends: libmono-wcf3.0-cil (>= 2.6.3) but it is not going to be i nstalled
+ Depends: libmono2.0-cil (>= 2.6.3) but it is not going to be insta lled
+ Depends: mono-2.0-devel (= 2.6.7-5) but it is not going to be inst alled
+ Depends: libmono-cil-dev (= 2.6.7-5) but it is not going to be ins talled
+ monodevelop : Depends: libcairo2 (>= 1.8.0-2) but it is not going to be install ed
+ Depends: libglade2.0-cil (>= 2.12.10) but it is not going to be i nstalled
+ Depends: libgnome-vfs2.0-cil (>= 2.24.0) but it is not going to b e installed
+ Depends: libgnome2.24-cil (>= 2.24.0) but it is not going to be i nstalled
+ Depends: libgtk2.0-0 (>= 2.20.0) but it is not going to be instal led
+ Depends: libgtk2.0-cil (>= 2.12.10) but it is not going to be ins talled
+ Depends: libgtkspell0 but it is not going to be installed
+ Depends: libmetacity-private0 (>= 1:2.26.0) but it is not going t o be installed
+ Depends: libmono-addins-gui0.2-cil (>= 0.4) but it is not going t o be installed
+ Depends: libmono-cairo2.0-cil (>= 2.4) but it is not going to be installed
+ Depends: libmono-system-runtime2.0-cil (>= 2.4) but it is not goi ng to be installed
+ Depends: libmono-system-web2.0-cil (>= 1.9.1) but it is not going to be installed
+ Depends: libmono-wcf3.0-cil (>= 2.6.3) but it is not going to be installed
+ Depends: libmono-winforms2.0-cil (>= 2.4) but it is not going to be installed
+ Depends: libpango1.0-0 (>= 1.25.5) but it is not going to be inst alled
+ Depends: monodoc-base (>= 1.0) but it is not going to be installe d
+ Depends: gnome-icon-theme (>= 1.1.3) but it is not going to be in stalled
+ Depends: xterm but it is not going to be installed or
+ x-terminal-emulator
+ Recommends: libgtk2.0-cil-dev but it is not going to be installed
+ Recommends: libglade2.0-cil-dev but it is not going to be install ed
+ E: Broken packages
+
+
+ /etc/apt/sources.list :
+ 
+deb http://ftp.de.debian.org/debian squeeze main contrib non-free
+ deb http://ftp.de.debian.org/debian-security squeeze/updates main contrib non-free
+ 
+ deb http://backports.debian.org/debian-backports squeeze-backports main
+ deb http://ftp.debian.org/debian experimental main
+ 
+output from apt-get update:
+ 
+Hit http://ftp.de.debian.org squeeze Release.gpg
+ Ign http://ftp.de.debian.org/debian/ squeeze/contrib Translation-en
+ Ign http://ftp.de.debian.org/debian/ squeeze/contrib Translation-et
+ Ign http://ftp.de.debian.org/debian/ squeeze/main Translation-en
+ Ign http://ftp.de.debian.org/debian/ squeeze/main Translation-et
+ Ign http://ftp.de.debian.org/debian/ squeeze/non-free Translation-en
+ Ign http://ftp.de.debian.org/debian/ squeeze/non-free Translation-et
+ Hit http://ftp.de.debian.org squeeze/updates Release.gpg
+ Ign http://ftp.de.debian.org/debian-security/ squeeze/updates/contrib Translation-en
+ Ign http://ftp.de.debian.org/debian-security/ squeeze/updates/contrib Translation-et
+ Ign http://ftp.de.debian.org/debian-security/ squeeze/updates/main Translation-en
+ Ign http://ftp.de.debian.org/debian-security/ squeeze/updates/main Translation-et
+ Ign http://ftp.de.debian.org/debian-security/ squeeze/updates/non-free Translation-en
+ Ign http://ftp.de.debian.org/debian-security/ squeeze/updates/non-free Translation-et
+ Hit http://ftp.de.debian.org squeeze Release
+ Hit http://ftp.de.debian.org squeeze/updates Release
+ Hit http://ftp.debian.org experimental Release.gpg
+ Hit http://ftp.debian.org/debian/ experimental/main Translation-en
+ Ign http://ftp.debian.org/debian/ experimental/main Translation-et
+ Hit http://ftp.de.debian.org squeeze/main amd64 Packages
+ Hit http://ftp.de.debian.org squeeze/contrib amd64 Packages
+ Hit http://ftp.de.debian.org squeeze/non-free amd64 Packages
+ Hit http://ftp.debian.org experimental Release
+ Hit http://ftp.debian.org experimental/main amd64 Packages/DiffIndex
+ Hit http://ftp.de.debian.org squeeze/updates/main amd64 Packages
+ Hit http://ftp.de.debian.org squeeze/updates/contrib amd64 Packages
+ Hit http://ftp.de.debian.org squeeze/updates/non-free amd64 Packages
+ Reading package lists… Done
+
+"""]]
