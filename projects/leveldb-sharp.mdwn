@@ -39,6 +39,7 @@ Currently leveldb-sharp lacks:
 ## Download ##
 
  * Source tarball: [leveldb-sharp-1.2.0.tar.gz]
+ * Git repository on github: [meebey/leveldb-sharp][github]
 
 ## Projects using leveldb-sharp ##
 
@@ -48,5 +49,6 @@ Currently leveldb-sharp lacks:
  [low-level function calls]: https://github.com/meebey/leveldb-sharp/blob/master/Native.cs
  [high-level object oriented API]: https://github.com/meebey/leveldb-sharp/blob/master/DB.cs
  [leveldb-sharp-1.2.0.tar.gz]: /projects/leveldb-sharp/downloads/leveldb-sharp-1.2.0.tar.gz
+ [github]: https://github.com/meebey/leveldb-sharp
  [Smuxi]: http://www.smuxi.org/ "Smuxi IRC Client"
 
