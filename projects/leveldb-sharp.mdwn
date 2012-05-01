@@ -18,6 +18,7 @@ and OS X, the C API was the better pick.
 ## Features ##
 
 leveldb-sharp offers:
+
  * [low-level function calls] to LevelDB
  * [high-level object oriented API] with .NET enrichments (IEnumerable, IDisposable)
    * DB API
@@ -29,6 +30,7 @@ leveldb-sharp offers:
 ## Limitations ##
 
 Currently leveldb-sharp lacks:
+
  * high-level iterator API
  * writebatch API
  * comparator API
