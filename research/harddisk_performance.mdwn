@@ -8,6 +8,7 @@ Hitachi A7K2000 1000GB | [[HUA722010CLA330]] | 138 MB/s | 134 MB/s | 1765 KB/s |
 WD Scorpio Blue 250GB  | [[WD2500BEVT]]      |  81 MB/s | ?        | 2919 KB/s |  71634 KB/s | 568 KB/s |  54478 KB/s | 26960 KB/s | 135.3   |  54     | 18.248
 WD Caviar Green 500GB  | [[WD5000AAVS]]      |  91 MB/s |  95 MB/s | 2779 KB/s |  85354 KB/s | 656 KB/s |  65404 KB/s | 36764 KB/s | 138.4   |  66     | 15.091
 WD Caviar Green AF 2TB | [[WD20EARS]]        | 124 MB/s | 123 MB/s | 2003 KB/s | 120429 KB/s | 627 KB/s |  82236 KB/s | 47714 KB/s | 236.6   |  59     | 16.704
+WD Caviar Black 500GB  | [[WD5001AALS]]      |  95 MB/s |  99 MB/s |           |  93080 KB/s |          |  73037 KB/s | 40964 KB/s | 186.0   |  81     | 12.230
 WD Caviar Black 640GB  | [[WD6401AALS]]      | 115 MB/s | 114 MB/s | 1948 KB/s | 113695 KB/s | 534 KB/s |  85924 KB/s | 47178 KB/s | 380.2   |  81     | 12.336
 WD Caviar Black 1TB    | [[WD1002FAEX]]      | 134 MB/s | ?        | 1744 KB/s | 113383 KB/s | 898 KB/s |  78411 KB/s | 45664 KB/s | 342.5   |  76     | 13.038
 WD RE3 500GB           | [[WD5002ABYS]]      | 118 MB/s | 116 MB/s | 1893 KB/s | 121418 KB/s | 519 KB/s |  87859 KB/s | 48113 KB/s | 366.9   |  83     | 12.010

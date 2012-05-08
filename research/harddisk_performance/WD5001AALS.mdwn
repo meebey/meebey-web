@@ -1,0 +1,86 @@
+[[!meta title="Western Digital Caviar Black 500 GB"]]
+[[!table header="no" class="harddisk_performance_table" data="""
+Manufacturer:   | Western Digital
+Type:           | Caviar Black
+Model:          | WD5001AALS
+Firmware:       | 05.00K05
+Capacity:       | 500 GB
+Spindle Speed:  | 5,400 - 7,200 RPM
+Interface:      | SATA II
+Cache:          | 32 MB
+NCQ:            | Yes
+"""]]
+
+## CPU Model ##
+
+    grep name /proc/cpuinfo | uniq
+    model name	: Intel(R) Core(TM)2 Quad CPU    Q9550  @ 2.83GHz
+
+## CPU Threads ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | wc -l
+    4
+
+## Cores per CPU ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | sort | uniq | wc -l
+    4
+
+## Kernel ##
+
+    uname -a
+    Linux gsd-pc-d23 2.6.39-bpo.2-amd64 #1 SMP Thu Aug 4 11:42:06 UTC 2011 x86_64 GNU/Linux
+
+## Disk Controller ##
+
+    lspci | grep IDE
+    00:1f.2 IDE interface: Intel Corporation N10/ICH7 Family SATA Controller [IDE mode] (rev 01)
+
+## Disk Status ##
+
+    egrep 'ata[0-9]\.|SATA link up' /var/log/dmesg
+    [    1.028969] ata4.00: ATA-8: WDC WD5001AALS-00J7B1, 05.00K05, max UDMA/133
+    [    1.028973] ata4.00: 976773168 sectors, multi 16: LBA48 NCQ (depth 0/32)
+
+## Memory Performance ##
+
+    dd if=/dev/zero of=/dev/null bs=32M count=1000
+    33554432000 bytes (34 GB) copied, 13.993 s, 2.4 GB/s
+
+## HDD Performance ##
+
+    blockdev --getra /dev/sdc
+    256
+    cat /sys/block/sdc/queue/scheduler
+    noop deadline [cfq]
+    cat /sys/block/sdc/device/queue_depth
+    1
+    dd if=/dev/sdc of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 175.797 s, 95.4 MB/s
+    dd if=/dev/zero of=/dev/sdc bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 168.843 s, 99.4 MB/s
+
+    blockdev --rereadpt /dev/sdc
+    parted /dev/sdc mklabel msdos
+    parted /dev/sdc mkpart p 2048s 64g; sleep 3
+    blockdev --rereadpt /dev/sdc
+    mkfs.ext3 /dev/sdc1
+    mount -o noatime /dev/sdc1 /mnt
+    bonnie++ -f -d /mnt -u root -n 0 -r 6000
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    gsd-pc-d23      12G           73037  16 40964   7           93080   8 186.0   6
+    Latency                         755ms    1955ms               337ms    3256ms
+
+    cd /tmp; wget http://debian.gsd-software.net/benchmark/seeker_baryluk_x86
+    chmod +x seeker_baryluk_x86
+    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads ";
+./seeker_baryluk_x86 /dev/sdc $threads | grep Results; sleep 1; done
+    Threads: 01 Results: 81 seeks/second, 12.230 ms random access time (188782083 < offsets < 500036848953)
+    Threads: 02 Results: 81 seeks/second, 12.310 ms random access time (115415060 < offsets < 500062715264)
+    Threads: 04 Results: 81 seeks/second, 12.250 ms random access time (195371214 < offsets < 500034383676)
+    Threads: 08 Results: 81 seeks/second, 12.270 ms random access time (425308238 < offsets < 499961926985)
+    Threads: 16 Results: 81 seeks/second, 12.210 ms random access time (20003768 < offsets < 500070015148)
+    Threads: 32 Results: 82 seeks/second, 12.136 ms random access time (296078218 < offsets < 499713615428)
+
