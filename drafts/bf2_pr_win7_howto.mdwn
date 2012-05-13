@@ -1,0 +1,30 @@
+[[!meta title="Battlefield 2 with Project Reality on Windows 7 Installation Howto"]]
+[[!tag battlefield howto]]
+
+Installing and getting Battlefield 2 (an EA game from 2006) to work on Windows 7
+is not as easy as it could be. For that reason I wrote this howto to get BF2 and
+Project Reality installed and running.
+
+* Install Battlefield 2 from DVD
+* Start the game (it will crash)
+* Fix the crash by changing the display refresh rate in the profile
+  * Goto C:\Users\YOUR_USER\Documents\Battlefield 2\Profiles\Default
+  * Open Video.con with Notepad
+  * Change VideoSettings.setResolution from 1600x1200@85Hz to 1600x1200@60Hz
+  * Goto C:\Users\YOUR_USER\Documents\Battlefield 2\Profiles\001
+  * Open Video.con with Notepad
+  * Change VideoSettings.setResolution from 1600x1200@85Hz to 1600x1200@60Hz
+* Start the game (it should work now) and quit
+* Add missing key in registry for update
+  * Run regedit
+  * Goto HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Electronic Arts\EA Games\Battlefield 2
+  * Edit -> New -> String Value, Enter: Version
+  * Right click on Version -> Modify, Enter: 1.0
+* Download and install Battlefield 2 Patch v1.41:
+  http://www.battlefield.com/battlefield-2/downloads
+  http://largedownloads.ea.com/pub/patches/BF2/1.41/BF2_Patch_1.41.exe
+* Download and install Battlefield 2 Patch v1.5:
+  http://forums.electronicarts.co.uk/battlefield-2/799373-battlefield-2-v1-50-download-links-official.html
+* Download and install Project Reality 0.97 Part 1, Part 2, Part 3:
+  http://www.realitymod.com/downloads
+* Start the game and play
