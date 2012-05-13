@@ -21,10 +21,10 @@ Project Reality installed and running.
   * Edit -> New -> String Value, Enter: Version
   * Right click on Version -> Modify, Enter: 1.0
 * Download and install Battlefield 2 Patch v1.41:
-  http://www.battlefield.com/battlefield-2/downloads
-  http://largedownloads.ea.com/pub/patches/BF2/1.41/BF2_Patch_1.41.exe
+  * [[http://www.battlefield.com/battlefield-2/downloads]]
+  * [[http://largedownloads.ea.com/pub/patches/BF2/1.41/BF2_Patch_1.41.exe]]
 * Download and install Battlefield 2 Patch v1.5:
-  http://forums.electronicarts.co.uk/battlefield-2/799373-battlefield-2-v1-50-download-links-official.html
+  * [[http://forums.electronicarts.co.uk/battlefield-2/799373-battlefield-2-v1-50-download-links-official.html]]
 * Download and install Project Reality 0.97 Part 1, Part 2, Part 3:
-  http://www.realitymod.com/downloads
+  * [[http://www.realitymod.com/downloads]]
 * Start the game and play
