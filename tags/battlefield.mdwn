@@ -1,0 +1,4 @@
+[[!meta title="pages tagged battlefield"]]
+
+[[!inline pages="tagged(battlefield)" actions="no" archive="yes"
+feedshow=10]]
