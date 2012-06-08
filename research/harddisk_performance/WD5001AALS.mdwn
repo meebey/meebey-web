@@ -75,8 +75,7 @@ NCQ:            | Yes
 
     cd /tmp; wget http://debian.gsd-software.net/benchmark/seeker_baryluk_x86
     chmod +x seeker_baryluk_x86
-    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads ";
-./seeker_baryluk_x86 /dev/sdc $threads | grep Results; sleep 1; done
+    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; ./seeker_baryluk_x86 /dev/sdc $threads | grep Results; sleep 1; done
     Threads: 01 Results: 81 seeks/second, 12.230 ms random access time (188782083 < offsets < 500036848953)
     Threads: 02 Results: 81 seeks/second, 12.310 ms random access time (115415060 < offsets < 500062715264)
     Threads: 04 Results: 81 seeks/second, 12.250 ms random access time (195371214 < offsets < 500034383676)
