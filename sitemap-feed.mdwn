@@ -2,5 +2,5 @@
 [[!inline pages="page(*) and
                  !ikiwiki* and !templates* and !shortcuts and !smileys and
                  !sitemap* and !archives and !tags* and
-                 !*/discussion and !sandbox and !recentchanges"
+                 !*/discussion and !comments and !sandbox and !recentchanges"
 archive="yes" rss="yes"]]
