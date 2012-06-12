@@ -1,4 +1,4 @@
-## RAID Setup ##
+# Overall RAID Setup #
 
 [[!table header="no" class="" data="""
 Controller:           | [[3ware 9750-i8]]
@@ -8,6 +8,9 @@ Disks:                | 4 x [[HUA722010CLA330|Hitachi Ultrastar A7K2000 1000GB]]
 Write Cache Setting:  | Enabled
 Read Cache Setting:   | Intelligent
 Drive Queuing Mode:   | Enabled
+"""]]
+
+## RAID Setup ##
 
 [[!table header="no" class="" data="""
 [[StorSave Profile]]: | Balanced
