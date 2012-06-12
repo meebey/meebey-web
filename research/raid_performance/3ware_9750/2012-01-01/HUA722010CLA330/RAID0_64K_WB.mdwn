@@ -14,8 +14,8 @@ Drive Queuing Mode:   | Enabled
 
 [[!table header="no" class="" data="""
 [[StorSave Profile]]: | Balanced
-Write Journaling      | Enabled
-FUA                   | Ignore FUA
+Write Journaling:     | Enabled
+FUA:                  | Ignore FUA
 """]]
 
 ## RAID Performance ##
