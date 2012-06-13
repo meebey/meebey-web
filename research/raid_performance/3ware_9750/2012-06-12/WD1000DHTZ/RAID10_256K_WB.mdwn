@@ -9,6 +9,12 @@ Read Cache Setting:   | Intelligent
 Drive Queuing Mode:   | Enabled
 """]]
 
+    tw_cli /c7 add type=raid10 disk=0-3 stripe=256 noautoverify
+    Creating new unit on controller /c7 ... Done. The new unit is /c7/u0.
+    Setting default Storsave policy to [balance] for the new unit ... Done.
+    Setting default Command Queuing policy for unit /c7/u0 to [on] ... Done.
+    Setting write cache = ON for the new unit ... Done.
+
 ### RAID Setup ###
 
 [[!table header="no" class="" data="""
