@@ -1,0 +1,135 @@
+## Overall RAID Setup ##
+
+[[!table header="no" class="" data="""
+Controller:           | [[3ware 9750-8i]]
+Level:                | RAID10 256K
+Disks:                | 4 x [[WD1000DHTZ|Western Digital VelociRaptor 1TB]]
+Write Cache Setting:  | Enabled
+Read Cache Setting:   | Intelligent
+Drive Queuing Mode:   | Enabled
+"""]]
+
+### RAID Setup ###
+
+[[!table header="no" class="" data="""
+BBU:                  | Installed
+[[StorSave Profile]]: | Balance
+Write Journaling:     | Enabled
+FUA:                  | Ignore FUA
+"""]]
+
+    tw_cli /c7/bbu show status
+    /c7/bbu BBU Status                = OK
+    tw_cli /c7/u0 show rdcache wrcache storsave
+    /c7/u0 Read Cache = Intelligent
+    /c7/u0 Write Cache = on
+    /c7/u0 Storsave Policy = balance     
+
+### RAID Performance ###
+
+    blockdev --getra /dev/sda
+    256
+    cat /sys/block/sda/queue/scheduler
+    noop anticipatory deadline [cfq]
+    cat /sys/block/sda/device/queue_depth
+    254
+
+    echo 3 > /proc/sys/vm/drop_caches
+    dd if=/dev/sda of=/dev/null bs=1M count=48000
+    50331648000 bytes (50 GB) copied, 124.717 s, 404 MB/s
+    echo 3 > /proc/sys/vm/drop_caches
+    dd if=/dev/zero of=/dev/sda bs=1M count=48000
+    50331648000 bytes (50 GB) copied, 207.401 s, 243 MB/s
+
+    blockdev --rereadpt /dev/sda && sleep 3
+    parted /dev/sda mklabel msdos
+    parted /dev/sda mkpart p 2048s 64g && sleep 3
+    blockdev --rereadpt /dev/sda && sleep 3
+    mkfs.ext3 /dev/sda1
+    mount -o noatime /dev/sda1 /mnt
+    echo 3 > /proc/sys/vm/drop_caches
+    bonnie++ -f -n 128:4096:4096 -r 24000 -d /mnt -u root
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          47G           215635  44 122177  18           381999  27 576.3  21
+    Latency                        2121ms     386ms               541ms     136ms
+    Version  1.96       ------Sequential Create------ --------Random Create--------
+    finnix              -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+    files:max:min        /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+          128:4096:4096 36025  88 148882  98 43553  66 35696  87 168083  97 46333  69
+    Latency               177ms    1505us     265ms   42320us     442us     136ms
+    umount /mnt
+
+    cd /tmp; wget http://debian.gsd-software.net/benchmark/seeker_baryluk_x86; chmod +x seeker_baryluk_x86
+    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; echo 3 > /proc/sys/vm/drop_caches; ./seeker_baryluk_x86 /dev/sda $threads | grep Results; sleep 1; done
+    Threads: 01 Results: 143 seeks/second, 6.978 ms random access time (94763840 < offsets < 1999946585751)
+    Threads: 02 Results: 287 seeks/second, 3.476 ms random access time (330207091 < offsets < 1999428226527)
+    Threads: 04 Results: 456 seeks/second, 2.189 ms random access time (31328421 < offsets < 1999921855679)
+    Threads: 08 Results: 584 seeks/second, 1.711 ms random access time (201185851 < offsets < 1999742442982)
+    Threads: 16 Results: 736 seeks/second, 1.357 ms random access time (353137867 < offsets < 1999964966135)
+    Threads: 32 Results: 917 seeks/second, 1.090 ms random access time (97845553 < offsets < 1999939263772)
+
+### RAID Setup ###
+
+[[!table header="no" class="" data="""
+BBU:                  | Installed
+[[StorSave Profile]]: | Performance
+Write Journaling:     | Disabled
+FUA:                  | Ignore FUA
+"""]]
+
+    tw_cli /c7/u0 set storsave=performance
+    Setting Command Storsave Policy for unit /c7/u0 to [performance] ... Done.
+    tw_cli /c7/bbu show status
+    /c7/bbu BBU Status                = OK
+    tw_cli /c7/u0 show rdcache wrcache storsave
+    /c7/u0 Read Cache = Intelligent
+    /c7/u0 Write Cache = on
+    /c7/u0 Storsave Policy = performance 
+
+### RAID Performance ###
+
+    blockdev --getra /dev/sda
+    256
+    cat /sys/block/sda/queue/scheduler
+    noop anticipatory deadline [cfq]
+    cat /sys/block/sda/device/queue_depth
+    254
+
+    echo 3 > /proc/sys/vm/drop_caches
+    dd if=/dev/sda of=/dev/null bs=1M count=48000
+    50331648000 bytes (50 GB) copied, 124.76 s, 403 MB/s
+    echo 3 > /proc/sys/vm/drop_caches
+    dd if=/dev/zero of=/dev/sda bs=1M count=48000
+    50331648000 bytes (50 GB) copied, 130.907 s, 384 MB/s
+
+    blockdev --rereadpt /dev/sda && sleep 3
+    parted /dev/sda mklabel msdos
+    parted /dev/sda mkpart p 2048s 64g && sleep 3
+    blockdev --rereadpt /dev/sda && sleep 3
+    mkfs.ext3 /dev/sda1
+    mount -o noatime /dev/sda1 /mnt
+    echo 3 > /proc/sys/vm/drop_caches
+    bonnie++ -f -n 128:4096:4096 -r 24000 -d /mnt -u root
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          47G           267292  55 144773  22           383121  26 520.9  21
+    Latency                         623ms     251ms               312ms    1107ms
+    Version  1.96       ------Sequential Create------ --------Random Create--------
+    finnix              -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+    files:max:min        /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+          128:4096:4096 24303  92 150287  98 46559  71 36953  87 168685  98 49425  75
+    Latency               179ms    1266us     232ms   63036us     401us     127ms
+    umount /mnt
+
+    cd /tmp; wget http://debian.gsd-software.net/benchmark/seeker_baryluk_x86; chmod +x seeker_baryluk_x86
+    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; echo 3 > /proc/sys/vm/drop_caches; ./seeker_baryluk_x86 /dev/sda $threads | grep Results; sleep 1; done
+    Threads: 01 Results: 140 seeks/second, 7.111 ms random access time (541174518 < offsets < 1998967671075)
+    Threads: 02 Results: 286 seeks/second, 3.491 ms random access time (213553681 < offsets < 1999684968894)
+    Threads: 04 Results: 454 seeks/second, 2.201 ms random access time (24483274 < offsets < 1999889440416)
+    Threads: 08 Results: 583 seeks/second, 1.714 ms random access time (37164025 < offsets < 1999618554206)
+    Threads: 16 Results: 734 seeks/second, 1.361 ms random access time (75780898 < offsets < 1999907416610)
+    Threads: 32 Results: 916 seeks/second, 1.091 ms random access time (62369066 < offsets < 1999972479964)
+

@@ -1,0 +1,9 @@
+[[!table class="raid_performance_table" data="""
+Controller        | Level                                       | FUA    | RC  | WC  | WJ  | Disks                      | dd                 || bonnie++                              ||| [[seeker_baryluk|http://smp.if.uj.edu.pl/~baryluk/seeker_baryluk.c]] |
+                  |                                             |        |     |     |     |                            |                    || read        | write       | rewrite     |         |         |
+                  |                                             |        |     |     |     |                            | read     | write    | block       | block       | block       | seeks/s | ms/seek
+[[3ware 9750-8i]] | [[RAID0 64K|WD1000DHTZ/RAID0_64K_WB]]       | Ignore | Yes | Yes | Yes | 4x[[WD VR 1TB|WD1000DHTZ]] | 773 MB/s | 481 MB/s | 724658 KB/s | 379408 KB/s | 181966 KB/s | 139     | 7.174
+[[3ware 9750-8i]] | [[RAID0 64K|WD1000DHTZ/RAID0_64K_WB]]       | Ignore | Yes | Yes | No  | 4x[[WD VR 1TB|WD1000DHTZ]] | 769 MB/s | 778 MB/s | 725845 KB/s | 443755 KB/s | 243911 KB/s | 140     | 7.121
+[[3ware 9750-8i]] | [[RAID10 256K|WD1000DHTZ/RAID10_256K_WB]]   | Ignore | Yes | Yes | Yes | 4x[[WD VR 1TB|WD1000DHTZ]] | 404 MB/s | 243 MB/s | 381999 KB/s | 215635 KB/s | 122177 KB/s | 143     | 6.978
+[[3ware 9750-8i]] | [[RAID10 256K|WD1000DHTZ/RAID10_256K_WB]]   | Ignore | Yes | Yes | No  | 4x[[WD VR 1TB|WD1000DHTZ]] | 403 MB/s | 384 MB/s | 383121 KB/s | 267292 KB/s | 144773 KB/s | 140     | 7.111
+""]]
