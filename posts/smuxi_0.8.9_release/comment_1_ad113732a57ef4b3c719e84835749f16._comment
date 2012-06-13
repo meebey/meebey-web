@@ -1,0 +1,7 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ subject="Can't seem to find socks5 proxy settings"
+ date="2012-06-12T09:10:45Z"
+ content="""
+Can't seem to find socks5 proxy settings. It is needed for tor to work with smuxi, where is it?
+"""]]
