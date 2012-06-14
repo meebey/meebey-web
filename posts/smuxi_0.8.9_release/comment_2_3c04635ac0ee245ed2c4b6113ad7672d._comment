@@ -1,0 +1,10 @@
+[[!comment format=mdwn
+ username="meebey"
+ ip="169.254.0.2"
+ subject="RE: Can't seem to find socks5 proxy settings"
+ date="2012-06-14T21:40:20Z"
+ content="""
+@Anonymous for working SOCKS proxy support you need to upgrade to a [[development build of Smuxi|http://smuxi.im/documentation/running-from-git/]] (0.8.10-dev).
+
+You can find the proxy settings if you enable \"Show Advanced Settings\" in File -> Preferences -> Interface -> General and then in Connection -> Network Proxy
+"""]]
