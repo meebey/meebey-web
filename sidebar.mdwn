@@ -13,6 +13,7 @@
  * [GNOME]
  * [Smuxi IRC Client] [Smuxi]
  * [[SmartIrc4net|projects/smartirc4net]]
+ * [[leveldb-sharp|projects/leveldb-sharp]]
 
 ### Research ####
  * [[Harddisk Performance|research/harddisk_performance]]
