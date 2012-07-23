@@ -1,0 +1,100 @@
+[[!meta title="Intel SSD 520 - 120 GB"]]
+[[!table header="no" class="harddisk_performance_table" data="""
+Manufacturer:   | Intel
+Type:           | SSD
+Model:          | 520
+Firmware:       | 400i
+Capacity:       | 120 GB
+Spindle Speed:  | -
+Interface:      | SATA 6 Gb/s
+Cache:          | -
+NCQ:            | Yes
+"""]]
+
+## CPU Model ##
+
+    grep name /proc/cpuinfo | uniq
+    model name	: Intel(R) Xeon(R) CPU E5-2650 0 @ 2.00GHz
+
+## CPU Threads ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | wc -l
+    32
+
+## Cores per CPU ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | sort | uniq | wc -l
+    8
+
+## Kernel ##
+
+    uname -a
+    Linux finnix 2.6.36-2-amd64-finnix #1 SMP Mon Dec 20 22:16:37 PST 2010 x86_64 GNU/Linux
+
+## Memory ##
+
+    # limited to 1GB
+    grep Memory: /var/log/dmesg
+    [    0.000000] Memory: 1018352k/1048576k available (3263k kernel code, 472k absent, 29752k reserved, 3575k data, 616k init)
+
+## Memory Performance ##
+
+    dd if=/dev/zero of=/dev/null bs=32M count=1000
+    33554432000 bytes (34 GB) copied, 4.29949 s, 7.8 GB/s
+
+## Disk Controller ##
+
+    lspci | grep AHCI
+    00:1f.2 SATA controller: Intel Corporation Patsburg 6-Port SATA AHCI Controller (rev 06)
+
+## Disk Status ##
+
+    egrep 'ata[0-9]\.|SATA link up' /var/log/dmesg
+    [    4.931583] ata2: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+    [    4.932352] ata2.00: ATA-9: INTEL SSDSC2CW120A3, 400i, max UDMA/133
+    [    4.932355] ata2.00: 234441648 sectors, multi 16: LBA48 NCQ (depth 31/32), AA
+    [    4.942625] ata2.00: configured for UDMA/133
+
+## HDD Performance ##
+
+    blockdev --getra /dev/sda
+    256
+    cat /sys/block/sda/queue/scheduler
+    noop deadline [cfq]
+    cat /sys/block/sda/device/queue_depth
+    31
+    dd if=/dev/sda of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 40.4196 s, 415 MB/s
+    dd if=/dev/zero of=/dev/sda bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 32.485 s, 516 MB/s
+
+    blockdev --rereadpt /dev/sda && sleep 3
+    parted /dev/sda mklabel msdos
+    parted /dev/sda mkpart p 2048s 64g; sleep 3
+    blockdev --rereadpt /dev/sda && sleep 3
+    mkfs.ext3 /dev/sda1
+    mount -o noatime /dev/sda1 /mnt
+    echo 3 > /proc/sys/vm/drop_caches
+    bonnie++ -f -n 128:4096:4096 -r 24000 -d /mnt -u root
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          47G           465053 95 211663 32           409311 31  3944 132
+    Latency                       60436us     112ms              2660us    4947us
+    Version  1.96       ------Sequential Create------ --------Random Create--------
+    finnix              -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+    files:max:min        /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+          128:4096:4096 36691  89 134713 98 49887  80 36594  89 147483 98 44200  74
+    Latency             73150us    1311us   81523us   67444us     647us     100ms
+    umount /mnt
+
+    cd /tmp; wget http://debian.gsd-software.net/benchmark/seeker_baryluk_x86; chmod +x seeker_baryluk_x86
+    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; ./seeker_baryluk_x86 /dev/sda $threads | grep Results; sleep 1; done
+    Threads: 01 Results: 9022 seeks/second, 0.111 ms random access time (31469 < offsets < 120033517536)
+    Threads: 02 Results: 12411 seeks/second, 0.081 ms random access time (495399 < offsets < 120034110249)
+    Threads: 04 Results: 14630 seeks/second, 0.068 ms random access time (218494 < offsets < 120033916740)
+    Threads: 08 Results: 19885 seeks/second, 0.050 ms random access time (36276 < offsets < 120033796397)
+    Threads: 16 Results: 21548 seeks/second, 0.046 ms random access time (174896 < offsets < 120033991639)
+    Threads: 32 Results: 48263 seeks/second, 0.021 ms random access time (174896 < offsets < 120034107510)
+
+    http://www.thomas-krenn.com/de/wiki/SSD_Over-Provisioning_mit_hdparm
