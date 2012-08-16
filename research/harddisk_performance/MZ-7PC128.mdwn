@@ -1,0 +1,109 @@
+[[!meta title="Samsung 830 SSD - 128 GB"]]
+[[!table header="no" class="harddisk_performance_table" data="""
+Manufacturer:   | Samsung
+Type:           | SSD
+Model:          | 830
+Firmware:       | CXM03B1Q
+Capacity:       | 128 GB
+Spindle Speed:  | -
+Interface:      | SATA 6 Gb/s
+Cache:          | -
+NCQ:            | Yes
+"""]]
+
+## CPU Model ##
+
+    grep name /proc/cpuinfo | uniq
+    model name      : Intel(R) Core(TM) i3-2367M CPU @ 1.40GHz
+
+## Kernel ##
+
+    uname -a
+    Linux example 3.5-trunk-amd64 #1 SMP Thu Aug 2 17:16:27 UTC 2012 x86_64 GNU/Linux
+
+## Memory Performance ##
+
+    dd if=/dev/zero of=/dev/null bs=32M count=1000
+    33554432000 bytes (34 GB) copied, 5,14105 s, 6,5 GB/s
+
+## Disk Controller ##
+
+    lspci | grep AHCI
+    00:1f.2 SATA controller: Intel Corporation 6 Series/C200 Series Chipset Family 6 port SATA AHCI Controller (rev 04)
+
+## Disk Status ##
+
+    egrep 'ata[0-9]\.|SATA link up' /var/log/dmesg
+    [ 3420.491295] ata1: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+
+## HDD Performance ##
+
+    blockdev --getra /dev/sda
+    cat /sys/block/sda/queue/scheduler
+    [noop] deadline cfq
+    cat /sys/block/sda/device/queue_depth
+    31
+    dd if=/dev/sda of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 61,01 s, 275 MB/s
+
+    file1: (g=0): rw=read, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=1
+    2.0.8
+    Starting 1 process
+    Jobs: 1 (f=1): [R] [100.0% done] [59728K/0K /s] [14.1K/0  iops] [eta 00m:00s]
+    file1: (groupid=0, jobs=1): err= 0: pid=8300
+      read : io=3520.8MB, bw=60086KB/s, iops=15021 , runt= 60001msec
+        slat (usec): min=7 , max=200 , avg=11.10, stdev= 3.99
+        clat (usec): min=1 , max=7992 , avg=52.54, stdev=14.51
+         lat (usec): min=33 , max=8017 , avg=64.05, stdev=14.72
+        clat percentiles (usec):
+         |  1.00th=[   30],  5.00th=[   32], 10.00th=[   37], 20.00th=[   54],
+         | 30.00th=[   54], 40.00th=[   55], 50.00th=[   55], 60.00th=[   55],
+         | 70.00th=[   56], 80.00th=[   56], 90.00th=[   56], 95.00th=[   57],
+         | 99.00th=[   58], 99.50th=[   63], 99.90th=[   87], 99.95th=[  104],
+         | 99.99th=[  215]
+        bw (KB/s)  : min=57752, max=63456, per=100.00%, avg=60093.04, stdev=679.79
+        lat (usec) : 2=0.02%, 4=0.04%, 10=0.01%, 20=0.03%, 50=17.14%
+        lat (usec) : 100=82.70%, 250=0.05%, 500=0.01%, 750=0.01%
+        lat (msec) : 2=0.01%, 4=0.01%, 10=0.01%
+      cpu          : usr=16.03%, sys=30.95%, ctx=903432, majf=0, minf=24
+      IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+         submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         issued    : total=r=901301/w=0/d=0, short=r=0/w=0/d=0
+
+    Run status group 0 (all jobs):
+       READ: io=3520.8MB, aggrb=60085KB/s, minb=60085KB/s, maxb=60085KB/s, mint=60001msec, maxt=60001msec
+
+    Disk stats (read/write):
+      sda: ios=900661/192, merge=0/0, ticks=27164/40, in_queue=26504, util=44.11%
+
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    2.0.8
+    Starting 1 process
+    Jobs: 1 (f=1): [r] [100.0% done] [240.9M/0K /s] [61.7K/0  iops] [eta 00m:00s]
+    file1: (groupid=0, jobs=1): err= 0: pid=8296
+      read : io=14842MB, bw=253300KB/s, iops=63325 , runt= 60001msec
+        slat (usec): min=3 , max=411 , avg=11.03, stdev= 4.66
+        clat (usec): min=125 , max=5463 , avg=491.02, stdev=60.42
+         lat (usec): min=132 , max=5466 , avg=502.64, stdev=60.69
+        clat percentiles (usec):
+         |  1.00th=[  382],  5.00th=[  410], 10.00th=[  426], 20.00th=[  454],
+         | 30.00th=[  470], 40.00th=[  478], 50.00th=[  486], 60.00th=[  494],
+         | 70.00th=[  506], 80.00th=[  516], 90.00th=[  564], 95.00th=[  612],
+         | 99.00th=[  660], 99.50th=[  668], 99.90th=[  716], 99.95th=[  740],
+         | 99.99th=[ 1080]
+        bw (KB/s)  : min=245128, max=285552, per=100.00%, avg=253367.22, stdev=13973.33
+        lat (usec) : 250=0.01%, 500=65.74%, 750=34.22%, 1000=0.03%
+        lat (msec) : 2=0.01%, 4=0.01%, 10=0.01%
+      cpu          : usr=20.29%, sys=79.48%, ctx=5275, majf=0, minf=54
+      IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=100.0%, >=64=0.0%
+         submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.1%, 64=0.0%, >=64=0.0%
+         issued    : total=r=3799568/w=0/d=0, short=r=0/w=0/d=0
+
+    Run status group 0 (all jobs):
+       READ: io=14842MB, aggrb=253300KB/s, minb=253300KB/s, maxb=253300KB/s, mint=60001msec, maxt=60001msec
+
+    Disk stats (read/write):
+      sda: ios=3795820/50, merge=0/0, ticks=391676/40, in_queue=389096, util=99.90%
+
