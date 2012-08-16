@@ -1,22 +1,23 @@
 [[!meta title="Harddisk Performance"]]
 [[!table class="harddisk_performance_table" data="""
-Harddisk               | Model               | dd                 || bonnie++                              ||| seeker_baryluk    |
-                       |                     |                    || block                                 |||                   |
-                       |                     | read     | write    | read        | write       | rewrite     | seeks/s | ms/seek
-Hitachi A7K1000 500GB  | [[HUA721050KLA330]] | 87 MB/s  | ?        |  78584 KB/s |  73830 KB/s |  36246 KB/s | 81      | 12.320
-Hitachi A7K2000 1000GB | [[HUA722010CLA330]] | 138 MB/s | 134 MB/s | 120256 KB/s | 126000 KB/s |  61271 KB/s | 77      | 12.965
-WD Scorpio Blue 250GB  | [[WD2500BEVT]]      |  81 MB/s | ?        |  71634 KB/s |  54478 KB/s |  26960 KB/s | 54      | 18.248
-WD Caviar Green 500GB  | [[WD5000AAVS]]      |  91 MB/s |  95 MB/s |  85354 KB/s |  65404 KB/s |  36764 KB/s | 66      | 15.091
-WD Caviar Green AF 2TB | [[WD20EARS]]        | 124 MB/s | 123 MB/s | 120429 KB/s |  82236 KB/s |  47714 KB/s | 59      | 16.704
-WD Caviar Black 500GB  | [[WD5001AALS]]      |  95 MB/s |  99 MB/s |  93080 KB/s |  73037 KB/s |  40964 KB/s | 81      | 12.230
-WD Caviar Black 640GB  | [[WD6401AALS]]      | 115 MB/s | 114 MB/s | 113695 KB/s |  85924 KB/s |  47178 KB/s | 81      | 12.336
-WD Caviar Black 1TB    | [[WD1002FAEX]]      | 134 MB/s | ?        | 113383 KB/s |  78411 KB/s |  45664 KB/s | 76      | 13.038
-WD RE3 500GB           | [[WD5002ABYS]]      | 118 MB/s | 116 MB/s | 121418 KB/s |  87859 KB/s |  48113 KB/s | 83      | 12.010
-WD RE4 500GB           | [[WD5003ABYX]]      | 139 MB/s | 137 MB/s | 134882 KB/s | 104358 KB/s |  57363 KB/s | 81      | 12.225
-WD RE4 1000GB          | [[WD1003FBYX]]      | 138 MB/s | 137 MB/s | 141690 KB/s |  99667 KB/s |  55828 KB/s | 83      | 12.039
-WD RE4 2000GB          | [[WD2003FYYS]]      | 150 MB/s | 149 MB/s | 134773 KB/s | 110990 KB/s |  61113 KB/s | 86      | 11.628
-WD VelociRaptor 150GB  | [[WD1500HLFS]]      | 127 MB/s | ?        |  94189 KB/s |  76688 KB/s |  40053 KB/s | 135     |  7.398
-WD VelociRaptor 300GB  | [[WD3000HLFS]]      | 125 MB/s | 124 MB/s | 130603 KB/s |  95169 KB/s |  52749 KB/s | 141     |  7.051
-WD VelociRaptor 1 TB   | [[WD1000DHTZ]]      | 201 MB/s | 210 MB/s | 196387 KB/s | 139418 KB/s |  82770 KB/s | 147     |  6.800
-Intel SSD 520 120GB    | [[SSDSC2CW120A3]]   | 415 MB/s | 516 MB/s | 409311 KB/s | 465053 KB/s | 211663 KB/s | 9022    |  0.111
+Harddisk               | Model               | dd                 || bonnie++                              ||| seeker_baryluk    | fio                                 |||
+                       |                     |                    || block                                 |||                   | read 4KB IOPS    || write 4KB IOPS    |
+                       |                     | read     | write    | read        | write       | rewrite     | seeks/s | ms/seek | seq Q1 | rand Q32 | seq Q1 | rand Q32
+Hitachi A7K1000 500GB  | [[HUA721050KLA330]] | 87 MB/s  | ?        |  78584 KB/s |  73830 KB/s |  36246 KB/s | 81      | 12.320  |        |          |        |
+Hitachi A7K2000 1000GB | [[HUA722010CLA330]] | 138 MB/s | 134 MB/s | 120256 KB/s | 126000 KB/s |  61271 KB/s | 77      | 12.965  |        |          |        |
+WD Scorpio Blue 250GB  | [[WD2500BEVT]]      |  81 MB/s | ?        |  71634 KB/s |  54478 KB/s |  26960 KB/s | 54      | 18.248  |        |          |        |
+WD Caviar Green 500GB  | [[WD5000AAVS]]      |  91 MB/s |  95 MB/s |  85354 KB/s |  65404 KB/s |  36764 KB/s | 66      | 15.091  |        |          |        |
+WD Caviar Green AF 2TB | [[WD20EARS]]        | 124 MB/s | 123 MB/s | 120429 KB/s |  82236 KB/s |  47714 KB/s | 59      | 16.704  |        |          |        |
+WD Caviar Black 500GB  | [[WD5001AALS]]      |  95 MB/s |  99 MB/s |  93080 KB/s |  73037 KB/s |  40964 KB/s | 81      | 12.230  |        |          |        |
+WD Caviar Black 640GB  | [[WD6401AALS]]      | 115 MB/s | 114 MB/s | 113695 KB/s |  85924 KB/s |  47178 KB/s | 81      | 12.336  |        |          |        |
+WD Caviar Black 1TB    | [[WD1002FAEX]]      | 134 MB/s | ?        | 113383 KB/s |  78411 KB/s |  45664 KB/s | 76      | 13.038  |        |          |        |
+WD RE3 500GB           | [[WD5002ABYS]]      | 118 MB/s | 116 MB/s | 121418 KB/s |  87859 KB/s |  48113 KB/s | 83      | 12.010  |        |          |        |
+WD RE4 500GB           | [[WD5003ABYX]]      | 139 MB/s | 137 MB/s | 134882 KB/s | 104358 KB/s |  57363 KB/s | 81      | 12.225  |        |          |        |
+WD RE4 1000GB          | [[WD1003FBYX]]      | 138 MB/s | 137 MB/s | 141690 KB/s |  99667 KB/s |  55828 KB/s | 83      | 12.039  |        |          |        |
+WD RE4 2000GB          | [[WD2003FYYS]]      | 150 MB/s | 149 MB/s | 134773 KB/s | 110990 KB/s |  61113 KB/s | 86      | 11.628  |        |          |        |
+WD VelociRaptor 150GB  | [[WD1500HLFS]]      | 127 MB/s | ?        |  94189 KB/s |  76688 KB/s |  40053 KB/s | 135     |  7.398  |        |          |        |
+WD VelociRaptor 300GB  | [[WD3000HLFS]]      | 125 MB/s | 124 MB/s | 130603 KB/s |  95169 KB/s |  52749 KB/s | 141     |  7.051  |        |          |        |
+WD VelociRaptor 1 TB   | [[WD1000DHTZ]]      | 201 MB/s | 210 MB/s | 196387 KB/s | 139418 KB/s |  82770 KB/s | 147     |  6.800  |        |          |        |
+Intel SSD 520 120GB    | [[SSDSC2CW120A3]]   | 415 MB/s | 516 MB/s | 409311 KB/s | 465053 KB/s | 211663 KB/s | 9022    |  0.111  | 16300  | 31361    |        | 35594
+Samsung SSD 830 128GB  | [[MZ-7PC128]]       | 275 MB/s | ?        | ?           | ?           | ?           | ?       | ?       | 15021  | 63325    |        |
 """]]
