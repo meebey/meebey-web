@@ -1,0 +1,54 @@
+[[!meta title="System Setup"]]
+
+## RAID Controller Specification ##
+
+[[!table header="no" class="" data="""
+Manufacturer:   | 3ware
+Model:          | 9750-8i
+BIOS:           | BE9X 5.11.00.007
+Firmware:       | FH9X 5.12.00.015
+BBU:            | Installed
+"""]]
+
+## CPU Model ##
+
+    grep name /proc/cpuinfo | uniq
+    model name	: Intel(R) Xeon(R) CPU E5-2650 0 @ 2.00GHz
+
+## CPU Threads ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | wc -l
+    32
+
+## Cores per CPU ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | sort | uniq | wc -l
+    8
+
+## Kernel ##
+
+    uname -a
+    Linux finnix 2.6.36-2-amd64-finnix #1 SMP Mon Dec 20 22:16:37 PST 2010 x86_64 GNU/Linux
+
+## Memory ##
+
+    # limited to 1GB
+    grep Memory: /var/log/dmesg
+    [    0.000000] Memory: 1018352k/1048576k available (3263k kernel code, 472k absent, 29752k reserved, 3575k data, 616k init)
+
+## Memory Performance ##
+
+    dd if=/dev/zero of=/dev/null bs=32M count=1000
+    33554432000 bytes (34 GB) copied, 4.29949 s, 7.8 GB/s
+
+## RAID Controller ##
+
+    lspci | grep 3ware
+    84:00.0 RAID bus controller: 3ware Inc 9750 SAS2/SATA-II RAID PCIe (rev 05)
+
+## RAID Status ##
+
+    egrep '3ware|sd' /var/log/dmesg
+    LSI 3ware SAS/SATA-RAID Controller device driver for Linux v3.26.00.028-2.6.32RH.
+    3w-sas: scsi0: Found an LSI 3ware 9750-8i Controller at 0xfbc60000, IRQ: 58.
+

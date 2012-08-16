@@ -1,0 +1,218 @@
+## 3ware JBOD 15% OP (BBU Balanced) scheduler=noop add_random=0 + MD RAID10 64K ##
+
+    uname -a
+    Linux finnix 2.6.36-2-amd64-finnix #1 SMP Mon Dec 20 22:16:37 PST 2010 x86_64 GNU/Linux
+
+    root@0:~# ./tw_cli /c7 add type=single disk=4  
+    Creating new unit on controller /c7 ... Done. The new unit is /c7/u1.
+    Setting AutoVerify=ON for the new unit ... Done.
+    Setting default Storsave policy to [balance] for the new unit ... Done.
+    Setting default Command Queuing policy for unit /c7/u1 to [on] ... Done.
+    Setting write cache = ON for the new unit ... Done.
+
+    root@0:~# ./tw_cli /c7 add type=single disk=5
+    Creating new unit on controller /c7 ... Done. The new unit is /c7/u2.
+    Setting AutoVerify=ON for the new unit ... Done.
+    Setting default Storsave policy to [balance] for the new unit ... Done.
+    Setting default Command Queuing policy for unit /c7/u2 to [on] ... Done.
+    Setting write cache = ON for the new unit ... Done.
+
+    root@0:~# ./tw_cli /c7 add type=single disk=6
+    Creating new unit on controller /c7 ... Done. The new unit is /c7/u3.
+    Setting AutoVerify=ON for the new unit ... Done.
+    Setting default Storsave policy to [balance] for the new unit ... Done.
+    Setting default Command Queuing policy for unit /c7/u3 to [on] ... Done.
+    Setting write cache = ON for the new unit ... Done.
+
+    root@0:~# ./tw_cli /c7 add type=single disk=7
+    Creating new unit on controller /c7 ... Done. The new unit is /c7/u4.
+    Setting AutoVerify=ON for the new unit ... Done.
+    Setting default Storsave policy to [balance] for the new unit ... Done.
+    Setting default Command Queuing policy for unit /c7/u4 to [on] ... Done.
+    Setting write cache = ON for the new unit ... Done.
+
+    cat /sys/block/sd{b,c,d,e}/queue/scheduler 
+    [noop] deadline cfq 
+    [noop] deadline cfq 
+    [noop] deadline cfq 
+    [noop] deadline cfq 
+    cat /sys/block/sd{b,c,d,e}/queue/add_random
+    0
+    0
+    0
+    0
+
+    mdadm --create /dev/md0 --level=10 --chunk=64 --assume-clean --raid-devices=4 /dev/sdb /dev/sdc /dev/sdd /dev/sde
+    mdadm: Defaulting to version 1.2 metadata
+    mdadm: array /dev/md0 started.
+
+    dd if=/dev/md0 of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 19.7998 s, 847 MB/s
+    dd if=/dev/zero of=/dev/md0 bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 23.207 s, 723 MB/s
+
+    blockdev --rereadpt /dev/md0 && sleep 3
+    parted /dev/md0 mklabel msdos
+    parted /dev/md0 mkpart p 2048s 64g; sleep 3
+    blockdev --rereadpt /dev/md0 && sleep 3
+    mkfs.ext3 /dev/md0p1
+    mount -o noatime /dev/md0p1 /mnt
+    echo 3 > /proc/sys/vm/drop_caches
+    bonnie++ -f -n 128:4096:4096 -r 24000 -d /mnt -u root
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          47G           424398  97 285172  46           889912  66 +++++ +++
+    Latency                       83110us   74460us             35410us    4863us
+    Version  1.96       ------Sequential Create------ --------Random Create--------
+    finnix              -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+    files:max:min        /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+          128:4096:4096 25916  94 151282  98 51560  76 36762  89 171207  99 46911  70
+    Latency             61604us    1455us   91845us     213ms     568us   82181us
+    umount /mnt
+
+    LD_LIBRARY_PATH=. ./fio --readonly --filename=/dev/md0 --direct=1 --rw=read --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=read, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=3289
+      read : io=1796MB, bw=100559KB/s, iops=25139, runt= 60001msec
+
+    LD_LIBRARY_PATH=. ./fio --readonly --filename=/dev/md0 --direct=1 --rw=randread --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=3298
+      read : io=972208KB, bw=225915KB/s, iops=56478, runt= 60001msec
+
+    LD_LIBRARY_PATH=. ./fio --filename=/dev/md0 --direct=1 --rw=write --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=write, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=3307
+      write: io=3914MB, bw=66795KB/s, iops=16698, runt= 60001msec
+
+    LD_LIBRARY_PATH=. ./fio --filename=/dev/md0 --direct=1 --rw=randwrite --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=3391
+      write: io=704672KB, bw=11744KB/s, iops=2936, runt= 60001msec
+
+    LD_LIBRARY_PATH=. ./fio --filename=/dev/md0 --direct=1 --rw=randwrite --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=3316
+      write: io=701188KB, bw=11685KB/s, iops=2921, runt= 60010msec
+
+## 3ware JBOD 15% OP (BBU Balanced) scheduler=noop add_random=0 + MD RAID10 64K ##
+
+    uname -a
+    Linux burns 2.6.32-12-pve #1 SMP Tue May 15 06:02:20 CEST 2012 x86_64 GNU/Linux
+
+    sd 0:0:1:0: [sdb] 195291136 512-byte logical blocks: (99.9 GB/93.1 GiB)
+    sd 0:0:4:0: [sde] 195291136 512-byte logical blocks: (99.9 GB/93.1 GiB)
+    sd 0:0:3:0: [sdd] 195291136 512-byte logical blocks: (99.9 GB/93.1 GiB)
+    sd 0:0:2:0: [sdc] 195291136 512-byte logical blocks: (99.9 GB/93.1 GiB)
+
+    cat /sys/block/sd{b,c,d,e}/queue/scheduler 
+    [noop] deadline cfq 
+    [noop] deadline cfq 
+    [noop] deadline cfq 
+    [noop] deadline cfq 
+    cat /sys/block/sd{b,c,d,e}/queue/add_random
+    0
+    0
+    0
+    0
+
+    dd if=/dev/sdb of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 43.1174 s, 389 MB/s
+    dd if=/dev/sdc of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 43.0889 s, 389 MB/s
+    dd if=/dev/sdd of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 43.2074 s, 388 MB/s
+    dd if=/dev/sde of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 43.221 s, 388 MB/s
+
+    dd if=/dev/zero of=/dev/sdb bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 53.0124 s, 316 MB/s
+    dd if=/dev/zero of=/dev/sdc bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 50.471 s, 332 MB/s
+    dd if=/dev/zero of=/dev/sdd bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 51.0306 s, 329 MB/s
+    dd if=/dev/zero of=/dev/sde bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 49.1416 s, 341 MB/s
+
+    fio --readonly --filename=/dev/sde --direct=1 --rw=read --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=read, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=11111
+      read : io=5566MB, bw=94992KB/s, iops=23748, runt= 60001msec
+
+    fio --readonly --filename=/dev/sde --direct=1 --rw=randread --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=11142
+      read : io=9710MB, bw=165710KB/s, iops=41427, runt= 60002msec
+
+    fio --filename=/dev/sde --direct=1 --rw=write --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=write, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=11174
+      write: io=7830MB, bw=133626KB/s, iops=33406, runt= 60000msec
+
+    fio --filename=/dev/sde --direct=1 --rw=randwrite --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=11205
+      write: io=1381MB, bw=23572KB/s, iops=5893, runt= 60001msec
+
+    fio --filename=/dev/sde --direct=1 --rw=randwrite --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=11236
+      write: io=1385MB, bw=23634KB/s, iops=5908, runt= 60006msec
+
+    cat /proc/mdstat 
+    Personalities : [raid10] 
+    md0 : active raid10 sdb[0] sde[3] sdd[2] sdc[1]
+          195288832 blocks super 1.2 64K chunks 2 near-copies [4/4] [UUUU]
+
+    dd if=/dev/md0 of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 21.8241 s, 769 MB/s
+    dd if=/dev/zero of=/dev/md0 bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 34.0107 s, 493 MB/s
+
+    blockdev --rereadpt /dev/md0 && sleep 3
+    parted /dev/md0 mklabel msdos
+    parted /dev/md0 mkpart p 2048s 64g; sleep 3
+    blockdev --rereadpt /dev/md0 && sleep 3
+    mkfs.ext3 /dev/md0p1
+    mount -o noatime /dev/md0p1 /mnt
+    echo 3 > /proc/sys/vm/drop_caches
+    bonnie++ -f -n 128:4096:4096 -r 24000 -d /mnt -u root
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    burns           47G           374604  90 551247  63           4756221  99 697.9 104
+    Latency                         184ms     824ms                77us    2099us
+    Version  1.96       ------Sequential Create------ --------Random Create--------
+    burns               -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+    files:max:min        /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+          128:4096:4096 18931  89 176540  98 43263  78 29096  74 219643  97 39229  72
+    Latency             53037us     659us   96561us     758ms     247us   93492us
+    umount /mnt
+
+    fio --readonly --filename=/dev/md0 --direct=1 --rw=read --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=read, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=9750
+      read : io=6485MB, bw=110667KB/s, iops=27666, runt= 60001msec
+
+    fio --readonly --filename=/dev/md0 --direct=1 --rw=randread --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=9767
+      read : io=15005MB, bw=256089KB/s, iops=64022, runt= 60001msec
+
+    fio --filename=/dev/md0 --direct=1 --rw=write --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=write, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=9798
+      write: io=3193MB, bw=54500KB/s, iops=13624, runt= 60001msec
+
+    fio --filename=/dev/md0 --direct=1 --rw=randwrite --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=9823
+      write: io=683820KB, bw=11397KB/s, iops=2849, runt= 60001msec
+
+    fio --filename=/dev/md0 --direct=1 --rw=randwrite --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=9867
+      write: io=682028KB, bw=11365KB/s, iops=2841, runt= 60012msec
+
+

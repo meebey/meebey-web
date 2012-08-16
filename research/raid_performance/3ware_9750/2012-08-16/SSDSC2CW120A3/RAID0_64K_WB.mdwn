@@ -1,0 +1,104 @@
+## RAID0 64K (BBU Balanced) 15% OP scheduler=noop add_random=0 ##
+
+    cat /sys/block/sdb/queue/scheduler
+    [noop] deadline cfq 
+    cat /sys/block/sdb/queue/add_random 
+    0
+    dd if=/dev/sdb of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 16.1965 s, 1.0 GB/s
+    dd if=/dev/zero of=/dev/sdb bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 15.738 s, 1.1 GB/s
+
+    blockdev --rereadpt /dev/sdb && sleep 3
+    parted /dev/sdb mklabel msdos
+    parted /dev/sdb mkpart p 2048s 64g; sleep 3
+    blockdev --rereadpt /dev/sdb && sleep 3
+    mkfs.ext3 /dev/sdb1
+    mount -o noatime /dev/sdb1 /mnt
+    echo 3 > /proc/sys/vm/drop_caches
+    bonnie++ -f -n 128:4096:4096 -r 24000 -d /mnt -u root
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          47G           484270  98 411406  64           1032858  68  4653 139
+    Latency                        1320ms    1222ms             17601us    4843us
+    Version  1.96       ------Sequential Create------ --------Random Create--------
+    finnix              -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+    files:max:min        /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+          128:4096:4096 19674  97 151034  98 51567  77 39853  94 170307  98 31106  47
+    Latency              4543us    1448us     109ms   53828us     370us    1471ms
+
+    LD_LIBRARY_PATH=. ./fio --readonly --filename=/dev/sdb --direct=1 --rw=read --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=read, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=5561
+      read : io=1438MB, bw=94440KB/s, iops=23609, runt= 60001msec
+
+    LD_LIBRARY_PATH=. ./fio --readonly --filename=/dev/sdb --direct=1 --rw=randread --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=5579
+      read : io=1018MB, bw=296981KB/s, iops=2663, runt= 60001msec
+
+    LD_LIBRARY_PATH=. ./fio --filename=/dev/sdb --direct=1 --rw=write --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=write, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=2449
+      write: io=1115MB, bw=88937KB/s, iops=22234, runt= 60001msec
+
+    LD_LIBRARY_PATH=. ./fio --filename=/dev/sdb --direct=1 --rw=randwrite --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=2467
+      write: io=1313MB, bw=22412KB/s, iops=5602, runt= 60006msec
+
+## RAID0 64K (Performance) 15% OP scheduler=noop add_random=0 ##
+
+    cat /sys/block/sdb/queue/scheduler
+    [noop] deadline cfq 
+    cat /sys/block/sdb/queue/add_random 
+    0
+
+    ./tw_cli /c7/u1 set storsave=perform
+    Setting Command Storsave Policy for unit /c7/u1 to [perform] ... Done.
+
+    dd if=/dev/sdb of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 16.2566 s, 1.0 GB/s
+    dd if=/dev/zero of=/dev/sdb bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 15.4742 s, 1.1 GB/s
+
+    blockdev --rereadpt /dev/sdb && sleep 3
+    parted /dev/sdb mklabel msdos
+    parted /dev/sdb mkpart p 2048s 64g; sleep 3
+    blockdev --rereadpt /dev/sdb && sleep 3
+    mkfs.ext3 /dev/sdb1
+    mount -o noatime /dev/sdb1 /mnt
+    echo 3 > /proc/sys/vm/drop_caches
+    bonnie++ -f -n 128:4096:4096 -r 24000 -d /mnt -u root
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          47G           476063  97 411281  68           1019844  70  4688 142
+    Latency                        1720ms    1623ms             46958us    4242us
+    Version  1.96       ------Sequential Create------ --------Random Create--------
+    finnix              -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+    files:max:min        /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+          128:4096:4096 23448  96 151192  98 48211  72 38649  93 170489  98 49447  74
+    Latency             21959us    1281us     192ms   56149us     641us     143ms
+
+    LD_LIBRARY_PATH=. ./fio --readonly --filename=/dev/sdb --direct=1 --rw=read --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=read, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=2345
+      read : io=1421MB, bw=94161KB/s, iops=23540, runt= 60000msec
+
+    LD_LIBRARY_PATH=. ./fio --readonly --filename=/dev/sdb --direct=1 --rw=randread --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=2347
+      read : io=3372MB, bw=267251KB/s, iops=66812, runt= 60001msec
+
+    LD_LIBRARY_PATH=. ./fio --filename=/dev/sdb --direct=1 --rw=write --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=write, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=2384
+      write: io=3390MB, bw=127757KB/s, iops=31939, runt= 60000msec
+
+    LD_LIBRARY_PATH=. ./fio --filename=/dev/sdb --direct=1 --rw=randwrite --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=2402
+      write: io=1328MB, bw=22666KB/s, iops=5666, runt= 60006msec
+

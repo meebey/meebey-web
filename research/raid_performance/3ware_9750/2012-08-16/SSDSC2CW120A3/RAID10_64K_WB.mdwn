@@ -1,0 +1,96 @@
+## RAID10 64K (BBU Balanced) 15% OP scheduler=noop add_random=0 ##
+
+    ./tw_cli /c7 add type=raid10 disk=4-7 stripe=64 noautoverify
+    Creating new unit on controller /c7 ... Done. The new unit is /c7/u1.
+    Setting default Storsave policy to [balance] for the new unit ... Done.
+    Setting default Command Queuing policy for unit /c7/u1 to [on] ... Done.
+    Setting write cache = ON for the new unit ... Done.
+
+    cat /sys/block/sdc/queue/scheduler
+    [noop] deadline cfq 
+    cat /sys/block/sdc/queue/add_random 
+    0
+
+    dd if=/dev/sdc of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 19.012 s, 882 MB/s
+    dd if=/dev/zero of=/dev/sdc bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 27.8916 s, 602 MB/s
+
+    blockdev --rereadpt /dev/sdc && sleep 3
+    parted /dev/sdc mklabel msdos
+    parted /dev/sdc mkpart p 2048s 64g; sleep 3
+    blockdev --rereadpt /dev/sdc && sleep 3
+    mkfs.ext3 /dev/sdc1
+    mount -o noatime /dev/sdc1 /mnt
+    echo 3 > /proc/sys/vm/drop_caches
+    bonnie++ -f -n 128:4096:4096 -r 24000 -d /mnt -u root
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          47G           452101  95 308998  50           881052  62  4746 145
+    Latency                        1121ms     923ms             21979us    7797us
+    Version  1.96       ------Sequential Create------ --------Random Create--------
+    finnix              -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+    files:max:min        /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+          128:4096:4096 36554  87 151043  98 43952  64 36105  87 146608  98 38352  64
+    Latency               136ms    1240us     232ms   56082us     549us     238ms
+
+    LD_LIBRARY_PATH=. ./fio --readonly --filename=/dev/sdc --direct=1 --rw=read --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=read, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=2719
+      read : io=85120KB, bw=141226KB/s, iops=35306, runt= 60001msec
+
+    LD_LIBRARY_PATH=. ./fio --readonly --filename=/dev/sdc --direct=1 --rw=randread --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=2728
+      read : io=1476MB, bw=234902KB/s, iops=58725, runt= 60001msec
+
+    LD_LIBRARY_PATH=. ./fio --filename=/dev/sdc --direct=1 --rw=write --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=write, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=2738
+      write: io=2327MB, bw=109625KB/s, iops=27406, runt= 60001msec
+
+    LD_LIBRARY_PATH=. ./fio --filename=/dev/sdc --direct=1 --rw=randwrite --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=2755
+      write: io=1094MB, bw=18673KB/s, iops=4668, runt= 60007msec
+
+## RAID10 64K (BBU Performance WC=no WJ=no) 15% OP scheduler=noop add_random=0 ##
+
+    ./tw_cli /c7/u1 set storsave=perform
+    Setting Command Storsave Policy for unit /c7/u1 to [perform] ... Done.
+
+    ./tw_cli /c7/u1 set wrcache=off     
+    Setting Write Cache Policy on /c7/u1 to [off] ... Done.
+
+    ./tw_cli /c7/u1 show storsave wrcache rdcache
+    /c7/u1 Storsave Policy = performance 
+    /c7/u1 Write Cache = off
+    /c7/u1 Read Cache = Intelligent
+
+    dd if=/dev/sdc of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 18.2609 s, 919 MB/s
+    dd if=/dev/zero of=/dev/sdc bs=1M count=16000
+    13154385920 bytes (13 GB) copied, 823.171 s, 16.0 MB/s
+
+    LD_LIBRARY_PATH=. ./fio --readonly --filename=/dev/sdc --direct=1 --rw=read --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=read, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=2947
+      read : io=1303MB, bw=92138KB/s, iops=23034, runt= 60001msec
+
+    LD_LIBRARY_PATH=. ./fio --readonly --filename=/dev/sdc --direct=1 --rw=randread --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=2956
+      read : io=1648MB, bw=237833KB/s, iops=59458, runt= 60001msec
+
+    LD_LIBRARY_PATH=. ./fio --filename=/dev/sdc --direct=1 --rw=write --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=write, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=2919
+      write: io=23820KB, bw=406494B/s, iops=99, runt= 60005msec
+
+    LD_LIBRARY_PATH=. ./fio --filename=/dev/sdc --direct=1 --rw=randwrite --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=2973
+      write: io=92448KB, bw=1539KB/s, iops=384, runt= 60086msec
+
+
