@@ -97,4 +97,234 @@ NCQ:            | Yes
     Threads: 16 Results: 21548 seeks/second, 0.046 ms random access time (174896 < offsets < 120033991639)
     Threads: 32 Results: 48263 seeks/second, 0.021 ms random access time (174896 < offsets < 120034107510)
 
+## HDD Performance (20% over-privisioning) ##
+
     http://www.thomas-krenn.com/de/wiki/SSD_Over-Provisioning_mit_hdparm
+
+    hdparm -Np187553319 --yes-i-know-what-i-am-doing /dev/sdb
+    
+    /dev/sdb:
+     setting max visible sectors to 187553319 (permanent)
+     max sectors   = 187553319/234441648, HPA is enabled
+
+    [ 1853.886487] ata2: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+    [ 1853.890588] ata2.00: ATA-9: INTEL SSDSC2CW120A3, 400i, max UDMA/133
+    [ 1853.890591] ata2.00: 187553319 sectors, multi 16: LBA48 NCQ (depth 31/32), AA
+    [ 1853.900566] ata2.00: configured for UDMA/133
+    [ 1853.900572] ata2: EH complete
+    [ 1853.900645] scsi 1:0:0:0: Direct-Access     ATA      INTEL SSDSC2CW12 400i PQ: 0 ANSI: 5
+    [ 1853.900763] sd 1:0:0:0: Attached scsi generic sg2 type 0
+    [ 1853.900840] sd 1:0:0:0: [sdb] 187553319 512-byte logical blocks: (96.0 GB/89.4 GiB)
+    [ 1853.900909] sd 1:0:0:0: [sdb] Write Protect is off
+    [ 1853.900912] sd 1:0:0:0: [sdb] Mode Sense: 00 3a 00 00
+    [ 1853.900941] sd 1:0:0:0: [sdb] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+    [ 1853.901451]  sdb: unknown partition table
+    [ 1853.901723] sd 1:0:0:0: [sdb] Attached SCSI disk
+
+    blockdev --getra /dev/sdb
+    256
+    cat /sys/block/sdb/queue/scheduler
+    noop deadline [cfq]
+    cat /sys/block/sdb/device/queue_depth
+    31
+    dd if=/dev/sdb of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 39.3545 s, 426 MB/s
+    dd if=/dev/zero of=/dev/sdb bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 33.5216 s, 500 MB/s
+
+    blockdev --rereadpt /dev/sdb && sleep 3
+    parted /dev/sdb mklabel msdos
+    parted /dev/sdb mkpart p 2048s 64g; sleep 3
+    blockdev --rereadpt /dev/sdb && sleep 3
+    mkfs.ext3 /dev/sdb1
+    mount -o noatime /dev/sdb1 /mnt
+    echo 3 > /proc/sys/vm/drop_caches
+    bonnie++ -f -n 128:4096:4096 -r 24000 -d /mnt -u root
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          47G           466218  94 211279  31           411600  26  4118 143
+    Latency                       70836us   96708us              2104us    5384us
+    Version  1.96       ------Sequential Create------ --------Random Create--------
+    finnix              -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+    files:max:min        /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+          128:4096:4096 37560  90 133689  98 49873  80 36321  87 148141  98 44192  73
+    Latency               116ms    1267us   79401us   88618us     370us     116ms
+    umount /mnt
+
+    cd /tmp; wget http://debian.gsd-software.net/benchmark/seeker_baryluk_x86; chmod +x seeker_baryluk_x86
+    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; ./seeker_baryluk_x86 /dev/sdb $threads | grep Results; sleep 1; done
+    Threads: 01 Results: 7119 seeks/second, 0.140 ms random access time (50171 < offsets < 96027209850)
+    Threads: 02 Results: 9296 seeks/second, 0.108 ms random access time (1310050 < offsets < 96027017973)
+    Threads: 04 Results: 10853 seeks/second, 0.092 ms random access time (178194 < offsets < 96026727228)
+    Threads: 08 Results: 16868 seeks/second, 0.059 ms random access time (474662 < offsets < 96027220359)
+    Threads: 16 Results: 22706 seeks/second, 0.044 ms random access time (25175 < offsets < 96027097255)
+    Threads: 32 Results: 34249 seeks/second, 0.029 ms random access time (85005 < offsets < 96027205781)
+
+## SATA 6G sda 0% OP ##
+
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=4
+    file1: (groupid=0, jobs=4): err= 0: pid=2897
+      read : io=3855MB, bw=345409KB/s, iops=14770, runt= 60001msec
+
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=2949
+      read : io=2266MB, bw=318292KB/s, iops=7991, runt= 60001msec
+
+    file1: (g=0): rw=write, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=3152
+      write: io=1034MB, bw=87553KB/s, iops=21888, runt= 60001msec
+
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=3197
+      write: io=580716KB, bw=79582KB/s, iops=19895, runt= 60001msec
+
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=3256
+      write: io=69548KB, bw=140965KB/s, iops=35241, runt= 60002msec
+
+## SATA 6G sdb 15% OP ##
+
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=4
+    file1: (groupid=0, jobs=4): err= 0: pid=2916
+      read : io=266512KB, bw=353961KB/s, iops=16908, runt= 60001msec
+
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=2951
+      read : io=1799MB, bw=310322KB/s, iops=5998, runt= 60001msec
+
+    file1: (g=0): rw=write, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=3171
+      write: io=999MB, bw=86951KB/s, iops=21737, runt= 60001msec
+
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=3237
+      write: io=533140KB, bw=78789KB/s, iops=19697, runt= 60001msec
+
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=3275
+      write: io=334628KB, bw=145385KB/s, iops=36346, runt= 60001msec
+
+## SATA 6G sda 0% OP scheduler=noop add_random=0 ##
+
+    file: (g=0): rw=read, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file: (groupid=0, jobs=1): err= 0: pid=4488
+      read : io=120468KB, bw=351527KB/s, iops=16300, runt= 60001msec
+
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=4576
+      read : io=3254MB, bw=125446KB/s, iops=31361, runt= 60001msec
+
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=4623
+      write: io=154256KB, bw=142376KB/s, iops=35594, runt= 60002msec
+
+    dd if=/dev/sda of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 44.2043 s, 380 MB/s
+
+## SATA 6G sdb 15% OP scheduler=noop add_random=0 ##
+
+    file: (g=0): rw=read, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file: (groupid=0, jobs=1): err= 0: pid=4519
+      read : io=36036KB, bw=350120KB/s, iops=15948, runt= 60001msec
+
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=4592
+      read : io=3276MB, bw=125817KB/s, iops=31454, runt= 60002msec
+
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=4670
+      write: io=315880KB, bw=145072KB/s, iops=36268, runt= 60001msec
+
+    dd if=/dev/sdb of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 47.3134 s, 355 MB/s
+
+## SATA 6G sda 0% OP WRITE ONCE scheduler=noop add_random=0 ##
+
+    file1: (g=0): rw=write, bs=1M-1M/1M-1M, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=12118
+      write: io=3881MB, bw=156326KB/s, iops=152, runt=749847msec
+
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=12238
+      write: io=542804KB, bw=78944KB/s, iops=19735, runt= 60006msec
+
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=12517
+      read : io=3101MB, bw=122819KB/s, iops=30704, runt= 60001msec
+
+    blockdev --getra /dev/sda
+    256
+    cat /sys/block/sda/queue/scheduler
+    [noop] deadline cfq 
+    cat /sys/block/sda/device/queue_depth
+    31
+
+    dd if=/dev/sda of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 48.1294 s, 349 MB/s
+    dd if=/dev/zero of=/dev/sda bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 42.7718 s, 392 MB/s
+
+    blockdev --rereadpt /dev/sda && sleep 3
+    parted /dev/sda mklabel msdos
+    parted /dev/sda mkpart p 2048s 64g; sleep 3
+    blockdev --rereadpt /dev/sda && sleep 3
+    mkfs.ext3 /dev/sda1
+    mount -o noatime /dev/sda1 /mnt
+    echo 3 > /proc/sys/vm/drop_caches
+    bonnie++ -f -n 128:4096:4096 -r 24000 -d /mnt -u root
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          47G           364438  73 478020  52           2812017  99 852.5 104
+    Latency                         188ms     459ms                41us     123us
+    Version  1.96       ------Sequential Create------ --------Random Create--------
+    finnix              -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+    files:max:min        /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+          128:4096:4096 18251  85 151406  97 46157  79 30968  76 167527  99 43314  73
+    Latency             15630us    1496us   79579us     291ms     701us     118ms
+
+## SATA 6G sdb 15% OP WRITE ONCE scheduler=noop add_random=0 ##
+
+    file1: (g=0): rw=write, bs=1M-1M/1M-1M, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=12151
+      write: io=1238MB, bw=175069KB/s, iops=170, runt=582233msec
+
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=12264
+      write: io=593708KB, bw=79799KB/s, iops=19949, runt= 60001msec
+
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=12519
+      read : io=3062MB, bw=122153KB/s, iops=30538, runt= 60001msec
+
+    blockdev --getra /dev/sdb
+    256
+    cat /sys/block/sdb/queue/scheduler
+    [noop] deadline cfq
+    cat /sys/block/sdb/device/queue_depth
+    31
+
+    dd if=/dev/sdb of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 51.8651 s, 323 MB/s
+    dd if=/dev/zero of=/dev/sdb bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 48.454 s, 346 MB/s
+
+    blockdev --rereadpt /dev/sdb && sleep 3
+    parted /dev/sdb mklabel msdos
+    parted /dev/sdb mkpart p 2048s 64g; sleep 3
+    blockdev --rereadpt /dev/sdb && sleep 3
+    mkfs.ext3 /dev/sdb1
+    mount -o noatime /dev/sdb1 /mnt
+    echo 3 > /proc/sys/vm/drop_caches
+    bonnie++ -f -n 128:4096:4096 -r 24000 -d /mnt -u root
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          47G           338219  76 478314  52           2825074  99 +++++ +++
+    Latency                         191ms   57590us               480us      51us
+    Version  1.96       ------Sequential Create------ --------Random Create--------
+    finnix              -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+    files:max:min        /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+          128:4096:4096 17451  87 146816  98 46380  81 26782  70 163717  97 41645  73
+    Latency               151ms    1327us   78204us    1016ms     666us     140ms
