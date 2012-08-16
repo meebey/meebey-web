@@ -1,0 +1,136 @@
+[[!meta title="OCZ Agility 3 - 240 GB"]]
+[[!table header="no" class="harddisk_performance_table" data="""
+Manufacturer:   | OCZ
+Type:           | Agility 3
+Model:          | SSD
+Firmware:       | 2.15 
+Capacity:       | 240 GB
+Spindle Speed:  | -
+Interface:      | SATA 6 Gb/s
+Cache:          | -
+NCQ:            | Yes
+"""]]
+
+## CPU Model ##
+
+    grep name /proc/cpuinfo | uniq
+    model name      : Intel(R) Core(TM) i5 CPU       M 560  @ 2.67GHz
+
+## CPU Threads ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | wc -l
+    4
+
+## Cores per CPU ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | sort | uniq | wc -l
+    2
+
+## Kernel ##
+
+    uname -a
+    Linux digitalrechner 3.4.4-gentoosmoof #1 SMP Sun Jun 24 20:39:01 CEST 2012 x86_64 Intel(R) Core(TM) i5 CPU M 560 @ 2.67GHz GenuineIntel GNU/Linux
+
+## Memory ##
+
+    # limited to 1GB
+    grep Memory: /var/log/dmesg
+    [    0.000000] Memory: 7964220k/9371648k available (6930k kernel code, 1192336k absent, 215092k reserved, 6141k data, 632k init)
+
+## Memory Performance ##
+
+    dd if=/dev/zero of=/dev/null bs=32M count=1000
+    33554432000 bytes (34 GB) copied, 6.84917 s, 4.9 GB/s
+    
+## Disk Controller ##
+
+    lspci | grep AHCI
+    00:1f.2 SATA controller: Intel Corporation 5 Series/3400 Series Chipset 6 port SATA AHCI Controller (rev 06)
+
+## Disk Status ##
+
+    egrep 'ata[0-9]\.|SATA link up' /var/log/dmesg
+    [    1.869281] ata1: SATA link up 3.0 Gbps (SStatus 123 SControl 300)
+    [    1.881423] ata1.00: ACPI cmd ef/02:00:00:00:00:a0 (SET FEATURES) succeeded
+    [    1.881429] ata1.00: ACPI cmd f5/00:00:00:00:00:a0 (SECURITY FREEZE LOCK) filtered out
+    [    1.882997] ata1.00: ACPI cmd ef/10:03:00:00:00:a0 (SET FEATURES) filtered out
+    [    1.891516] ata1.00: ATA-8: OCZ-AGILITY3, 2.15, max UDMA/133
+    [    1.893315] ata1.00: 468862128 sectors, multi 16: LBA48 NCQ (depth 31/32), AA
+    [    1.901092] ata1.00: ACPI cmd ef/02:00:00:00:00:a0 (SET FEATURES) succeeded
+    [    1.901098] ata1.00: ACPI cmd f5/00:00:00:00:00:a0 (SECURITY FREEZE LOCK) filtered out
+    [    1.902711] ata1.00: ACPI cmd ef/10:03:00:00:00:a0 (SET FEATURES) filtered out
+    [    1.911469] ata1.00: configured for UDMA/133
+
+## HDD Performance ##
+
+    blockdev --getra /dev/sda
+    256
+    cat /sys/block/sda/queue/scheduler
+    [noop] deadline cfq
+    cat /sys/block/sda/device/queue_depth
+    31
+    dd if=/dev/sda of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 81.7631 s, 205 MB/s
+
+    fio --readonly --filename=/dev/sda --direct=1 --rw=read --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=read, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    2.0.8
+    Starting 1 process
+    Jobs: 1 (f=1): [R] [100.0% done] [38476K/0K /s] [9619 /0  iops] [eta 00m:00s]
+    file1: (groupid=0, jobs=1): err= 0: pid=393
+      read : io=2237.7MB, bw=38188KB/s, iops=9546 , runt= 60001msec
+        clat (usec): min=41 , max=45495 , avg=102.68, stdev=77.07
+         lat (usec): min=41 , max=45495 , avg=102.85, stdev=77.08
+        clat percentiles (usec):
+         |  1.00th=[   45],  5.00th=[   61], 10.00th=[   72], 20.00th=[   83],
+         | 30.00th=[   84], 40.00th=[   85], 50.00th=[   94], 60.00th=[  109],
+         | 70.00th=[  116], 80.00th=[  118], 90.00th=[  135], 95.00th=[  157],
+         | 99.00th=[  213], 99.50th=[  243], 99.90th=[  700], 99.95th=[  796],
+         | 99.99th=[ 1112]
+        bw (KB/s)  : min=26648, max=74072, per=100.00%, avg=38199.93, stdev=8157.97
+        lat (usec) : 50=3.23%, 100=50.72%, 250=45.63%, 500=0.29%, 750=0.06%
+        lat (usec) : 1000=0.06%
+        lat (msec) : 2=0.01%, 4=0.01%, 10=0.01%, 20=0.01%, 50=0.01%
+      cpu          : usr=4.17%, sys=12.03%, ctx=574627, majf=0, minf=23
+      IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+         submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         issued    : total=r=572829/w=0/d=0, short=r=0/w=0/d=0
+
+    Run status group 0 (all jobs):
+       READ: io=2237.7MB, aggrb=38187KB/s, minb=38187KB/s, maxb=38187KB/s, mint=60001msec, maxt=60001msec
+
+    Disk stats (read/write):
+      sda: ios=573499/214, merge=1/0, ticks=46804/93, in_queue=46673, util=76.52%
+
+    fio --readonly --filename=/dev/sda --direct=1 --rw=randread --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    2.0.8
+    Starting 1 process
+    Jobs: 1 (f=1): [r] [100.0% done] [126.8M/0K /s] [32.5K/0  iops] [eta 00m:00s]
+    file1: (groupid=0, jobs=1): err= 0: pid=32708
+      read : io=8355.5MB, bw=142597KB/s, iops=35649 , runt= 60001msec
+        slat (usec): min=1 , max=1398 , avg= 8.13, stdev= 9.16
+        clat (usec): min=60 , max=8855 , avg=879.20, stdev=231.70
+         lat (usec): min=72 , max=8858 , avg=887.68, stdev=231.92
+        clat percentiles (usec):
+         |  1.00th=[  366],  5.00th=[  478], 10.00th=[  604], 20.00th=[  684],
+         | 30.00th=[  732], 40.00th=[  804], 50.00th=[  900], 60.00th=[  964],
+         | 70.00th=[ 1012], 80.00th=[ 1064], 90.00th=[ 1176], 95.00th=[ 1256],
+         | 99.00th=[ 1368], 99.50th=[ 1432], 99.90th=[ 1624], 99.95th=[ 1832],
+         | 99.99th=[ 2480]
+        bw (KB/s)  : min=    7, max=182000, per=100.00%, avg=142853.71, stdev=23885.98
+        lat (usec) : 100=0.01%, 250=0.16%, 500=5.82%, 750=27.89%, 1000=33.67%
+        lat (msec) : 2=32.42%, 4=0.03%, 10=0.01%
+      cpu          : usr=11.42%, sys=44.11%, ctx=1026753, majf=0, minf=51
+      IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=100.0%, >=64=0.0%
+         submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.1%, 64=0.0%, >=64=0.0%
+         issued    : total=r=2138990/w=0/d=0, short=r=0/w=0/d=0
+
+    Run status group 0 (all jobs):
+       READ: io=8355.5MB, aggrb=142596KB/s, minb=142596KB/s, maxb=142596KB/s, mint=60001msec, maxt=60001msec
+
+    Disk stats (read/write):
+      sda: ios=2137406/76, merge=0/12, ticks=1843846/65, in_queue=1846045, util=98.97%
+
