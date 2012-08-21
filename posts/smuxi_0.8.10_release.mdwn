@@ -1,2 +1,3 @@
 [[!meta title="""Smuxi 0.8.10 "Tracy" Release"""]]
+[[!tag smuxi planet-debian planet-mono]
 [[!inline pages="""internal(projects/smuxi/posts/_Smuxi_0__46__8__46__10___34__Tracy__34___Release_)"""]]
