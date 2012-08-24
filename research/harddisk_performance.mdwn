@@ -18,7 +18,7 @@ WD RE4 2000GB          | [[WD2003FYYS]]       | 150 MB/s | 149 MB/s | 134773 KB/
 WD VelociRaptor 150GB  | [[WD1500HLFS]]       | 127 MB/s | ?        |  94189 KB/s |  76688 KB/s |  40053 KB/s | 135     |  7.398  |        |          |        |
 WD VelociRaptor 300GB  | [[WD3000HLFS]]       | 125 MB/s | 124 MB/s | 130603 KB/s |  95169 KB/s |  52749 KB/s | 141     |  7.051  |        |          |        |
 WD VelociRaptor 1 TB   | [[WD1000DHTZ]]       | 201 MB/s | 210 MB/s | 196387 KB/s | 139418 KB/s |  82770 KB/s | 147     |  6.800  |        |          |        |
-Intel SSD 520 120GB    | [[SSDSC2CW120A3]]    | 349 MB/s | 392 MB/s | 409311 KB/s | 465053 KB/s | 211663 KB/s | 9022    |  0.111  | 16300  | 31361    |        | 35594
+Intel SSD 520 120GB    | [[SSDSC2CW120A3]]    | 349 MB/s | 392 MB/s | 409311 KB/s | 465053 KB/s | 211663 KB/s | 9022    |  0.111  |        | 30704    |        | 19735
 Samsung SSD 830 128GB  | [[MZ-7PC128]]        | 275 MB/s | ?        | ?           | ?           | ?           | ?       | ?       | 15021  | 63325    |        |
 Samsung SSD 830 128GB  | [[MZ-7PC128_2]]      | 251 MB/s | 310 MB/s | 448005 KB/s | 306406 KB/s | 156598 KB/s | 8776    |  0.114  | 24693  | 75895    | 21700  | 12116
 OCZ Agility 3 240GB    | [[AGT3-25SAT3-240G]] | 205 MB/s | ?        | ?           | ?           | ?           | ?       | ?       | 9546   | 35649    |        |
