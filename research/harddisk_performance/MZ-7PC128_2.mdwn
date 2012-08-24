@@ -1,0 +1,189 @@
+[[!meta title="Samsung SSD 830 Series - 128 GB"]]
+[[!table header="no" class="harddisk_performance_table" data="""
+Manufacturer:   | Samsung
+Type:           | SSD
+Model:          | 830
+Firmware:       | CXM03B1Q
+Capacity:       | 128 GB
+Spindle Speed:  | -
+Interface:      | SATA 6 Gb/s
+Cache:          | -
+NCQ:            | Yes
+"""]]
+
+## CPU Model ##
+
+    grep name /proc/cpuinfo | uniq
+    model name	: Intel(R) Xeon(R) CPU E5-2620 0 @ 2.00GHz
+
+## CPU Threads ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | wc -l
+    12
+
+## Cores per CPU ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | sort | uniq | wc -l
+    6
+
+## Kernel ##
+
+    uname -a
+    Linux roesler 2.6.32-14-pve #1 SMP Tue Aug 21 08:24:37 CEST 2012 x86_64 GNU/Linux
+
+## Memory ##
+
+    # limited to 1 GB
+    grep Memory: /var/log/dmesg
+    Memory: 992536k/1048576k available (5312k kernel code, 472k absent, 55568k reserved, 7021k data, 1316k init)
+
+## Memory Performance ##
+
+    dd if=/dev/zero of=/dev/null bs=32M count=1000
+    33554432000 bytes (34 GB) copied, 4.73456 s, 7.1 GB/s
+
+## Disk Controller ##
+
+    lspci | grep AHCI
+    00:1f.2 SATA controller: Intel Corporation C600/X79 series chipset 6-Port SATA AHCI Controller (rev 06)
+
+## Disk Status ##
+
+    egrep 'ata[0-9]\.|SATA link up' /var/log/dmesg
+    ata1: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+    ata1.00: ATA-9: SAMSUNG SSD 830 Series, CXM03B1Q, max UDMA/133
+    ata1.00: 250069680 sectors, multi 16: LBA48 NCQ (depth 31/32), AA
+    ata1.00: configured for UDMA/133
+
+## HDD Performance ##
+
+    blockdev --getra /dev/sda
+    256
+    cat /sys/block/sda/queue/scheduler
+    [noop] anticipatory deadline cfq
+    cat /sys/block/sda/device/queue_depth
+    31
+
+    blockdev --rereadpt /dev/sda && sleep 3
+    parted /dev/sda mklabel msdos
+    parted /dev/sda mkpart p 2048s 64g; sleep 3
+    blockdev --rereadpt /dev/sda && sleep 3
+    mkfs.ext3 /dev/sda1
+    mount -o noatime /dev/sda1 /mnt
+    echo 3 > /proc/sys/vm/drop_caches
+    bonnie++ -f -n 128:4096:4096 -r 24000 -d /mnt -u root
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    roesler         47G           306406 59 156598 21           448005 24 +++++ +++
+    Latency                         228ms     247ms              1945us    3429us
+    Version  1.96       ------Sequential Create------ --------Random Create--------
+    roesler             -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+    files:max:min        /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+          128:4096:4096 17073  88 23230  25 44331  63 38527  85 69772  40 42064  62
+    Latency               191ms    1042us     118ms     108ms    2116us     113ms
+    umount /mnt
+
+    cd /tmp; wget http://debian.gsd-software.net/benchmark/seeker_baryluk_amd64; chmod +x seeker_baryluk_amd64
+    for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; ./seeker_baryluk_amd64 /dev/sda $threads | grep Results; sleep 1; done
+    Threads: 01 Results: 8776 seeks/second, 0.114 ms random access time (245341 < offsets < 128034919923)
+    Threads: 02 Results: 15406 seeks/second, 0.065 ms random access time (239498 < offsets < 128035417821)
+    Threads: 04 Results: 25883 seeks/second, 0.039 ms random access time (51095 < offsets < 128035641877)
+    Threads: 08 Results: 39250 seeks/second, 0.025 ms random access time (526873 < offsets < 128035632517)
+    Threads: 16 Results: 50435 seeks/second, 0.020 ms random access time (13057 < offsets < 128035647720)
+    Threads: 32 Results: 57368 seeks/second, 0.017 ms random access time (85079 < offsets < 128035663699)
+
+    fio --filename=/dev/sda --direct=1 --rw=write --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=write, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    Starting 1 process
+    Jobs: 1 (f=1): [W] [100.0% done] [0K/87859K /s] [0/21K iops] [eta 00m:00s]
+    file1: (groupid=0, jobs=1): err= 0: pid=2932
+      write: io=5066MB, bw=86456KB/s, iops=21613, runt= 60000msec
+        clat (usec): min=31, max=693, avg=44.55, stdev= 4.70
+        bw (KB/s) : min=85368, max=88600, per=100.01%, avg=86463.19, stdev=1080.80
+      cpu          : usr=10.66%, sys=27.75%, ctx=1296853, majf=0, minf=28
+      IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+         submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         issued r/w: total=0/1296833, short=0/0
+         lat (usec): 50=86.90%, 100=13.09%, 250=0.01%, 750=0.01%
+
+    Run status group 0 (all jobs):
+      WRITE: io=5066MB, aggrb=86455KB/s, minb=88530KB/s, maxb=88530KB/s, mint=60000msec, maxt=60000msec
+
+    Disk stats (read/write):
+      sda: ios=25/1294998, merge=0/0, ticks=4/35359, in_queue=34952, util=58.26%
+
+    fio --filename=/dev/sda --direct=1 --rw=randwrite --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    Starting 1 process
+    Jobs: 1 (f=1): [w] [100.0% done] [0K/131M /s] [0/33K iops] [eta 00m:00s]
+    file1: (groupid=0, jobs=1): err= 0: pid=2955
+      write: io=7855MB, bw=134055KB/s, iops=33513, runt= 60001msec
+        slat (usec): min=3, max=214, avg= 8.55, stdev= 6.58
+        clat (usec): min=248, max=32559, avg=943.64, stdev=303.90
+        bw (KB/s) : min=127520, max=137912, per=100.01%, avg=134070.18, stdev=1407.63
+      cpu          : usr=12.10%, sys=43.37%, ctx=497724, majf=0, minf=1121
+      IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=100.0%, >=64=0.0%
+         submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.1%, 64=0.0%, >=64=0.0%
+         issued r/w: total=0/2010865, short=0/0
+         lat (usec): 250=0.01%, 500=0.31%, 750=9.66%, 1000=57.49%
+         lat (msec): 2=32.51%, 4=0.01%, 10=0.02%, 20=0.01%, 50=0.01%
+
+    Run status group 0 (all jobs):
+      WRITE: io=7855MB, aggrb=134055KB/s, minb=137272KB/s, maxb=137272KB/s, mint=60001msec, maxt=60001msec
+
+    Disk stats (read/write):
+      sda: ios=11/2008037, merge=0/0, ticks=1/1847848, in_queue=1847275, util=99.87%
+
+    fio --readonly --filename=/dev/sda --direct=1 --rw=read --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=read, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    Starting 1 process
+    Jobs: 1 (f=1): [R] [100.0% done] [99M/0K /s] [25K/0 iops] [eta 00m:00s]
+    file1: (groupid=0, jobs=1): err= 0: pid=2968
+      read : io=5783MB, bw=98693KB/s, iops=24673, runt= 60001msec
+        clat (usec): min=28, max=690, avg=38.38, stdev= 7.99
+        bw (KB/s) : min=97880, max=100360, per=100.01%, avg=98702.59, stdev=303.84
+      cpu          : usr=14.04%, sys=24.87%, ctx=1480439, majf=0, minf=30
+      IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+         submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         issued r/w: total=1480423/0, short=0/0
+         lat (usec): 50=99.06%, 100=0.94%, 250=0.01%, 500=0.01%, 750=0.01%
+
+    Run status group 0 (all jobs):
+       READ: io=5783MB, aggrb=98693KB/s, minb=101061KB/s, maxb=101061KB/s, mint=60001msec, maxt=60001msec
+
+    Disk stats (read/write):
+      sda: ios=1478396/0, merge=0/0, ticks=30798/0, in_queue=30407, util=50.68%
+
+    fio --readonly --filename=/dev/sda --direct=1 --rw=randread --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    Starting 1 process
+    Jobs: 1 (f=1): [r] [100.0% done] [298M/0K /s] [74K/0 iops] [eta 00m:00s]
+    file1: (groupid=0, jobs=1): err= 0: pid=2976
+      read : io=17598MB, bw=300331KB/s, iops=75082, runt= 60001msec
+        slat (usec): min=3, max=244, avg= 8.50, stdev= 3.58
+        clat (usec): min=72, max=3134, avg=415.45, stdev=87.04
+        bw (KB/s) : min=293656, max=304912, per=100.01%, avg=300353.95, stdev=3154.81
+      cpu          : usr=14.08%, sys=78.58%, ctx=497835, majf=0, minf=1279
+      IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=100.0%, >=64=0.0%
+         submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.1%, 64=0.0%, >=64=0.0%
+         issued r/w: total=4505047/0, short=0/0
+         lat (usec): 100=0.01%, 250=0.50%, 500=82.93%, 750=16.35%, 1000=0.19%
+         lat (msec): 2=0.03%, 4=0.01%
+
+    Run status group 0 (all jobs):
+       READ: io=17598MB, aggrb=300331KB/s, minb=307539KB/s, maxb=307539KB/s, mint=60001msec, maxt=60001msec
+
+    Disk stats (read/write):
+      sda: ios=4498473/0, merge=0/0, ticks=1847389/0, in_queue=1845902, util=99.86%
+
+    echo 3 > /proc/sys/vm/drop_caches
+    dd if=/dev/sda of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 66.8873 s, 251 MB/s
+    dd if=/dev/zero of=/dev/sda bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 54.2029 s, 310 MB/s
+
