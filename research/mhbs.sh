@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-### Meebey's HDD Benchmark Script v0.1 ###
+### Meebey's HDD Benchmark Script v0.1.1 ###
 # Boot with: mem=1g (else bonnie++ will do cached reads!)
 
 # REQUIRED TOOLS
@@ -44,7 +44,7 @@ for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; ./seeker_bary
 
 echo 3 > /proc/sys/vm/drop_caches
 dd if=$HDD_DEV of=/dev/null bs=1M count=16000
-dd if=$HDD_DEV /dev/zero of=/dev/sda bs=1M count=16000
+dd if=/dev/zero of=$HDD_DEV bs=1M count=16000
 
 blockdev --rereadpt $HDD_DEV && sleep 3
 parted $HDD_DEV mklabel msdos
@@ -72,7 +72,7 @@ for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; ./seeker_bary
 
 echo 3 > /proc/sys/vm/drop_caches
 dd if=$HDD_DEV of=/dev/null bs=1M count=16000
-dd if=$HDD_DEV /dev/zero of=/dev/sda bs=1M count=16000
+dd if=/dev/zero of=$HDD_DEV bs=1M count=16000
 
 blockdev --rereadpt $HDD_DEV && sleep 3
 parted $HDD_DEV mklabel msdos
