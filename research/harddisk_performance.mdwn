@@ -23,3 +23,5 @@ Samsung SSD 830 128GB  | [[MZ-7PC128]]        | 275 MB/s | ?        | ?         
 Samsung SSD 830 128GB  | [[MZ-7PC128_2]]      | 251 MB/s | 310 MB/s | 448005 KB/s | 306406 KB/s | 156598 KB/s | 8776    |  0.114  | 24693  | 75895    | 21700  | 12116
 OCZ Agility 3 240GB    | [[AGT3-25SAT3-240G]] | 205 MB/s | ?        | ?           | ?           | ?           | ?       | ?       | 9546   | 35649    |        |
 """]]
+
+Benchmark script: [[mhbs.sh]]
