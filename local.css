@@ -13,6 +13,7 @@ body{
 }
 .inlinepage{
 	padding: 10px;
+    overflow: visible;
 }
 .inlinepage .tags {
         display: none;  
