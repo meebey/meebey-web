@@ -15,7 +15,7 @@ In case you are shocked why I have packages in just 8 days after the official
 [Mono 3.0 release], there are 3 factors that play a big role:
 
  1. New packaging workflow
-  * Downstream patches are management in git branches
+  * Downstream patches are management in [git branches]
   * Release Early, Release Often: I no longer port and test every patch
     very carefully (especially with architecture specific patches), instead I
     port them with my best knowledge and upload them to meebey.debian.net
@@ -44,4 +44,5 @@ Now update the APT database and install mono-complete from that repository:
 
   [Mono 3.0 release]: http://www.mono-project.com/Release_Notes_Mono_3.0
   [my Mono 2.0 packages]: /posts/the_big_split_mono_2.10_debian_packaging
+  [git branches]: http://anonscm.debian.org/gitweb/?p=pkg-mono/packages/mono.git;a=heads
   [employer]: http://www.gsd-software.net/
