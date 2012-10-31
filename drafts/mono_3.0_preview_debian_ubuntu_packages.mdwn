@@ -1,4 +1,4 @@
-[[!meta title="Mono 3.0 preview packages for Debian and Ubuntu"]]
+[[!meta title="Mono 3.0 Preview Packages for Debian and Ubuntu"]]
 [[!tag mono debian ubuntu packages]]
 
 Just after the [Mono 3.0 release] was announced I started working on Debian
