@@ -1,5 +1,5 @@
 [[!meta title="Mono 3.0 Preview Packages for Debian and Ubuntu"]]
-[[!tag mono debian ubuntu packages]]
+[[!tag mono debian ubuntu packaging planet-debian planet-mono]]
 
 Just after the [Mono 3.0 release] was announced I started working on Debian
 packages and after a couple of days of hard work I already have some preview
