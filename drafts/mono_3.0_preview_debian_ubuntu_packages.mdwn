@@ -43,6 +43,6 @@ Now update the APT database and install mono-complete from that repository:
     apt-get install mono-complete
 
   [Mono 3.0 release]: http://www.mono-project.com/Release_Notes_Mono_3.0
-  [my Mono 2.0 packages]: /posts/the_big_split_mono_2.10_debian_packaging
+  [my Mono 2.10 packages]: /posts/the_big_split_mono_2.10_debian_packaging
   [git branches]: http://anonscm.debian.org/gitweb/?p=pkg-mono/packages/mono.git;a=heads
   [employer]: http://www.gsd-software.net/
