@@ -18,7 +18,7 @@ In case you are shocked why I have packages in just 8 days after the official
   * Downstream patches are management in [git branches]
   * Release Early, Release Often: I no longer port and test every patch
     very carefully (especially with architecture specific patches), instead I
-    port them with my best knowledge and upload them to meebey.debian.net
+    port them with my best knowledge and upload them to [debian.meebey.net]
     and/or Debian/Experimental and use that as test ground. If regressions
     happen, let them happen, and make further uploads to address them.
  2. New packaging style
@@ -46,3 +46,4 @@ Now update the APT database and install mono-complete from that repository:
   [my Mono 2.10 packages]: /posts/the_big_split_mono_2.10_debian_packaging
   [git branches]: http://anonscm.debian.org/gitweb/?p=pkg-mono/packages/mono.git;a=heads
   [employer]: http://www.gsd-software.net/
+  [debian.meebey.net]: http://debian.meebey.net/experimental/
