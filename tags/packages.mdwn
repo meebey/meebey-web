@@ -1,0 +1,4 @@
+[[!meta title="pages tagged packages"]]
+
+[[!inline pages="tagged(packages)" actions="no" archive="yes"
+feedshow=10]]
