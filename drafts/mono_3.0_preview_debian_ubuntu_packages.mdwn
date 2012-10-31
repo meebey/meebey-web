@@ -1,0 +1,47 @@
+[[!meta title="Mono 3.0 preview packages for Debian and Ubuntu"]]
+[[!tag mono debian ubuntu packages]]
+
+Just after the [Mono 3.0 release] was announced I started working on Debian
+packages and after a couple of days of hard work I already have some preview
+packages for you.
+
+The preview packages are currently limited to the AMD64 architecture but can be
+installed on Debian/Testing (Wheezy), Debian/Unstable (Sid) and
+Ubuntu/Quantal (12.10).
+After these preview packages have received some successful feedback (please
+leave feedback via comments!), I will upload them to Debian/Experimental.
+
+In case you are shocked why I have packages in just 8 days after the official
+[Mono 3.0 release], there are 3 factors that play a big role:
+
+ # New packaging workflow
+  * Downstream patches are management in git branches
+  * Release Early, Release Often: I no longer port and test every patch
+    very carefully (especially with architecture specific patches), instead I
+    port them with my best knowledge and upload them to meebey.debian.net
+    and/or Debian/Experimental and use that as test ground. If regressions
+    happen, let them happen, and make further uploads to address them.
+ # New packaging style
+  * Starting with [my Mono 2.10 packages], each library has it's own package,
+    which simplifies packaging.
+ # Sponsored packaging
+  * As my [employer] needs Mono packages for an upcoming software project, I was
+    granted to work on Mono packages in worktime.
+
+OBLIGATORY WARNING: DO NOT USE THESE PREVIEW PACKAGES ON PRODUCTION SYSTEMS NOR
+BLAME ME IF YOUR MONO SOFTWARE NO LONGER WORKS!
+
+## Install instructions ##
+
+Add this line to your /etc/apt/sources.list file:
+
+    deb http://debian.meebey.net/experimental/mono /
+
+Now update the APT database and install mono-complete from that repository:
+
+    apt-get update
+    apt-get install mono-complete
+
+  [Mono 3.0 release]: http://www.mono-project.com/Release_Notes_Mono_3.0
+  [my Mono 2.0 packages]: /posts/the_big_split_mono_2.10_debian_packaging
+  [employer]: http://www.gsd-software.net/
