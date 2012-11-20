@@ -1,0 +1,14 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ claimedauthor="Thanks"
+ url="na"
+ subject="Thanks"
+ date="2012-11-02T13:59:51Z"
+ content="""
+Thanks!
+I get this error when I load my ASP.Net MVC4 app. Do you have any idea why?
+
+Could not load type 'System.Data.Entity.Migrations.Model.ColumnModel' from assembly 'EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089'.
+
+Thanks and Regards
+"""]]

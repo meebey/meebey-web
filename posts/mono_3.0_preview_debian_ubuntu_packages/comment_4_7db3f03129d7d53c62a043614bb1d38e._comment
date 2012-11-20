@@ -1,0 +1,30 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ claimedauthor="mark"
+ subject="doesn't install"
+ date="2012-11-05T04:51:53Z"
+ content="""
+Maybe I'm missing but this fails to install on Ubuntu 12.10. 
+
+```
+~ % sudo apt-get install mono-complete
+
+The following packages have unmet dependencies:
+ mono-complete : Depends: mono-runtime (= 2.10.8.1-5ubuntu1) but it is not going to be installed
+                 Depends: mono-runtime-sgen (= 2.10.8.1-5ubuntu1) but it is not going to be installed
+                 Depends: mono-utils (= 2.10.8.1-5ubuntu1) but it is not going to be installed
+                 Depends: mono-devel (= 2.10.8.1-5ubuntu1) but it is not going to be installed
+                 Depends: mono-mcs (= 2.10.8.1-5ubuntu1) but it is not going to be installed
+                 Depends: mono-gmcs (= 2.10.8.1-5ubuntu1) but it is not going to be installed
+                 Depends: mono-dmcs (= 2.10.8.1-5ubuntu1) but it is not going to be installed
+                 Depends: mono-csharp-shell (= 2.10.8.1-5ubuntu1) but it is not going to be installed
+                 Depends: mono-2.0-gac (= 2.10.8.1-5ubuntu1) but it is not going to be installed
+                 Depends: mono-4.0-gac (= 2.10.8.1-5ubuntu1) but it is not going to be installed
+                 Depends: mono-2.0-service (= 2.10.8.1-5ubuntu1) but it is not going to be installed
+                 Depends: mono-4.0-service (= 2.10.8.1-5ubuntu1) but it is not going to be installed
+                 Depends: monodoc-base (= 2.10.8.1-5ubuntu1) but it is not going to be installed
+                 Depends: monodoc-manual (= 2.10.8.1-5ubuntu1) but it is not going to be installed
+                 Depends: libmono-cil-dev (= 2.10.8.1-5ubuntu1) but it is not going to be installed
+E: Unable to correct problems, you have held broken packages.
+```
+"""]]

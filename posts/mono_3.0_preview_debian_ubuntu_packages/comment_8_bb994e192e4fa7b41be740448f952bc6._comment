@@ -1,0 +1,9 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ claimedauthor="Peder Chr. Nørgaard"
+ subject="Sources ?"
+ date="2012-11-08T09:55:10Z"
+ content="""
+Hi - I would like to try out the preview packages, but would prefer to have access to the sources, too - and I cannot find those in your APT repository
+
+"""]]

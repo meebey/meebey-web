@@ -1,0 +1,20 @@
+[[!comment format=mdwn
+ username="https://www.google.com/accounts/o8/id?id=AItOawkjEEZnQXi_BhH9pZr7Gzlm-ngjp99zEvw"
+ nickname="Buddha"
+ subject="Feedback: Breaks xsp4"
+ date="2012-11-04T14:22:58Z"
+ content="""
+After upgrading to these packages on Ubuntu 12.10, I was unable to run any of my ASP.NET applications using xsp4 (such as while developing with monodevelop 3.0).  
+
+When using monodevelop to \"start without debugging\" I would get a standard ASP.NET error page telling me that I needed to turn off custom errors in my web config in order to see what the actual error was.  This persisted even when I turned off custom errors in my web.config.  
+
+When using monodevelop to \"start with debugging\" I immediately received an error saying monodevelop could not start the xsp4 server and I should check to see if it was installed.
+
+When starting xsp4 by hand, it appeared to start correctly, however upon the first page hit I would get an exception thrown during the generation of the HttpException.  The stack trace looked like it had not even touched my code yet, and was trying to generate and HttpException for the exception thrown generating and HttpException.  I'm surprised that it wasn't an infinite loop of exception handling at that point.
+
+I tested it against an app that I was currently serving fine using a fastcgi-server4 instance that was still running from before the upgrade.  xsp4 under mono3 failed to serve the known-good app.
+
+I have removed all the packages from your repository, commented out your repository from my apt.sources, and reinstalled mono-complete, mono-xsp4, monodevelop, and mono-fastcgi-server4 from Ubuntu 12.10 sources.  Under this setup, xsp4 is working again.
+
+
+"""]]
