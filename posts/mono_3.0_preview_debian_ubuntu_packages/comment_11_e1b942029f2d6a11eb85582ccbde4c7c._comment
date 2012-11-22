@@ -1,0 +1,22 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ claimedauthor="Hipolito Lopez"
+ subject="HttpException and System.NullReferenceException"
+ date="2012-11-22T02:51:02Z"
+ content="""
+Hi,
+In mono 2.8 I can run my application, but then install this version and now I'm getting this:
+
+An exception has occurred while generating HttpException page:
+System.NullReferenceException: Object reference not set to an instance of an object
+  at System.Web.Util.HttpEncoder.GetCustomEncoderFromConfig () [0x00000] in <filename unknown>:0 
+  at System.Lazy`1[System.Web.Util.HttpEncoder].InitValue () [0x00000] in <filename unknown>:0 
+
+The actual exception which was being reported was:
+System.Web.HttpException:  ---> System.NullReferenceException: Object reference not set to an instance of an object
+
+... and other stuff
+
+What can I do?
+Thanks in advance for help me.
+"""]]
