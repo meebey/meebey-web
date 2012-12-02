@@ -1,0 +1,62 @@
+## LSI 9211-4i SATA 6G 15% OP scheduler=noop add_random=0 + MD RAID10 64K N ##
+
+    mdadm --create /dev/md0 --level=10 --chunk=64 --assume-clean --raid-devices=4 /dev/sdb /dev/sdc /dev/sdd /dev/sde
+
+    cat /proc/mdstat 
+    Personalities : [raid10] 
+    md0 : active (auto-read-only) raid10 sde[3] sdd[2] sdc[1] sdb[0]
+          203860096 blocks super 1.2 64K chunks 2 near-copies [4/4] [UUUU]
+          
+    unused devices: <none>
+
+    echo 3 > /proc/sys/vm/drop_caches
+    dd if=/dev/md0 of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 28.3903 s, 591 MB/s
+    dd if=/dev/zero of=/dev/md0 bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 31.6438 s, 530 MB/s
+
+    fio --readonly --filename=/dev/md0 --direct=1 --rw=read --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=read, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=4126
+      read : io=3651MB, bw=62305KB/s, iops=15576, runt= 60001msec
+
+    fio --readonly --filename=/dev/md0 --direct=1 --rw=randread --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=4204
+      read : io=18814MB, bw=321089KB/s, iops=80272, runt= 60001msec
+
+    fio --filename=/dev/md0 --direct=1 --rw=write --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=write, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=4220
+      write: io=3421MB, bw=58382KB/s, iops=14595, runt= 60001msec
+
+    fio --filename=/dev/md0 --direct=1 --rw=randwrite --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    file1: (groupid=0, jobs=1): err= 0: pid=4234
+      write: io=3223MB, bw=55007KB/s, iops=13751, runt= 60001msec
+
+    fio --filename=/dev/md0 --direct=1 --rw=randwrite --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    file1: (groupid=0, jobs=1): err= 0: pid=4288
+      write: io=11837MB, bw=202011KB/s, iops=50502, runt= 60001msec
+
+        blockdev --rereadpt /dev/md0 && sleep 3
+        parted /dev/md0 mklabel msdos
+        parted /dev/md0 mkpart p 2048s 64g; sleep 3
+        blockdev --rereadpt /dev/md0 && sleep 3
+        mkfs.ext3 /dev/md0p1
+        mount -o noatime /dev/md0p1 /mnt
+        echo 3 > /proc/sys/vm/drop_caches
+        bonnie++ -f -n 128:4096:4096 -r 24000 -d /mnt -u root
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    burns           47G           422518  94 338466  57           915667  64 +++++ +++
+    Latency                         110ms   80632us              2141us    3036us
+    Version  1.96       ------Sequential Create------ --------Random Create--------
+    burns               -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+    files:max:min        /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+          128:4096:4096 18920  97 34819  39 52601  82 37735  95 53683  44 47014  73
+    Latency             56071us    1703us   87447us   31808us     553us     106ms
+        umount /mnt
+

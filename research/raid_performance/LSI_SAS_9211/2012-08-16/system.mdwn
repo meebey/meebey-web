@@ -1,0 +1,72 @@
+[[!meta title="System Setup"]]
+
+## RAID Controller Specification ##
+
+[[!table header="no" class="" data="""
+Manufacturer:   | LSI
+Model:          | SAS 9211-4i
+BIOS:           | 07.11.00.00
+Firmware:       | 07.00.00.00
+"""]]
+
+## CPU Model ##
+
+    grep name /proc/cpuinfo | uniq
+    model name	: Intel(R) Xeon(R) CPU E5-2650 0 @ 2.00GHz
+
+## CPU Threads ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | wc -l
+    32
+
+## Cores per CPU ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | sort | uniq | wc -l
+    8
+
+## Kernel ##
+
+    uname -a
+    Linux finnix 2.6.36-2-amd64-finnix #1 SMP Mon Dec 20 22:16:37 PST 2010 x86_64 GNU/Linux
+
+## Memory ##
+
+    # limited to 1GB
+    grep Memory: /var/log/dmesg
+    [    0.000000] Memory: 1018352k/1048576k available (3263k kernel code, 472k absent, 29752k reserved, 3575k data, 616k init)
+
+## Memory Performance ##
+
+    dd if=/dev/zero of=/dev/null bs=32M count=1000
+    33554432000 bytes (34 GB) copied, 4.29949 s, 7.8 GB/s
+
+## RAID Controller ##
+
+    lspci | grep LSI
+    02:00.0 Serial Attached SCSI controller: LSI Logic / Symbios Logic SAS2004 PCI-Express Fusion-MPT SAS-2 [Spitfire] (rev 03)
+
+## RAID Status ##
+
+    egrep -i 'lsi|sd' /var/log/dmesg
+    mpt2sas0: LSISAS2008: FWVersion(07.00.00.00), ChipRevision(0x03), BiosVersion(07.11.00.00)
+    scsi 7:0:0:0: Direct-Access     ATA      INTEL SSDSC2CW12 400i PQ: 0 ANSI: 5
+    scsi 7:0:1:0: Direct-Access     ATA      INTEL SSDSC2CW12 400i PQ: 0 ANSI: 5
+    scsi 7:0:2:0: Direct-Access     ATA      INTEL SSDSC2CW12 400i PQ: 0 ANSI: 5
+    scsi 7:0:3:0: Direct-Access     ATA      INTEL SSDSC2CW12 400i PQ: 0 ANSI: 5
+    sd 7:0:1:0: [sdc] 203862302 512-byte logical blocks: (104 GB/97.2 GiB)
+    sd 7:0:2:0: [sdd] 203862302 512-byte logical blocks: (104 GB/97.2 GiB)
+    sd 7:0:0:0: [sdb] 203862302 512-byte logical blocks: (104 GB/97.2 GiB)
+    sd 7:0:3:0: [sde] 203862302 512-byte logical blocks: (104 GB/97.2 GiB)
+    sd 7:0:1:0: [sdc] Write Protect is off
+    sd 7:0:1:0: [sdc] Mode Sense: 7f 00 00 08
+    sd 7:0:2:0: [sdd] Write Protect is off
+    sd 7:0:2:0: [sdd] Mode Sense: 7f 00 00 08
+    sd 7:0:0:0: [sdb] Write Protect is off
+    sd 7:0:0:0: [sdb] Mode Sense: 7f 00 00 08
+    sd 7:0:3:0: [sde] Write Protect is off
+    sd 7:0:3:0: [sde] Mode Sense: 7f 00 00 08
+    sd 7:0:1:0: [sdc] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+    sd 7:0:2:0: [sdd] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+    sd 7:0:0:0: [sdb] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+    sd 7:0:3:0: [sde] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+

@@ -1,0 +1,6 @@
+[[!table class="raid_performance_table" data="""
+Controller          | Level                                                      | FUA    | RC  | WC  | WJ  | Disks                               | dd                   || bonnie++                               ||| fio                                  |||
+                    |                                                            |        |     |     |     |                                     |                      || read         | write       | rewrite     | read 4KB IOPS    || write 4KB IOPS    ||
+                    |                                                            |        |     |     |     |                                     | read      | write     | block        | block       | block       | seq Q1 | rand Q32 | seq Q1 | rand Q32
+[[LSI SAS 9211-4i]] | [[JBOD+MD RAID10 64K|SSDSC2CW120A3/JBOD_MD_RAID10_64K_WT]] | Honor  | No  | No  | No  | 4x[[Intel 520 120GB|SSDSC2CW120A3]] | 591 MB/s  | 530 MB/s  | 915667 KB/s  | 422518 KB/s | 338466 KB/s | 15576  | 80272    | 14595  | 50502
+"""]]
