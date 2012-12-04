@@ -47,7 +47,7 @@ any questions, I am available ![bigsmile.png][]
 PS: If you want more updates than once per year, just
 [follow me on Twitter][]
 
-  [bigsmile.png]: http://www.meebey.net/jaws//plugins/Emoticons/images/bigsmile.png
+  [bigsmile.png]: /jaws//plugins/Emoticons/images/bigsmile.png
   [Smuxi 0.7 released]: http://www.smuxi.org/blog/show/Smuxi_07_Release
   [David Paleino]: http://www.hanskalabs.net/
   [[2]]: http://twitter.com/dpaleino

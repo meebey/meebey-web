@@ -27,7 +27,7 @@ features and bug fixes without messing all up. More details about
 this can be found in [this Smuxi blog post][].
 
   [twitter.com]: http://twitter.com/
-  [wink.png]: http://www.meebey.net/jaws//plugins/Emoticons/images/wink.png
+  [wink.png]: /jaws//plugins/Emoticons/images/wink.png
   [http://twitter.com/meebey]: http://twitter.com/meebey
   [Subversion]: http://subversion.tigris.org/
   [Git]: http://git-scm.com/
