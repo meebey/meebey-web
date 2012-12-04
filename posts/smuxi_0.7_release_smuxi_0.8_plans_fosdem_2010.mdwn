@@ -53,12 +53,12 @@ PS: If you want more updates than once per year, just
   [[2]]: http://twitter.com/dpaleino
   [ClÃ©ment Bourgeois]: http://twitter.com/moonpyk
   [Here]: http://projects.qnetp.net/versions/show/10
-  [image]: http://www.smuxi.org/jaws/data/phoo/2010_01_17/medium/smuxi-0.7-linux-quick-connect.png
-  [![image][]]: http://www.smuxi.org/jaws/data/phoo/2010_01_17/smuxi-0.7-linux-quick-connect.png
-  [1]: http://www.smuxi.org/jaws/data/phoo/2010_01_17/medium/smuxi-0.7-linux-twitter.png
-  [![image][1]]: http://www.smuxi.org/jaws/data/phoo/2010_01_17/smuxi-0.7-linux-twitter.png
-  [2]: http://www.smuxi.org/jaws/data/phoo/2010_01_17/medium/smuxi-0.7-user-menu.png
-  [![image][2]]: http://www.smuxi.org/jaws/data/phoo/2010_01_17/smuxi-0.7-user-menu.png
+  [image]: //www.smuxi.org/jaws/data/phoo/2010_01_17/medium/smuxi-0.7-linux-quick-connect.png
+  [![image][]]: //www.smuxi.org/jaws/data/phoo/2010_01_17/smuxi-0.7-linux-quick-connect.png
+  [1]: //www.smuxi.org/jaws/data/phoo/2010_01_17/medium/smuxi-0.7-linux-twitter.png
+  [![image][1]]: //www.smuxi.org/jaws/data/phoo/2010_01_17/smuxi-0.7-linux-twitter.png
+  [2]: //www.smuxi.org/jaws/data/phoo/2010_01_17/medium/smuxi-0.7-user-menu.png
+  [![image][2]]: //www.smuxi.org/jaws/data/phoo/2010_01_17/smuxi-0.7-user-menu.png
   [0.8 release]: http://projects.qnetp.net/versions/show/2
   [Zeitgeist project]: http://zeitgeist-project.com/
   [FOSDEM 2010]: http://www.fosdem.org/2010/

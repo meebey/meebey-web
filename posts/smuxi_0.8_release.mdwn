@@ -61,8 +61,8 @@ Ubuntu/Maverick, Ubuntu/Lucid (via PPA), OpenSUSE, Foresight Linux, FreeBSD,
 and Windows.
 
    [1]: https://wiki.ubuntu.com/Ayatana
-   [2]: http://www.smuxi.org/attachments/52/smuxi-0.8-dev-notify-osd.png
-   [3]: http://www.smuxi.org/attachments/51/smuxi-0.8-dev-messaging-menu.png
+   [2]: //www.smuxi.org/attachments/52/smuxi-0.8-dev-notify-osd.png
+   [3]: //www.smuxi.org/attachments/51/smuxi-0.8-dev-messaging-menu.png
    [4]: irc://irc.oftc.net/smuxi
    [5]: https://flattr.com/thing/51924/Smuxi-IRC-Client
    [6]: http://raphaelhertzog.com/2010/09/01/free-software-to-flattr-sep-2010/
