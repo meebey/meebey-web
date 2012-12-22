@@ -1,0 +1,35 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ claimedauthor="Dan"
+ subject="Problem on debian 6.0"
+ date="2012-12-20T10:01:03Z"
+ content="""
+I have a similar problem on debian 6.0
+
+root@debian1:/home/dan/loc# apt-get install mono-complete
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help to resolve the situation:
+
+The following packages have unmet dependencies:
+ mono-complete : Depends: mono-runtime (= 3.0.1+dfsg-1~exp1~pre1) but it is not going to be installed
+                 Depends: mono-runtime-sgen (= 3.0.1+dfsg-1~exp1~pre1) but it is not going to be installed
+                 Depends: mono-utils (= 3.0.1+dfsg-1~exp1~pre1) but it is not going to be installed
+                 Depends: mono-devel (= 3.0.1+dfsg-1~exp1~pre1) but it is not going to be installed
+                 Depends: mono-mcs (= 3.0.1+dfsg-1~exp1~pre1) but it is not going to be installed
+                 Depends: mono-csharp-shell (= 3.0.1+dfsg-1~exp1~pre1) but it is not going to be installed
+                 Depends: mono-2.0-gac (= 3.0.1+dfsg-1~exp1~pre1) but it is not going to be installed
+                 Depends: mono-4.0-gac (= 3.0.1+dfsg-1~exp1~pre1) but it is not going to be installed
+                 Depends: mono-2.0-service (= 3.0.1+dfsg-1~exp1~pre1) but it is not going to be installed
+                 Depends: mono-4.0-service (= 3.0.1+dfsg-1~exp1~pre1) but it is not going to be installed
+                 Depends: monodoc-base (= 3.0.1+dfsg-1~exp1~pre1) but it is not going to be installed
+                 Depends: monodoc-manual (= 3.0.1+dfsg-1~exp1~pre1) but it is not going to be installed
+                 Depends: libmono-cil-dev (= 3.0.1+dfsg-1~exp1~pre1) but it is not going to be installed
+E: Broken packages
+
+"""]]
