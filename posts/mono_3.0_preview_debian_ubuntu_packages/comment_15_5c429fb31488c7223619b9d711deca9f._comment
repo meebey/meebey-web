@@ -1,0 +1,19 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ claimedauthor="Andrew Tierney"
+ url="www.castlesoft.com.au"
+ subject="Mono 3.03-3.04 any chance of releasing build scripts"
+ date="2013-01-16T14:06:11Z"
+ content="""
+Hi,
+
+Is there any chance you could release build scripts for 3.x ?
+
+The trunk is updated regularly and it would be nice to make nightly builds for fixes etc..
+
+Any hints, gotcha's would be appreciated.
+
+Regards
+Andrew 
+
+"""]]
