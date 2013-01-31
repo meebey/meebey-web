@@ -25,7 +25,7 @@ by the [Desktop Notifications Specification][notification-spec].
 
  [D-Bus]: http://dbus.freedesktop.org/
  [notification-spec]: http://developer.gnome.org/notification-spec/
- [github]: https://github.com/meebey/leveldb-sharp
+ [github]: https://github.com/meebey/notfiy-sharp
  [Smuxi]: http://www.smuxi.org/ "Smuxi IRC Client"
  [Banshee]: http://banshee.fm/
  [SparkleShare]: http://sparkleshare.org/
