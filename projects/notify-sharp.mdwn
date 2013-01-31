@@ -1,0 +1,33 @@
+[[!meta title="notify-sharp - C# library for desktop notifications"]]
+[[!sidebar content="""
+[[!toc startlevel=2 levels=2]]
+"""]]
+
+## About ##
+
+notify-sharp is a C# [D-Bus][] client library for desktop notifications as defined
+by the [Desktop Notifications Specification][notification-spec].
+
+## Download ##
+
+ * Source tarball: [notify-sharp-0.4.1.tar.gz][]
+ * Git repository on github: [meebey/notify-sharp][github]
+
+ [notify-sharp-0.4.1.tar.gz]: /projects/notify-sharp/downloads/notify-sharp-0.4.1.tar.gz
+
+## Projects using notify-sharp ##
+
+ * [Smuxi IRC Client][Smuxi]
+ * [Banshee][]
+ * [SparkleShare][]
+ * [Docky][]
+ * [GNOME Do][]
+
+ [D-Bus]: http://dbus.freedesktop.org/
+ [notification-spec]: http://developer.gnome.org/notification-spec/
+ [github]: https://github.com/meebey/leveldb-sharp
+ [Smuxi]: http://www.smuxi.org/ "Smuxi IRC Client"
+ [Banshee]: http://banshee.fm/
+ [SparkleShare]: http://sparkleshare.org/
+ [Docky]: http://www.go-docky.com/
+ [GNOME Do]: http://do.cooperteam.net/
