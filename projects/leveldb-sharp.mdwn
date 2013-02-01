@@ -22,8 +22,12 @@ leveldb-sharp offers:
  * [low-level function calls] to LevelDB
  * [high-level object oriented API] with .NET enrichments (IEnumerable, IDisposable)
    * DB API
-   * Options API
+   * ReadOptions/WriteOptions/Options API
+   * Write batch API
+   * Iterator API
    * Cache API
+   * Snapshot API
+   * Compact range API
  * Allows combined use of low-level and high-level APIs
  * NUnit test-case coverage
 
@@ -31,24 +35,23 @@ leveldb-sharp offers:
 
 Currently leveldb-sharp lacks:
 
- * high-level iterator API
- * writebatch API
- * comparator API
- * compact range API
+ * comparator API (unsafe code? no thanks...)
 
 ## Download ##
 
- * Source tarball: [leveldb-sharp-1.2.0.tar.gz]
- * Git repository on github: [meebey/leveldb-sharp][github]
+ * Source tarball: [leveldb-sharp-1.9.0.tar.gz]
+ * Git repository on GitHub: [meebey/leveldb-sharp][github]
 
 ## Projects using leveldb-sharp ##
 
  * [Smuxi IRC Client][Smuxi]
+ * [Dazzle database][Dazzle]
 
  [LevelDB library]: http://code.google.com/p/leveldb/
  [low-level function calls]: https://github.com/meebey/leveldb-sharp/blob/master/Native.cs
  [high-level object oriented API]: https://github.com/meebey/leveldb-sharp/blob/master/DB.cs
- [leveldb-sharp-1.2.0.tar.gz]: /projects/leveldb-sharp/downloads/leveldb-sharp-1.2.0.tar.gz
+ [leveldb-sharp-1.9.0.tar.gz]: /projects/leveldb-sharp/downloads/leveldb-sharp-1.9.0.tar.gz
  [github]: https://github.com/meebey/leveldb-sharp
  [Smuxi]: http://www.smuxi.org/ "Smuxi IRC Client"
+ [Dazzle]: https://github.com/kellabyte/Dazzle
 
