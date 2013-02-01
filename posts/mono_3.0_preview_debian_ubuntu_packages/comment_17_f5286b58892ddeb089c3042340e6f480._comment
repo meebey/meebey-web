@@ -1,0 +1,8 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ claimedauthor="xxxx"
+ subject="32-bit packages missing"
+ date="2013-01-22T11:18:05Z"
+ content="""
+So where are 32-bit packages? I can see amd64 only for mono 3.0
+"""]]
