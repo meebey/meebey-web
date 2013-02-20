@@ -159,7 +159,12 @@ if [ ! -x /tmp/seeker_baryluk ]; then
     wget http://debian.gsd-software.net/benchmark/seeker_baryluk.c
     gcc -lpthread -o seeker_baryluk seeker_baryluk.c
 fi
-#rm /tmp/seeker_baryluk_amd64
+for threads in 01 02 04 08 16 32; do
+    echo -n "Threads: $threads "
+    /tmp/seeker_baryluk $HDD_DEV $threads | grep Results
+    sleep 1
+done
+#rm /tmp/seeker_baryluk
 
 echo 3 > /proc/sys/vm/drop_caches
 dd if=$HDD_DEV of=/dev/null bs=1M count=16000
@@ -194,13 +199,12 @@ fi
 fio --readonly --filename=$HDD_DEV --direct=1 --rw=read --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
 fio --readonly --filename=$HDD_DEV --direct=1 --rw=randread --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
 
-if [ ! -x /tmp/seeker_baryluk ]; then
-	cd /tmp
-    wget http://debian.gsd-software.net/benchmark/seeker_baryluk.c
-    gcc -lpthread -o seeker_baryluk seeker_baryluk.c
-fi
-for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; /tmp/seeker_baryluk_amd64 $HDD_DEV $threads | grep Results; sleep 1; done
-rm /tmp/seeker_baryluk_amd64
+for threads in 01 02 04 08 16 32; do
+    echo -n "Threads: $threads "
+    /tmp/seeker_baryluk $HDD_DEV $threads | grep Results
+    sleep 1
+done
+rm /tmp/seeker_baryluk
 
 echo 3 > /proc/sys/vm/drop_caches
 dd if=$HDD_DEV of=/dev/null bs=1M count=16000
