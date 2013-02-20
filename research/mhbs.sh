@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-### Meebey's HDD Benchmark Script v0.2 ###
+### Meebey's HDD Benchmark Script v0.3 ###
 # Boot with: mem=1g (else bonnie++ will do cached reads!)
 #
 # Copyright (C) 2012 Mirco Bauer <meebey@meebey.net>
@@ -19,16 +19,8 @@ set -e
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# REQUIRED TOOLS
-if ! which parted > /dev/null; then echo "no parted!"; exit 1; fi
-if ! which smartctl > /dev/null; then echo "no parted!"; exit 1; fi
-if ! which blockdev > /dev/null; then echo "no blockdev!"; exit 1; fi
-if ! which fio > /dev/null; then echo "no fio!"; exit 1; fi
-if ! which mkfs.ext3 > /dev/null; then echo "no mkfs.ext3!"; exit 1; fi
-if ! which wget > /dev/null; then echo "no wget!"; exit 1; fi
-
 if [ "$1" = "--help" ]; then
-	echo "Usage: $0 [--destroy-my-data] [--tune-kernel] [--verbose] [device-name]"
+	echo "Usage: $0 [--destroy-my-data] [--tune-kernel] [--install-debs] [--verbose] [device-name]"
 	exit 0
 fi
 
@@ -40,6 +32,11 @@ fi
 TUNE_KERNEL=0
 if [ "$1" = "--tune-kernel" ]; then
 	TUNE_KERNEL=1
+	shift
+fi
+INSTALL_DEBS=0
+if [ "$1" = "--install-debs" ]; then
+	INSTALL_DEBS=1
 	shift
 fi
 DEBUG=0
@@ -63,6 +60,20 @@ else
 		exit 1
 	fi
 fi
+
+if [ $INSTALL_DEBS  = 1 ]; then
+    # TODO: add finnix support which needs special handling for libc6 upgrade
+    apt-get -y install parted hdparm smartmontools util-linux fio wget ncurses-bin
+fi
+
+# REQUIRED TOOLS
+if ! which parted > /dev/null; then echo "no parted!"; exit 1; fi
+if ! which smartctl > /dev/null; then echo "no parted!"; exit 1; fi
+if ! which blockdev > /dev/null; then echo "no blockdev!"; exit 1; fi
+if ! which fio > /dev/null; then echo "no fio!"; exit 1; fi
+if ! which mkfs.ext3 > /dev/null; then echo "no mkfs.ext3!"; exit 1; fi
+if ! which wget > /dev/null; then echo "no wget!"; exit 1; fi
+if ! which tput > /dev/null; then echo "no wget!"; exit 1; fi
 
 # SETUP
 HDD_DEV=/dev/$HDD
