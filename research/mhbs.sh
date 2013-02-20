@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-### Meebey's HDD Benchmark Script v0.3 ###
+### Meebey's HDD Benchmark Script v0.4 ###
 # Boot with: mem=1g (else bonnie++ will do cached reads!)
 #
 # Copyright (C) 2012 Mirco Bauer <meebey@meebey.net>
