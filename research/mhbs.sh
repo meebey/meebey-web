@@ -63,7 +63,7 @@ fi
 
 if [ $INSTALL_DEBS  = 1 ]; then
     # TODO: add finnix support which needs special handling for libc6 upgrade
-    apt-get -y install parted hdparm smartmontools util-linux fio wget ncurses-bin gcc libc-dev
+    apt-get -y install parted hdparm smartmontools util-linux fio wget ncurses-bin gcc libc6-dev
 fi
 
 # REQUIRED TOOLS
