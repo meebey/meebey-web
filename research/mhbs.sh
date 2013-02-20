@@ -63,7 +63,7 @@ fi
 
 if [ $INSTALL_DEBS  = 1 ]; then
     # TODO: add finnix support which needs special handling for libc6 upgrade
-    apt-get -y install parted hdparm smartmontools util-linux fio wget ncurses-bin
+    apt-get -y install parted hdparm smartmontools util-linux fio wget ncurses-bin gcc libc-dev
 fi
 
 # REQUIRED TOOLS
@@ -74,6 +74,7 @@ if ! which fio > /dev/null; then echo "no fio!"; exit 1; fi
 if ! which mkfs.ext3 > /dev/null; then echo "no mkfs.ext3!"; exit 1; fi
 if ! which wget > /dev/null; then echo "no wget!"; exit 1; fi
 if ! which tput > /dev/null; then echo "no wget!"; exit 1; fi
+if ! which gcc > /dev/null; then echo "no wget!"; exit 1; fi
 
 # SETUP
 HDD_DEV=/dev/$HDD
@@ -153,10 +154,11 @@ fi
 fio --readonly --filename=$HDD_DEV --direct=1 --rw=read --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
 fio --readonly --filename=$HDD_DEV --direct=1 --rw=randread --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
 
-if [ ! -x /tmp/seeker_baryluk_amd64 ]; then
-	cd /tmp; wget -q http://debian.gsd-software.net/benchmark/seeker_baryluk_amd64; chmod +x seeker_baryluk_amd64
+if [ ! -x /tmp/seeker_baryluk ]; then
+	cd /tmp
+    wget http://debian.gsd-software.net/benchmark/seeker_baryluk.c
+    gcc -lpthread -o seeker_baryluk seeker_baryluk.c
 fi
-for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; /tmp/seeker_baryluk_amd64 $HDD_DEV $threads | grep Results; sleep 1; done
 #rm /tmp/seeker_baryluk_amd64
 
 echo 3 > /proc/sys/vm/drop_caches
@@ -192,8 +194,10 @@ fi
 fio --readonly --filename=$HDD_DEV --direct=1 --rw=read --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
 fio --readonly --filename=$HDD_DEV --direct=1 --rw=randread --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
 
-if [ ! -x /tmp/seeker_baryluk_amd64 ]; then
-	cd /tmp; wget -q http://debian.gsd-software.net/benchmark/seeker_baryluk_amd64; chmod +x seeker_baryluk_amd64
+if [ ! -x /tmp/seeker_baryluk ]; then
+	cd /tmp
+    wget http://debian.gsd-software.net/benchmark/seeker_baryluk.c
+    gcc -lpthread -o seeker_baryluk seeker_baryluk.c
 fi
 for threads in 01 02 04 08 16 32; do echo -n "Threads: $threads "; /tmp/seeker_baryluk_amd64 $HDD_DEV $threads | grep Results; sleep 1; done
 rm /tmp/seeker_baryluk_amd64
