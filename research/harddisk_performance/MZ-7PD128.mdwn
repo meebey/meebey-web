@@ -1,0 +1,628 @@
+[[!meta title="Samsung 840 SSD - 120 GB"]]
+[[!table header="no" class="harddisk_performance_table" data="""
+Manufacturer:   | Samsung
+Type:           | SSD
+Model:          | 840 Pro
+Firmware:       | DXM03B0Q
+Capacity:       | 128 GB
+Spindle Speed:  | -
+Interface:      | SATA 6 Gb/s
+Cache:          | -
+NCQ:            | Yes
+"""]]
+
+## CPU Model ##
+
+    grep name /proc/cpuinfo | uniq
+    model name  : Intel(R) Xeon(R) CPU E5-2620 0 @ 2.00GHz
+
+## CPU Threads ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | wc -l
+    12
+
+## Cores per CPU ##
+
+    cat /sys/devices/system/cpu/cpu*/topology/core_id | sort | uniq | wc -l
+    6
+
+## Kernel ##
+
+    uname -a
+    Linux finnix 2.6.32-1-amd64-finnix #1 SMP Sun Oct 24 16:48:05 PDT 2010 x86_64 GNU/Linux
+
+## Memory ##
+
+    grep Memory: /var/log/dmesg
+    [    0.000000] Memory: 16442684k/18874368k available (3059k kernel code, 2125236k absent, 306448k reserved, 1847k data, 596k init)
+
+## Memory Performance ##
+
+    dd if=/dev/zero of=/dev/null bs=32M count=1000
+    33554432000 bytes (34 GB) copied, 4.44051 s, 7.6 GB/s
+
+## Disk Controller ##
+
+    lspci | grep AHCI
+    00:1f.2 SATA controller: Intel Corporation Patsburg 6 Port SATA AHCI Controller (rev 06)
+
+## Disk Status ##
+
+    egrep 'ata[0-9]\.|SATA link up' /var/log/dmesg
+    [    2.539636] ata1: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+    [    2.540320] ata1.00: ATA-9: Samsung SSD 840 PRO Series, DXM03B0Q, max UDMA/133
+    [    2.540325] ata1.00: 250069680 sectors, multi 16: LBA48 NCQ (depth 31/32), AA
+    [    2.540578] ata1.00: configured for UDMA/133
+
+## HDD Performance ##
+
+    blockdev --getra /dev/sda
+    256
+    cat /sys/block/sda/queue/scheduler
+    [noop] deadline cfq
+    cat /sys/block/sda/device/queue_depth
+    31
+
+## HDD Performance (STOCK) ##
+
+    file1: (g=0): rw=write, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+      write: io=639936KB, bw=80569KB/s, iops=20142 , runt= 60001msec
+
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+      write: io=2645.4MB, bw=254858KB/s, iops=63714 , runt= 60001msec
+
+    file1: (g=0): rw=read, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+      read : io=1659.9MB, bw=98231KB/s, iops=24557 , runt= 60001msec
+
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+      read : io=3312.4MB, bw=266242KB/s, iops=66560 , runt= 60001msec
+
+    Threads: 01 Results: 15518 seeks/second, 0.064 ms random access time (333879 < offsets < 128035643487)
+    Threads: 02 Results: 25789 seeks/second, 0.039 ms random access time (127827 < offsets < 128035596207)
+    Threads: 04 Results: 40131 seeks/second, 0.025 ms random access time (281650 < offsets < 128035525795)
+    Threads: 08 Results: 52049 seeks/second, 0.019 ms random access time (15322 < offsets < 128035611470)
+    Threads: 16 Results: 66441 seeks/second, 0.015 ms random access time (64629 < offsets < 128035601335)
+    Threads: 32 Results: 70017 seeks/second, 0.014 ms random access time (36488 < offsets < 128035662983)
+
+    dd if=/dev/sda of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 43.2063 s, 388 MB/s
+    dd if=/dev/zero of=/dev/sda bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 48.2909 s, 347 MB/s
+
+    bonnie++ -f -n 128:4096:4096 -r 24000 -d /mnt -u root
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          47G           332066  58 206926  26           535899  28  2444 120
+    Latency                         277ms     244ms              3278us     822us
+    Version  1.96       ------Sequential Create------ --------Random Create--------
+    finnix              -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+    files:max:min        /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+          128:4096:4096 19087  86 149959  97 51298  74 28462  64 168008  97 46348  69
+    Latency             21471us    1240us   84013us    1307ms     697us   84657us
+
+## HDD Performance (WRITE ONCE) ##
+
+    file1: (g=0): rw=write, bs=1M-1M/1M-1M, ioengine=sync, iodepth=1
+      write: io=3320.0MB, bw=364043KB/s, iops=355 , runt=343461msec
+
+    file1: (g=0): rw=write, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+      write: io=631836KB, bw=80434KB/s, iops=20108 , runt= 60001msec
+
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+      write: io=1812.2MB, bw=100793KB/s, iops=25198 , runt= 60032msec
+
+    file1: (g=0): rw=read, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+      read : io=495452KB, bw=78161KB/s, iops=19540 , runt= 60001msec
+
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+      read : io=3372.2MB, bw=267262KB/s, iops=66815 , runt= 60001msec
+
+    Threads: 01 Results: 8282 seeks/second, 0.121 ms random access time (95155 < offsets < 128035415495)
+    Threads: 02 Results: 15367 seeks/second, 0.065 ms random access time (98732 < offsets < 128035634723)
+    Threads: 04 Results: 27048 seeks/second, 0.037 ms random access time (227216 < offsets < 128035510472)
+    Threads: 08 Results: 42291 seeks/second, 0.024 ms random access time (3696 < offsets < 128035663699)
+    Threads: 16 Results: 64069 seeks/second, 0.016 ms random access time (6617 < offsets < 128035570868)
+    Threads: 32 Results: 67821 seeks/second, 0.015 ms random access time (12401 < offsets < 128035652967)
+
+    dd if=/dev/sda of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 46.8382 s, 358 MB/s
+    dd if=/dev/zero of=/dev/sda bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 495.108 s, 33.9 MB/s
+
+    bonnie++ -f -n 128:4096:4096 -r 24000 -d /mnt -u root
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          47G           46292   7 128409  16           529556  28  2277 119
+    Latency                        3481ms     931ms              5897us     826us
+    Version  1.96       ------Sequential Create------ --------Random Create--------
+    finnix              -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+    files:max:min        /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+          128:4096:4096 10001  47 148413  97 27556  41 10056  22 166893  97 22370  33
+    Latency               783ms    1245us     408ms    8439ms     669us     396ms
+
+    fio --filename=/dev/sda --direct=1 --rw=write --bs=1M --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=write, bs=1M-1M/1M-1M, ioengine=sync, iodepth=1
+      write: io=4032.0MB, bw=68799KB/s, iops=67 , runt= 60012msec
+
+    fio --filename=/dev/sda --direct=1 --rw=write --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=write, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+      write: io=504452KB, bw=78311KB/s, iops=19577 , runt= 60001msec
+
+    fio --filename=/dev/sda --direct=1 --rw=randwrite --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+      write: io=3612.2MB, bw=61635KB/s, iops=15408 , runt= 60026msec
+
+    fio --readonly --filename=/dev/sda --direct=1 --rw=read --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
+    file1: (g=0): rw=read, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+      read : io=1181.4MB, bw=90065KB/s, iops=22516 , runt= 60001msec
+
+    fio --readonly --filename=/dev/sda --direct=1 --rw=randread --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+      read : io=3338.2MB, bw=266680KB/s, iops=66669 , runt= 60001msec
+
+    dd if=/dev/sda of=/dev/null bs=1M count=16000
+    16000+0 records in
+    16000+0 records out
+    16777216000 bytes (17 GB) copied, 46.6109 s, 360 MB/s
+
+    dd if=/dev/zero of=/dev/sda bs=1M count=1000
+    1000+0 records in
+    1000+0 records out
+    1048576000 bytes (1.0 GB) copied, 14.6361 s, 71.6 MB/s
+
+    time hdparm --user-master u --security-erase secret /dev/sda
+    security_password="secret"
+    
+    /dev/sda:
+     Issuing SECURITY_ERASE command, password="secret", user=user
+    
+    real    0m15.170s
+    user    0m0.004s
+    sys 0m0.000s
+
+    dd if=/dev/sda of=/dev/null bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 41.9474 s, 400 MB/s
+    dd if=/dev/zero of=/dev/sda bs=1M count=1000
+    1048576000 bytes (1.0 GB) copied, 3.31967 s, 316 MB/s
+    dd if=/dev/zero of=/dev/sda bs=1M count=16000
+    16777216000 bytes (17 GB) copied, 47.0422 s, 357 MB/s
+
+## mhbs.sh output ##
+
+    root@0:~# ./mhbs.sh --destroy-my-data --tune-kernel --install-debs --verbose sda
+    Reading package lists... Done
+    Building dependency tree       
+    Reading state information... Done
+    libc6-dev is already the newest version.
+    fio is already the newest version.
+    gcc is already the newest version.
+    hdparm is already the newest version.
+    ncurses-bin is already the newest version.
+    parted is already the newest version.
+    smartmontools is already the newest version.
+    util-linux is already the newest version.
+    wget is already the newest version.
+    0 upgraded, 0 newly installed, 0 to remove and 295 not upgraded.
+    DO_WRITE=1
+    TUNE_KERNEL=1
+    HDD=sda
+    HDD_DEV=/dev/sda
+    HDD_P1=/dev/sda1
+    ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    Device Model:     Samsung SSD 840 PRO Series
+    Firmware Version: DXM03B0Q
+    User Capacity:    128,035,676,160 bytes [128 GB]
+    ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    model name  : Intel(R) Xeon(R) CPU E5-2620 0 @ 2.00GHz
+    12
+    6
+    Linux finnix 2.6.32-1-amd64-finnix #1 SMP Sun Oct 24 16:48:05 PDT 2010 x86_64 GNU/Linux
+    [    0.000000] Memory: 16442684k/18874368k available (3059k kernel code, 2125236k absent, 306448k reserved, 1847k data, 596k init)
+    1000+0 records in
+    1000+0 records out
+    33554432000 bytes (34 GB) copied, 4.44051 s, 7.6 GB/s
+    00:1f.2 SATA controller: Intel Corporation Patsburg 6 Port SATA AHCI Controller (rev 06)
+    [    2.539636] ata1: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+    [    2.540320] ata1.00: ATA-9: Samsung SSD 840 PRO Series, DXM03B0Q, max UDMA/133
+    [    2.540325] ata1.00: 250069680 sectors, multi 16: LBA48 NCQ (depth 31/32), AA
+    [    2.540578] ata1.00: configured for UDMA/133
+    256
+    FOUND NON-ROTIONAL DISK (SSD)
+    TUNING KERNEL...
+    PERFORMING SECURE ERASE OF /dev/sda...
+    security_password="secret"
+
+    /dev/sda:
+     Issuing SECURITY_SET_PASS command, password="secret", user=user, mode=high
+    security_password="secret"
+
+    /dev/sda:
+     Issuing SECURITY_ERASE command, password="secret", user=user
+    0.00user 0.00system 0:15.14elapsed 0%CPU (0avgtext+0avgdata 1968maxresident)k
+    0inputs+0outputs (0major+161minor)pagefaults 0swaps
+    [noop] anticipatory deadline cfq 
+    31
+    ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    file1: (g=0): rw=write, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    2.0.8
+    Starting 1 process
+    Jobs: 1 (f=1): [W] [100.0% done] [0K/80488K /s] [0 /20.2K iops] [eta 00m:00s]
+    file1: (groupid=0, jobs=1): err= 0: pid=3862
+      write: io=639936KB, bw=80569KB/s, iops=20142 , runt= 60001msec
+        clat (usec): min=31 , max=1047 , avg=45.70, stdev= 6.71
+         lat (usec): min=31 , max=1048 , avg=46.62, stdev= 6.78
+        clat percentiles (usec):
+         |  1.00th=[   33],  5.00th=[   34], 10.00th=[   34], 20.00th=[   41],
+         | 30.00th=[   43], 40.00th=[   44], 50.00th=[   46], 60.00th=[   50],
+         | 70.00th=[   51], 80.00th=[   51], 90.00th=[   52], 95.00th=[   54],
+         | 99.00th=[   56], 99.50th=[   57], 99.90th=[   59], 99.95th=[   63],
+         | 99.99th=[   75]
+        bw (KB/s)  : min=80256, max=89432, per=100.00%, avg=80576.67, stdev=830.33
+        lat (usec) : 50=56.25%, 100=43.74%, 250=0.01%, 750=0.01%, 1000=0.01%
+        lat (msec) : 2=0.01%
+      cpu          : usr=9.54%, sys=22.41%, ctx=1208585, majf=0, minf=0
+      IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+         submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         issued    : total=r=0/w=0/d=1208560, short=r=0/w=0/d=0
+
+    Run status group 0 (all jobs):
+      WRITE: io=4720.1MB, aggrb=80569KB/s, minb=80569KB/s, maxb=80569KB/s, mint=60001msec, maxt=60001msec
+
+    Disk stats (read/write):
+      sda: ios=83/1207167, merge=0/0, ticks=4/32844, in_queue=32492, util=54.16%
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    2.0.8
+    Starting 1 process
+    Jobs: 1 (f=1): [w] [100.0% done] [0K/248.6M /s] [0 /63.7K iops] [eta 00m:00s]
+    file1: (groupid=0, jobs=1): err= 0: pid=3882
+      write: io=2645.4MB, bw=254858KB/s, iops=63714 , runt= 60001msec
+        slat (usec): min=5 , max=174 , avg=10.76, stdev= 2.37
+        clat (usec): min=30 , max=1125 , avg=488.05, stdev=15.65
+         lat (usec): min=42 , max=1130 , avg=499.78, stdev=15.96
+        clat percentiles (usec):
+         |  1.00th=[  354],  5.00th=[  486], 10.00th=[  486], 20.00th=[  486],
+         | 30.00th=[  490], 40.00th=[  490], 50.00th=[  490], 60.00th=[  490],
+         | 70.00th=[  490], 80.00th=[  494], 90.00th=[  494], 95.00th=[  498],
+         | 99.00th=[  502], 99.50th=[  502], 99.90th=[  506], 99.95th=[  510],
+         | 99.99th=[  636]
+        bw (KB/s)  : min=252912, max=351048, per=100.00%, avg=254869.45, stdev=8908.91
+        lat (usec) : 50=0.01%, 100=0.01%, 250=0.01%, 500=98.60%, 750=1.40%
+        lat (usec) : 1000=0.01%
+        lat (msec) : 2=0.01%
+      cpu          : usr=19.79%, sys=80.03%, ctx=65, majf=0, minf=0
+      IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=100.0%, >=64=0.0%
+         submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.1%, 64=0.0%, >=64=0.0%
+         issued    : total=r=0/w=0/d=3822932, short=r=0/w=0/d=0
+
+    Run status group 0 (all jobs):
+      WRITE: io=14933MB, aggrb=254857KB/s, minb=254857KB/s, maxb=254857KB/s, mint=60001msec, maxt=60001msec
+
+    Disk stats (read/write):
+      sda: ios=83/3818203, merge=0/0, ticks=8/140656, in_queue=139660, util=99.90%
+    file1: (g=0): rw=read, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    2.0.8
+    Starting 1 process
+    Jobs: 1 (f=1): [R] [100.0% done] [96892K/0K /s] [24.3K/0  iops] [eta 00m:00s]
+    file1: (groupid=0, jobs=1): err= 0: pid=3895
+      read : io=1659.9MB, bw=98231KB/s, iops=24557 , runt= 60001msec
+        clat (usec): min=27 , max=766 , avg=37.55, stdev= 8.19
+         lat (usec): min=28 , max=766 , avg=38.16, stdev= 8.28
+        clat percentiles (usec):
+         |  1.00th=[   29],  5.00th=[   30], 10.00th=[   30], 20.00th=[   30],
+         | 30.00th=[   31], 40.00th=[   31], 50.00th=[   31], 60.00th=[   41],
+         | 70.00th=[   43], 80.00th=[   48], 90.00th=[   49], 95.00th=[   50],
+         | 99.00th=[   51], 99.50th=[   52], 99.90th=[   53], 99.95th=[   55],
+         | 99.99th=[   61]
+        bw (KB/s)  : min=94992, max=120448, per=100.00%, avg=98248.74, stdev=6789.57
+        lat (usec) : 50=91.93%, 100=8.07%, 250=0.01%, 750=0.01%, 1000=0.01%
+      cpu          : usr=11.45%, sys=18.21%, ctx=1473509, majf=0, minf=0
+      IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+         submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         issued    : total=r=1473485/w=0/d=0, short=r=0/w=0/d=0
+
+    Run status group 0 (all jobs):
+       READ: io=5755.9MB, aggrb=98230KB/s, minb=98230KB/s, maxb=98230KB/s, mint=60001msec, maxt=60001msec
+
+    Disk stats (read/write):
+      sda: ios=1471772/0, merge=0/0, ticks=31552/0, in_queue=31280, util=52.14%
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    2.0.8
+    Starting 1 process
+    Jobs: 1 (f=1): [r] [100.0% done] [262.9M/0K /s] [67.3K/0  iops] [eta 00m:00s]
+    file1: (groupid=0, jobs=1): err= 0: pid=3898
+      read : io=3312.4MB, bw=266242KB/s, iops=66560 , runt= 60001msec
+        slat (usec): min=3 , max=244 , avg= 8.73, stdev= 4.55
+        clat (usec): min=22 , max=1108 , avg=467.70, stdev=34.00
+         lat (usec): min=40 , max=1114 , avg=477.50, stdev=33.96
+        clat percentiles (usec):
+         |  1.00th=[  382],  5.00th=[  414], 10.00th=[  426], 20.00th=[  442],
+         | 30.00th=[  454], 40.00th=[  462], 50.00th=[  466], 60.00th=[  474],
+         | 70.00th=[  482], 80.00th=[  494], 90.00th=[  510], 95.00th=[  524],
+         | 99.00th=[  556], 99.50th=[  572], 99.90th=[  620], 99.95th=[  644],
+         | 99.99th=[  684]
+        bw (KB/s)  : min=264216, max=269016, per=99.99%, avg=266226.55, stdev=687.30
+        lat (usec) : 50=0.01%, 100=0.01%, 250=0.01%, 500=84.81%, 750=15.19%
+        lat (usec) : 1000=0.01%
+        lat (msec) : 2=0.01%
+      cpu          : usr=17.45%, sys=82.31%, ctx=503, majf=0, minf=0
+      IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=100.0%, >=64=0.0%
+         submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.1%, 64=0.0%, >=64=0.0%
+         issued    : total=r=3993693/w=0/d=0, short=r=0/w=0/d=0
+
+    Run status group 0 (all jobs):
+       READ: io=15600MB, aggrb=266241KB/s, minb=266241KB/s, maxb=266241KB/s, mint=60001msec, maxt=60001msec
+
+    Disk stats (read/write):
+      sda: ios=3988668/0, merge=0/0, ticks=640728/0, in_queue=639864, util=99.88%
+    Threads: 01 Results: 15518 seeks/second, 0.064 ms random access time (333879 < offsets < 128035643487)
+    Threads: 02 Results: 25789 seeks/second, 0.039 ms random access time (127827 < offsets < 128035596207)
+    Threads: 04 Results: 40131 seeks/second, 0.025 ms random access time (281650 < offsets < 128035525795)
+    Threads: 08 Results: 52049 seeks/second, 0.019 ms random access time (15322 < offsets < 128035611470)
+    Threads: 16 Results: 66441 seeks/second, 0.015 ms random access time (64629 < offsets < 128035601335)
+    Threads: 32 Results: 70017 seeks/second, 0.014 ms random access time (36488 < offsets < 128035662983)
+    16000+0 records in
+    16000+0 records out
+    16777216000 bytes (17 GB) copied, 43.2063 s, 388 MB/s
+    16000+0 records in
+    16000+0 records out
+    16777216000 bytes (17 GB) copied, 48.2909 s, 347 MB/s
+    Information: You may need to update /etc/fstab.                           
+
+    Information: You may need to update /etc/fstab.                           
+
+    mke2fs 1.41.12 (17-May-2010)
+    Filesystem label=
+    OS type: Linux
+    Block size=4096 (log=2)
+    Fragment size=4096 (log=2)
+    Stride=0 blocks, Stripe width=0 blocks
+    3907584 inodes, 15624704 blocks
+    781235 blocks (5.00%) reserved for the super user
+    First data block=0
+    Maximum filesystem blocks=0
+    477 block groups
+    32768 blocks per group, 32768 fragments per group
+    8192 inodes per group
+    Superblock backups stored on blocks: 
+        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, 
+        4096000, 7962624, 11239424
+
+    Writing inode tables: done                            
+    Creating journal (32768 blocks): done
+    Writing superblocks and filesystem accounting information: done
+
+    This filesystem will be automatically checked every 23 mounts or
+    180 days, whichever comes first.  Use tune2fs -c or -i to override.
+    Using uid:0, gid:0.
+    Writing intelligently...done
+    Rewriting...done
+    Reading intelligently...done
+    start 'em...done...done...done...done...done...
+    Create files in sequential order...done.
+    Stat files in sequential order...done.
+    Delete files in sequential order...done.
+    Create files in random order...done.
+    Stat files in random order...done.
+    Delete files in random order...done.
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          47G           332066  58 206926  26           535899  28  2444 120
+    Latency                         277ms     244ms              3278us     822us
+    Version  1.96       ------Sequential Create------ --------Random Create--------
+    finnix              -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+    files:max:min        /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+          128:4096:4096 19087  86 149959  97 51298  74 28462  64 168008  97 46348  69
+    Latency             21471us    1240us   84013us    1307ms     697us   84657us
+    1.96,1.96,finnix,1,1361375478,47G,,,,332066,58,206926,26,,,535899,28,2444,120,128,4096,4096,,,19087,86,149959,97,51298,74,28462,64,168008,97,46348,69,,277ms,244ms,,3278us,822us,21471us,1240us,84013us,1307ms,697us,84657us
+    ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    file1: (g=0): rw=write, bs=1M-1M/1M-1M, ioengine=sync, iodepth=1
+    2.0.8
+    Starting 1 process
+    Jobs: 1 (f=1): [W] [100.0% done] [0K/359.0M /s] [0 /359  iops] [eta 00m:00s]
+    file1: (groupid=0, jobs=1): err= 0: pid=4623
+      write: io=3320.0MB, bw=364043KB/s, iops=355 , runt=343461msec
+        clat (usec): min=1999 , max=7966 , avg=2784.93, stdev=399.65
+         lat (usec): min=2018 , max=7985 , avg=2803.50, stdev=399.67
+        clat percentiles (usec):
+         |  1.00th=[ 2192],  5.00th=[ 2384], 10.00th=[ 2448], 20.00th=[ 2512],
+         | 30.00th=[ 2576], 40.00th=[ 2640], 50.00th=[ 2704], 60.00th=[ 2768],
+         | 70.00th=[ 2832], 80.00th=[ 2960], 90.00th=[ 3248], 95.00th=[ 3568],
+         | 99.00th=[ 4320], 99.50th=[ 4640], 99.90th=[ 5408], 99.95th=[ 5728],
+         | 99.99th=[ 6560]
+        bw (KB/s)  : min=308630, max=379410, per=100.00%, avg=364396.36, stdev=9972.66
+        lat (msec) : 2=0.01%, 4=98.02%, 10=1.98%
+      cpu          : usr=1.07%, sys=2.32%, ctx=122191, majf=0, minf=0
+      IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+         submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         issued    : total=r=0/w=0/d=122104, short=r=0/w=0/d=0
+
+    Run status group 0 (all jobs):
+      WRITE: io=122104MB, aggrb=364042KB/s, minb=364042KB/s, maxb=364042KB/s, mint=343461msec, maxt=343461msec
+
+    Disk stats (read/write):
+      sda: ios=83/244126, merge=0/0, ticks=224/494176, in_queue=494116, util=97.08%
+    file1: (g=0): rw=write, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    2.0.8
+    Starting 1 process
+    Jobs: 1 (f=1): [W] [100.0% done] [0K/80632K /s] [0 /20.2K iops] [eta 00m:00s]
+    file1: (groupid=0, jobs=1): err= 0: pid=4644
+      write: io=631836KB, bw=80434KB/s, iops=20108 , runt= 60001msec
+        clat (usec): min=31 , max=730 , avg=45.76, stdev= 6.84
+         lat (usec): min=32 , max=731 , avg=46.69, stdev= 6.91
+        clat percentiles (usec):
+         |  1.00th=[   33],  5.00th=[   34], 10.00th=[   34], 20.00th=[   40],
+         | 30.00th=[   43], 40.00th=[   45], 50.00th=[   47], 60.00th=[   50],
+         | 70.00th=[   51], 80.00th=[   51], 90.00th=[   52], 95.00th=[   54],
+         | 99.00th=[   57], 99.50th=[   57], 99.90th=[   59], 99.95th=[   63],
+         | 99.99th=[   75]
+        bw (KB/s)  : min=79728, max=92360, per=100.00%, avg=80440.54, stdev=1113.24
+        lat (usec) : 50=54.93%, 100=45.07%, 250=0.01%, 500=0.01%, 750=0.01%
+      cpu          : usr=9.87%, sys=22.27%, ctx=1206557, majf=0, minf=0
+      IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+         submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         issued    : total=r=0/w=0/d=1206535, short=r=0/w=0/d=0
+
+    Run status group 0 (all jobs):
+      WRITE: io=4713.3MB, aggrb=80434KB/s, minb=80434KB/s, maxb=80434KB/s, mint=60001msec, maxt=60001msec
+
+    Disk stats (read/write):
+      sda: ios=83/1205152, merge=0/0, ticks=4/32396, in_queue=32052, util=53.42%
+    file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    2.0.8
+    Starting 1 process
+    Jobs: 1 (f=1): [w] [100.0% done] [0K/19920K /s] [0 /4980  iops] [eta 00m:00s]
+    file1: (groupid=0, jobs=1): err= 0: pid=4658
+      write: io=1812.2MB, bw=100793KB/s, iops=25198 , runt= 60032msec
+        slat (usec): min=4 , max=161 , avg= 9.71, stdev= 2.96
+        clat (usec): min=150 , max=760148 , avg=1256.55, stdev=9756.48
+         lat (usec): min=158 , max=760155 , avg=1267.37, stdev=9756.19
+        clat percentiles (usec):
+         |  1.00th=[  354],  5.00th=[  466], 10.00th=[  470], 20.00th=[  474],
+         | 30.00th=[  474], 40.00th=[  474], 50.00th=[  474], 60.00th=[  474],
+         | 70.00th=[  478], 80.00th=[  482], 90.00th=[  482], 95.00th=[  604],
+         | 99.00th=[20096], 99.50th=[32128], 99.90th=[79360], 99.95th=[164864],
+         | 99.99th=[456704]
+        bw (KB/s)  : min= 2618, max=327240, per=100.00%, avg=107234.21, stdev=115917.10
+        lat (usec) : 250=0.01%, 500=94.13%, 750=1.01%, 1000=0.20%
+        lat (msec) : 2=0.55%, 4=0.70%, 10=1.27%, 20=1.12%, 50=0.80%
+        lat (msec) : 100=0.12%, 250=0.05%, 500=0.02%, 750=0.01%, 1000=0.01%
+      cpu          : usr=8.20%, sys=29.81%, ctx=2939, majf=0, minf=0
+      IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=100.0%, >=64=0.0%
+         submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.1%, 64=0.0%, >=64=0.0%
+         issued    : total=r=0/w=0/d=1512699, short=r=0/w=0/d=0
+
+    Run status group 0 (all jobs):
+      WRITE: io=5908.2MB, aggrb=100792KB/s, minb=100792KB/s, maxb=100792KB/s, mint=60032msec, maxt=60032msec
+
+    Disk stats (read/write):
+      sda: ios=83/1512172, merge=0/0, ticks=8/1261216, in_queue=1261196, util=99.90%
+    file1: (g=0): rw=read, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+    2.0.8
+    Starting 1 process
+    Jobs: 1 (f=1): [R] [100.0% done] [96700K/0K /s] [24.2K/0  iops] [eta 00m:00s]
+    file1: (groupid=0, jobs=1): err= 0: pid=4678
+      read : io=495452KB, bw=78161KB/s, iops=19540 , runt= 60001msec
+        clat (usec): min=27 , max=6620 , avg=47.84, stdev=114.81
+         lat (usec): min=28 , max=6621 , avg=48.49, stdev=114.82
+        clat percentiles (usec):
+         |  1.00th=[   29],  5.00th=[   30], 10.00th=[   30], 20.00th=[   30],
+         | 30.00th=[   31], 40.00th=[   31], 50.00th=[   39], 60.00th=[   42],
+         | 70.00th=[   46], 80.00th=[   48], 90.00th=[   49], 95.00th=[   51],
+         | 99.00th=[  366], 99.50th=[  628], 99.90th=[ 1032], 99.95th=[ 3248],
+         | 99.99th=[ 4256]
+        bw (KB/s)  : min=49976, max=97296, per=99.84%, avg=78034.87, stdev=20143.94
+        lat (usec) : 50=90.50%, 100=7.71%, 250=0.50%, 500=0.58%, 750=0.38%
+        lat (usec) : 1000=0.22%
+        lat (msec) : 2=0.05%, 4=0.05%, 10=0.02%
+      cpu          : usr=8.97%, sys=15.69%, ctx=1172454, majf=0, minf=0
+      IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+         submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         issued    : total=r=1172439/w=0/d=0, short=r=0/w=0/d=0
+
+    Run status group 0 (all jobs):
+       READ: io=4579.9MB, aggrb=78161KB/s, minb=78161KB/s, maxb=78161KB/s, mint=60001msec, maxt=60001msec
+
+    Disk stats (read/write):
+      sda: ios=1170758/0, merge=0/0, ticks=36768/0, in_queue=36464, util=60.78%
+    file1: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+    2.0.8
+    Starting 1 process
+    Jobs: 1 (f=1): [r] [100.0% done] [261.3M/0K /s] [66.9K/0  iops] [eta 00m:00s]
+    file1: (groupid=0, jobs=1): err= 0: pid=4681
+      read : io=3372.2MB, bw=267262KB/s, iops=66815 , runt= 60001msec
+        slat (usec): min=3 , max=493 , avg= 8.68, stdev= 4.52
+        clat (usec): min=154 , max=1230 , avg=465.93, stdev=35.64
+         lat (usec): min=166 , max=1235 , avg=475.70, stdev=35.57
+        clat percentiles (usec):
+         |  1.00th=[  378],  5.00th=[  410], 10.00th=[  422], 20.00th=[  438],
+         | 30.00th=[  450], 40.00th=[  458], 50.00th=[  466], 60.00th=[  474],
+         | 70.00th=[  482], 80.00th=[  494], 90.00th=[  510], 95.00th=[  524],
+         | 99.00th=[  556], 99.50th=[  572], 99.90th=[  636], 99.95th=[  660],
+         | 99.99th=[  700]
+        bw (KB/s)  : min=265936, max=268152, per=100.00%, avg=267268.77, stdev=334.57
+        lat (usec) : 250=0.01%, 500=85.09%, 750=14.91%, 1000=0.01%
+        lat (msec) : 2=0.01%
+      cpu          : usr=18.07%, sys=81.67%, ctx=719, majf=0, minf=0
+      IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=100.0%, >=64=0.0%
+         submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+         complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.1%, 64=0.0%, >=64=0.0%
+         issued    : total=r=4008999/w=0/d=0, short=r=0/w=0/d=0
+
+    Run status group 0 (all jobs):
+       READ: io=15660MB, aggrb=267262KB/s, minb=267262KB/s, maxb=267262KB/s, mint=60001msec, maxt=60001msec
+
+    Disk stats (read/write):
+      sda: ios=4003961/0, merge=0/0, ticks=669936/0, in_queue=669064, util=99.88%
+    Threads: 01 Results: 8282 seeks/second, 0.121 ms random access time (95155 < offsets < 128035415495)
+    Threads: 02 Results: 15367 seeks/second, 0.065 ms random access time (98732 < offsets < 128035634723)
+    Threads: 04 Results: 27048 seeks/second, 0.037 ms random access time (227216 < offsets < 128035510472)
+    Threads: 08 Results: 42291 seeks/second, 0.024 ms random access time (3696 < offsets < 128035663699)
+    Threads: 16 Results: 64069 seeks/second, 0.016 ms random access time (6617 < offsets < 128035570868)
+    Threads: 32 Results: 67821 seeks/second, 0.015 ms random access time (12401 < offsets < 128035652967)
+    16000+0 records in
+    16000+0 records out
+    16777216000 bytes (17 GB) copied, 46.8382 s, 358 MB/s
+    16000+0 records in
+    16000+0 records out
+    16777216000 bytes (17 GB) copied, 495.108 s, 33.9 MB/s
+    Information: You may need to update /etc/fstab.                           
+
+    Information: You may need to update /etc/fstab.                           
+
+    mke2fs 1.41.12 (17-May-2010)
+    Filesystem label=
+    OS type: Linux
+    Block size=4096 (log=2)
+    Fragment size=4096 (log=2)
+    Stride=0 blocks, Stripe width=0 blocks
+    3907584 inodes, 15624704 blocks
+    781235 blocks (5.00%) reserved for the super user
+    First data block=0
+    Maximum filesystem blocks=0
+    477 block groups
+    32768 blocks per group, 32768 fragments per group
+    8192 inodes per group
+    Superblock backups stored on blocks: 
+        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, 
+        4096000, 7962624, 11239424
+
+    Writing inode tables: done                            
+    Creating journal (32768 blocks): done
+    Writing superblocks and filesystem accounting information: done
+
+    This filesystem will be automatically checked every 39 mounts or
+    180 days, whichever comes first.  Use tune2fs -c or -i to override.
+    Using uid:0, gid:0.
+    Writing intelligently...done
+    Rewriting...done
+    Reading intelligently...done
+    start 'em...done...done...done...done...done...
+    Create files in sequential order...done.
+    Stat files in sequential order...done.
+    Delete files in sequential order...done.
+    Create files in random order...done.
+    Stat files in random order...done.
+    Delete files in random order...done.
+    Version  1.96       ------Sequential Output------ --Sequential Input- --Random-
+    Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+    Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+    finnix          47G           46292   7 128409  16           529556  28  2277 119
+    Latency                        3481ms     931ms              5897us     826us
+    Version  1.96       ------Sequential Create------ --------Random Create--------
+    finnix              -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+    files:max:min        /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+          128:4096:4096 10001  47 148413  97 27556  41 10056  22 166893  97 22370  33
+    Latency               783ms    1245us     408ms    8439ms     669us     396ms
+    1.96,1.96,finnix,1,1361373000,47G,,,,46292,7,128409,16,,,529556,28,2277,119,128,4096,4096,,,10001,47,148413,97,27556,41,10056,22,166893,97,22370,33,,3481ms,931ms,,5897us,826us,783ms,1245us,408ms,8439ms,669us,396ms
+
