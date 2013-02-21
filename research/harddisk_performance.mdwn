@@ -18,9 +18,11 @@ WD RE4 2000GB          | [[WD2003FYYS]]       | 150 MB/s | 149 MB/s | 134773 KB/
 WD VelociRaptor 150GB  | [[WD1500HLFS]]       | 127 MB/s | ?        |  94189 KB/s |  76688 KB/s |  40053 KB/s | 135     |  7.398  |        |          |        |
 WD VelociRaptor 300GB  | [[WD3000HLFS]]       | 125 MB/s | 124 MB/s | 130603 KB/s |  95169 KB/s |  52749 KB/s | 141     |  7.051  |        |          |        |
 WD VelociRaptor 1 TB   | [[WD1000DHTZ]]       | 201 MB/s | 210 MB/s | 196387 KB/s | 139418 KB/s |  82770 KB/s | 147     |  6.800  |        |          |        |
-Intel SSD 520 120GB    | [[SSDSC2CW120A3]]    | 349 MB/s | 392 MB/s | 409311 KB/s | 465053 KB/s | 211663 KB/s | 9022    |  0.111  |        | 30704    |        | 19735
+Intel SSD 520 120GB    | [[SSDSC2CW120A3]]    | 415 MB/s | 516 MB/s | 409311 KB/s | 465053 KB/s | 211663 KB/s | 9022    |  0.111  | 16300  | 31361    |        | 35594
+Intel SSD 520 120GB    | [[SSDSC2CW120A3]]    | 349 MB/s | 392 MB/s |             | 364438 KB/s |             |         |         |        | 30704    |        | 19735
 Samsung SSD 830 128GB  | [[MZ-7PC128]]        | 275 MB/s | ?        | ?           | ?           | ?           | ?       | ?       | 15021  | 63325    |        |
-Samsung SSD 830 128GB  | [[MZ-7PC128_2]]      | 251 MB/s | 310 MB/s | 448005 KB/s | 306406 KB/s | 156598 KB/s | 8776    |  0.114  | 24693  | 75895    | 21700  | 12116
+Samsung SSD 830 128GB  | [[MZ-7PC128_2]]      | 251 MB/s | 310 MB/s | 448005 KB/s | 306406 KB/s | 156598 KB/s | 8776    |  0.114  | 24673  | 75082    | 21613  | 33513
+Samsung SSD 830 128GB  | [[MZ-7PC128_2]]      | ?        | ?        | ?           | ?           | ?           | ?       |  ?      | 24693  | 75895    | 21700  | 12116
 Samsung SSD 840B 120GB | [[MZ-7TD120]]        | 364 MB/s | 193 MB/s | 563364 KB/s | 133098 KB/s | 105456 KB/s | 15153   |  0.066  | 28480  | 81232    | 25129  | 34199
 Samsung SSD 840B 120GB | [[MZ-7TD120]]        | 335 MB/s | 134 MB/s | 563119 KB/s | 134405 KB/s | 103835 KB/s | 7062    |  0.142  | 28529  | 75975    | 24715  | 34121
 Samsung SSD 840P 128GB | [[MZ-7PD128]]        | 388 MB/s | 347 MB/s | 535899 KB/s | 332066 KB/s | 206926 KB/s | 15518   |  0.064  | 24557  | 66560    | 20142  | 63714
