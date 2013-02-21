@@ -1,4 +1,4 @@
-[[!meta title="Samsung 840 SSD - 120 GB"]]
+[[!meta title="Samsung 840 Pro SSD - 128 GB"]]
 [[!table header="no" class="harddisk_performance_table" data="""
 Manufacturer:   | Samsung
 Type:           | SSD
