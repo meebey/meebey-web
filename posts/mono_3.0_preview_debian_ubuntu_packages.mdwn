@@ -1,4 +1,5 @@
 [[!meta title="Mono 3.0 Preview Packages for Debian and Ubuntu"]]
+[[!meta updated="2013-03-06 06:01:55 +0100"]]
 [[!tag mono debian ubuntu packaging planet-debian planet-mono]]
 
 Just after the [Mono 3.0 release] was announced I started working on Debian
@@ -42,8 +43,33 @@ Now update the APT database and install mono-complete from that repository:
     apt-get update
     apt-get install mono-complete
 
+**UPDATE:** Some people reported issues with xsp4 on Mono 3.0 that look like
+this:
+
+    An exception has occurred while generating HttpException page:
+    System.NullReferenceException: Object reference not set to an instance of an object
+      at System.Web.Util.HttpEncoder.GetCustomEncoderFromConfig () [0x00000] in <filename unknown>:0
+      at System.Lazy`1[System.Web.Util.HttpEncoder].InitValue () [0x00000] in <filename unknown>:0
+
+I could track these issue down to an too old XSP version. The issue can be
+[solved][xsp-fix] by building XSP from the [git repository][xsp-git]. This was
+also the reason I couldn't upload the preview packages to the official
+repositories.
+
+**UPDATE2:** I have updated the [debian.meebey.net] repository with Mono 3.0.6
+packages. An upload to Debian/Experimental and Ubuntu/Raring will happen very
+soonish as promised. The final packages for official inclusion need updated
+[copyright information] and [library versioning] as defined in the
+[Debian Policy] and [Debian CLI Policy]. Have fun Mono 3.0.6ing!
+
   [Mono 3.0 release]: http://www.mono-project.com/Release_Notes_Mono_3.0
   [my Mono 2.10 packages]: /posts/the_big_split_mono_2.10_debian_packaging
   [git branches]: http://anonscm.debian.org/gitweb/?p=pkg-mono/packages/mono.git;a=heads
   [employer]: http://www.gsd-software.net/
   [debian.meebey.net]: http://debian.meebey.net/experimental/
+  [xsp-fix]: https://github.com/mono/xsp/commit/d3e2f80ff59ddff68e757a520655555e2fbf2695
+  [xsp-git]: https://github.com/mono/xsp
+  [copyright information]: http://www.debian.org/doc/debian-policy/ch-docs.html#s-copyrightfile
+  [library versioning]: http://pkg-mono.alioth.debian.org/cli-policy/ch-packaging.html#s-clilibs-control-file
+  [Debian Policy]: http://www.debian.org/doc/debian-policy/
+  [Debian CLI Policy]: http://pkg-mono.alioth.debian.org/cli-policy/
