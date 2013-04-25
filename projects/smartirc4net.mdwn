@@ -4,7 +4,9 @@
 """]]
 
 ## About ##
-SmartIrc4net is a multi-threaded and thread-safe IRC library written in C#. It allows you to communicate with IRC servers. The API features full channel syncing and is split in 3 layers: IrcConnection, IrcCommands and IrcClient.
+SmartIrc4net is a multi-threaded and thread-safe IRC library written in C#.  It
+allows you to communicate with IRC servers. The API features full channel
+syncing and is split in 3 layers: IrcConnection, IrcCommands and IrcClient.
 
 ## [[News|tags/smartirc4net]] ##
 
@@ -31,18 +33,18 @@ SmartIrc4net is a multi-threaded and thread-safe IRC library written in C#. It a
 ### [[FAQ]] ###
 
 ### IRC ###
-SmartIrc4net has it's own IRC channel for criticism, discussions, ideas or bugs.
-You are invited to join #smartirc on irc.freenode.net
+SmartIrc4net shares the IRC channel of Smuxi for criticism, discussions, ideas
+and bugs. You are invited to join #smuxi-devel on irc.freenode.net
 
 ### Forum ###
 [Help Forum] on SourceForge
 
 ### Source Repository ###
+Git is used as source repository for SmartIrc4net. You can access the repository
+using a webinterface or a git client directly.
 
-Git is used as source repository for SmartIrc4net. You can access the repository using a webinterface or a git client directly.
-
- * Webinterface: [[http://git.qnetp.net/?p=smartirc4net.git;a=summary]]
- * Repository URL: git://git.qnetp.net/smartirc4net.git
+ * Webinterface: [[https://github.com/meebey/SmartIrc4net]]
+ * Repository URL: git://github.com/meebey/SmartIrc4net.git
 
 ## Projects using SmartIrc4net ##
 
@@ -59,7 +61,7 @@ Git is used as source repository for SmartIrc4net. You can access the repository
 
   [smartirc4net-0.4.5.1.tar.gz]: http://www.smuxi.org/jaws/data/files/smartirc4net-0.4.5.1.tar.gz
   [API Documentation]: http://smartirc4net.meebey.net/docs/0.4.0/html/
-  [Examples]: http://git.qnetp.net/?p=smartirc4net.git;a=tree;f=examples;hb=HEAD
+  [Examples]: https://github.com/meebey/SmartIrc4net/tree/master/examples
   [DeveloperLand Article]: http://www.developerland.net/Web/General/245.aspx
   [ASP Free Article]: http://www.aspfree.com/c/a/.NET/Using-SmartIrc4net/
   [Known Issues]: http://projects.qnetp.net/projects/smartirc4net/issues
