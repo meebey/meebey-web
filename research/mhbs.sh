@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-### Meebey's HDD Benchmark Script v0.4 ###
+### Meebey's HDD Benchmark Script v0.5 ###
 # Boot with: mem=1g (else bonnie++ will do cached reads!)
 #
 # Copyright (C) 2012 Mirco Bauer <meebey@meebey.net>
@@ -62,6 +62,14 @@ else
 fi
 
 if [ $INSTALL_DEBS  = 1 ]; then
+    if lsb_release -i | grep -q Finnix; then
+        apt-get update
+        apt-get install libc6 libc-bin -d -y
+        mkdir -p /tmp/root
+        mount --bind /UNIONFS/ /tmp/root/
+        chroot /tmp/root bash -c 'dpkg -i /var/cache/apt/archives/libc*.deb; exit'
+        umount /tmp/root
+    fi
     # TODO: add finnix support which needs special handling for libc6 upgrade
     apt-get -y install parted hdparm smartmontools util-linux fio wget ncurses-bin gcc libc6-dev
 fi
@@ -110,10 +118,10 @@ cat /sys/devices/system/cpu/cpu*/topology/core_id | wc -l
 cat /sys/devices/system/cpu/cpu*/topology/core_id | sort | uniq | wc -l
 uname -a
 # limited to 1 GB
-grep Memory: /var/log/dmesg
+grep Memory: /var/log/dmesg || dmesg | grep Memory:
 dd if=/dev/zero of=/dev/null bs=32M count=1000
 lspci | grep AHCI
-egrep -h 'ata[0-9]\.|SATA link up' /var/log/dmesg /var/log/kern.log
+egrep -h 'ata[0-9]\.|SATA link up' /var/log/dmesg /var/log/kern.log || dmesg | egrep -h 'ata[0-9]\.|SATA link up'
 blockdev --getra $HDD_DEV
 
 # SECURE ERASE
