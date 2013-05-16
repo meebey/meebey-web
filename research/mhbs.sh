@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-### Meebey's HDD Benchmark Script v0.5 ###
+### Meebey's HDD Benchmark Script v0.6 ###
 # Boot with: mem=1g (else bonnie++ will do cached reads!)
 #
 # Copyright (C) 2012 Mirco Bauer <meebey@meebey.net>
@@ -124,8 +124,14 @@ lspci | grep AHCI
 egrep -h 'ata[0-9]\.|SATA link up' /var/log/dmesg /var/log/kern.log || dmesg | egrep -h 'ata[0-9]\.|SATA link up'
 blockdev --getra $HDD_DEV
 
-# SECURE ERASE
 if grep -q 0 /sys/block/$HDD/queue/rotational; then
+    IS_SSD=1
+else
+    IS_SSD=0
+fi
+
+# SECURE ERASE
+if [ $IS_SSD = 1 ]; then
 	if [ "$DEBUG" = 1 ]; then
 		echo "FOUND NON-ROTIONAL DISK (SSD)"
 	fi
@@ -194,6 +200,11 @@ if [ $DO_WRITE = 1 ]; then
 fi
 echo $DEVIDER
 
+if [ $IS_SSD = 0 ]; then
+    # no need to make a 2nd pass for non-SSD storage
+    exit 0
+fi
+
 if [ $DO_WRITE = 1 ]; then
 	# WRITE ONCE
 	fio --filename=$HDD_DEV --direct=1 --rw=write --bs=1M --numjobs=1 --group_reporting --name=file1
@@ -233,7 +244,7 @@ fi
 echo $DEVIDER
 
 # SECURE ERASE
-if grep -q 0 /sys/block/$HDD/queue/rotational; then
+if [ $IS_SSD = 1 ]; then
 	if [ "$DEBUG" = 1 ]; then
 		echo "FOUND NON-ROTIONAL DISK (SSD)"
 	fi
