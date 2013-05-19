@@ -3,9 +3,11 @@
  * [[Recent Comments|comments]]
  * [[Archives]]
 
-### Micro-Blog ###
+### Social ###
  * [[meebey @ Twitter|http://twitter.com/meebey]]
  * [[meebey @ identi.ca|http://identi.ca/meebey]]
+ * [[meebey @ Google+|https://plus.google.com/110845017456159195460]]
+ * [[meebey @ Flattr|https://flattr.com/profile/meebey/things]]
 
 ### Projects ####
  * [Debian]
