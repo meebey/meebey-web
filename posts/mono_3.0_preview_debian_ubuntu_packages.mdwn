@@ -43,7 +43,7 @@ Now update the APT database and install mono-complete from that repository:
     apt-get update
     apt-get install mono-complete
 
-[[!flattr button=compact]]
+[[!flattr title="Mono 3.0 Preview Packages for Debian and Ubuntu" button=compact]]
 
 **UPDATE:** Some people reported issues with xsp4 on Mono 3.0 that look like
 this:
