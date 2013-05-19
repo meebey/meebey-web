@@ -1,0 +1,10 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ claimedauthor="Ben Winkel"
+ subject="Update to 3.0.9?"
+ date="2013-04-16T09:25:09Z"
+ content="""
+Any chance you could update these packages to Mono 3.0.9? 
+
+Alternatively, post the scripts to build the packages?
+"""]]
