@@ -1,0 +1,25 @@
+[[!meta title=messagingmenu-sharp - C# binding for MessagingMenu"]]
+[[!sidebar content="""
+[[!toc startlevel=2 levels=2]]
+"""]]
+
+## About ##
+
+MessagingMenu# is C# binding for the C API of the [MessagingMenu library] part
+of Ubuntu's [Ayatana] project.
+
+## Download ##
+
+ * Source tarball: [messagingmenu-sharp-1.0.tar.gz][]
+ * Git repository on github: [meebey/messagingmenu-sharp][github]
+
+ [messagingmenu-sharp-1.0.tar.gz]: /projects/messagingmenu-sharp/downloads/messagingmenu-sharp-1.0.tar.gz
+
+## Projects using MessagingMenu\# ##
+
+ * [Smuxi IRC Client][Smuxi]
+
+ [MessagingMenu library]: https://launchpad.net/ubuntu/+source/indicator-messages
+ [Ayatana]: https://wiki.ubuntu.com/Ayatana
+ [github]: https://github.com/meebey/messagingmenu-sharp
+ [Smuxi]: http://www.smuxi.org/ "Smuxi IRC Client"
