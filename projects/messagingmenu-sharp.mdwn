@@ -1,4 +1,4 @@
-[[!meta title=messagingmenu-sharp - C# binding for MessagingMenu"]]
+[[!meta title="messagingmenu-sharp - C# binding for MessagingMenu"]]
 [[!sidebar content="""
 [[!toc startlevel=2 levels=2]]
 """]]
