@@ -17,6 +17,7 @@
  * [[SmartIrc4net|projects/smartirc4net]]
  * [[leveldb-sharp|projects/leveldb-sharp]]
  * [[notify-sharp|projects/notify-sharp]]
+ * [[messagingmenu-sharp|projects/messagingmenu-sharp]]
 
 ### Research ####
  * [[Harddisk Performance|research/harddisk_performance]]
