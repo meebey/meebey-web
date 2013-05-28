@@ -121,7 +121,7 @@ uname -a
 grep Memory: /var/log/dmesg || dmesg | grep Memory:
 dd if=/dev/zero of=/dev/null bs=32M count=1000
 lspci | grep AHCI
-egrep -h 'ata[0-9]\.|SATA link up' /var/log/dmesg /var/log/kern.log || dmesg | egrep -h 'ata[0-9]\.|SATA link up'
+egrep -h 'ata[0-9]\.|SATA link up' /var/log/dmesg /var/log/kern.log || dmesg | egrep -h 'ata[0-9]\.|SATA link up' || true
 blockdev --getra $HDD_DEV
 
 if grep -q 0 /sys/block/$HDD/queue/rotational; then
