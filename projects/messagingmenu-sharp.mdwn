@@ -10,10 +10,10 @@ of Ubuntu's [Ayatana] project.
 
 ## Download ##
 
- * Source tarball: [messagingmenu-sharp-1.0.tar.gz][]
+ * Source tarball: [messagingmenu-sharp-1.0.1.tar.gz][]
  * Git repository on github: [meebey/messagingmenu-sharp][github]
 
- [messagingmenu-sharp-1.0.tar.gz]: /projects/messagingmenu-sharp/downloads/messagingmenu-sharp-1.0.tar.gz
+ [messagingmenu-sharp-1.0.1.tar.gz]: /projects/messagingmenu-sharp/downloads/messagingmenu-sharp-1.0.1.tar.gz
 
 ## Projects using MessagingMenu\# ##
 
