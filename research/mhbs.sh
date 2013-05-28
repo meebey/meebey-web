@@ -62,7 +62,7 @@ else
 fi
 
 if [ $INSTALL_DEBS  = 1 ]; then
-    if lsb_release -i | grep -q Finnix; then
+    if uname -a | grep -q finnix; then
         apt-get update
         apt-get install libc6 libc-bin -d -y
         mkdir -p /tmp/root
