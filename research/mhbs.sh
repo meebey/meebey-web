@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-### Meebey's HDD Benchmark Script v0.8 ###
+### Meebey's HDD Benchmark Script v0.8.1 ###
 # Boot with: mem=1g (else bonnie++ will do cached reads!)
 #
 # Copyright (C) 2012 Mirco Bauer <meebey@meebey.net>
@@ -171,7 +171,7 @@ if [ $DO_WRITE = 1 ]; then
 	fio --filename=$HDD_DEV --direct=1 --rw=randwrite --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
 	sleep 10
 	if [ $IS_RAID = 1 ]; then
-		fio --filename=$HDD_DEV --direct=1 --rw=randwrite --bs=4k --runtime=300 --numjobs=1 --group_reporting --name=file1 --ioengine=libaioi --iodepth=512
+		fio --filename=$HDD_DEV --direct=1 --rw=randwrite --bs=4k --runtime=300 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=512
 		sleep 10
 	fi
 fi
