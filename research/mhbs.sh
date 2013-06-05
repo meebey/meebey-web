@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-### Meebey's HDD Benchmark Script v0.9 ###
+### Meebey's HDD Benchmark Script v0.9.1 ###
 # Boot with: mem=1g (else bonnie++ will do cached reads!)
 #
 # Copyright (C) 2012 Mirco Bauer <meebey@meebey.net>
@@ -115,7 +115,7 @@ DEVIDER=$(printf "%${COLUMNS}s" ' ' | sed 's/ /-/g')
 echo $DEVIDER
 
 # SYSTEM INFORMATION
-smartctl -i $HDD_DEV | egrep "Model|Firmware|Capacity"
+smartctl -i $HDD_DEV | egrep "Model|Firmware|Capacity" || true
 echo $DEVIDER
 grep name /proc/cpuinfo | uniq
 cat /sys/devices/system/cpu/cpu*/topology/core_id | wc -l
