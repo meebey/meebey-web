@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-### Meebey's HDD Benchmark Script v0.7 ###
+### Meebey's HDD Benchmark Script v0.8 ###
 # Boot with: mem=1g (else bonnie++ will do cached reads!)
 #
 # Copyright (C) 2012 Mirco Bauer <meebey@meebey.net>
@@ -130,6 +130,12 @@ else
     IS_SSD=0
 fi
 
+if [ $(cat /sys/block/sdb/device/queue_depth) -gt 32 ]; then
+    IS_RAID=1
+else
+    IS_RAID=0
+fi
+
 # SECURE ERASE
 if [ $IS_SSD = 1 ]; then
 	if [ "$DEBUG" = 1 ]; then
@@ -164,9 +170,16 @@ if [ $DO_WRITE = 1 ]; then
 	sleep 10
 	fio --filename=$HDD_DEV --direct=1 --rw=randwrite --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
 	sleep 10
+	if [ $IS_RAID = 1 ]; then
+		fio --filename=$HDD_DEV --direct=1 --rw=randwrite --bs=4k --runtime=300 --numjobs=1 --group_reporting --name=file1 --ioengine=libaioi --iodepth=512
+		sleep 10
+	fi
 fi
 fio --readonly --filename=$HDD_DEV --direct=1 --rw=read --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
 fio --readonly --filename=$HDD_DEV --direct=1 --rw=randread --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
+if [ $IS_RAID = 1 ]; then
+	fio --readonly --filename=$HDD_DEV --direct=1 --rw=randread --bs=4k --runtime=300 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=512
+fi
 
 if [ ! -x /tmp/seeker_baryluk ]; then
 	cd /tmp
@@ -214,9 +227,16 @@ if [ $DO_WRITE = 1 ]; then
 	sleep 10
 	fio --filename=$HDD_DEV --direct=1 --rw=randwrite --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
 	sleep 10
+	if [ $IS_RAID = 1 ]; then
+		fio --filename=$HDD_DEV --direct=1 --rw=randwrite --bs=4k --runtime=300 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=512
+		sleep 10
+	fi
 fi
 fio --readonly --filename=$HDD_DEV --direct=1 --rw=read --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1
 fio --readonly --filename=$HDD_DEV --direct=1 --rw=randread --bs=4k --runtime=60 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=32
+if [ $IS_RAID = 1 ]; then
+	fio --readonly --filename=$HDD_DEV --direct=1 --rw=randread --bs=4k --runtime=300 --numjobs=1 --group_reporting --name=file1 --ioengine=libaio --iodepth=512
+fi
 
 for threads in 01 02 04 08 16 32; do
     echo -n "Threads: $threads "
