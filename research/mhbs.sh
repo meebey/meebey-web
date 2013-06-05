@@ -134,7 +134,7 @@ else
     IS_SSD=0
 fi
 
-if [ $(cat /sys/block/$HDD/device/queue_depth || echo 0) -gt 32 ] || [ -d /sys/block/$HDD/md/  ]; then
+if [ $(cat /sys/block/$HDD/device/queue_depth 2> /dev/null || echo 0) -gt 32 ] || [ -d /sys/block/$HDD/md/  ]; then
     IS_RAID=1
 else
     IS_RAID=0
@@ -165,7 +165,7 @@ if [ $IS_SSD = 1 ]; then
 	fi
 fi
 cat /sys/block/$HDD/queue/scheduler
-cat /sys/block/$HDD/device/queue_depth
+cat /sys/block/$HDD/device/queue_depth 2> /dev/null || echo 0
 echo $DEVIDER
 
 # STOCK
