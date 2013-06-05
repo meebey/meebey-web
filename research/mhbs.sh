@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-### Meebey's HDD Benchmark Script v0.8.2 ###
+### Meebey's HDD Benchmark Script v0.9 ###
 # Boot with: mem=1g (else bonnie++ will do cached reads!)
 #
 # Copyright (C) 2012 Mirco Bauer <meebey@meebey.net>
@@ -86,7 +86,11 @@ if ! which gcc > /dev/null; then echo "no wget!"; exit 1; fi
 
 # SETUP
 HDD_DEV=/dev/$HDD
-HDD_P1=${HDD_DEV}1
+if echo $HDD | grep -q '[0-9]$'; then
+	HDD_P1=${HDD_DEV}p1
+else
+	HDD_P1=${HDD_DEV}1
+fi
 if [ -z "$HDD" ]; then
 	echo "No device name defined!"
 	exit 1
