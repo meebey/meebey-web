@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-### Meebey's HDD Benchmark Script v0.9.4 ###
+### Meebey's HDD Benchmark Script v0.9.5 ###
 # Boot with: mem=1g (else bonnie++ will do cached reads!)
 #
 # Copyright (C) 2012 Mirco Bauer <meebey@meebey.net>
@@ -213,11 +213,12 @@ if [ $DO_WRITE = 1 ]; then
 
 	blockdev --rereadpt $HDD_DEV && sleep 3
 	parted --script $HDD_DEV mklabel msdos
-	parted --script $HDD_DEV mkpart p 2048s 64g; sleep 3
 	if [ $IS_DRBD = 1 ]; then
+		parted --script $HDD_DEV mkpart p 2048s 64g || true; sleep 3
 		if ! which kpartx > /dev/null; then echo "kpartx!"; exit 1; fi
 		kparx -a $HDD_DEV
 	else
+		parted --script $HDD_DEV mkpart p 2048s 64g; sleep 3
 		blockdev --rereadpt $HDD_DEV && sleep 3
 	fi
 	mkfs.ext3 $HDD_P1
