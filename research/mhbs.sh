@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-### Meebey's HDD Benchmark Script v0.9.6 ###
+### Meebey's HDD Benchmark Script v0.9.7 ###
 # Boot with: mem=1g (else bonnie++ will do cached reads!)
 #
 # Copyright (C) 2012 Mirco Bauer <meebey@meebey.net>
@@ -227,7 +227,7 @@ if [ $DO_WRITE = 1 ]; then
 	bonnie++ -f -n 128:4096:4096 -r 24000 -d /mnt -u root
 	umount /mnt
 	if [ $IS_DRBD = 1 ]; then
-		kparx -d $HDD_DEV
+		kpartx -d $HDD_DEV
 	fi
 fi
 echo $DEVIDER
