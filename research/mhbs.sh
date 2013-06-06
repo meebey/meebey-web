@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-### Meebey's HDD Benchmark Script v0.9.2 ###
+### Meebey's HDD Benchmark Script v0.9.3 ###
 # Boot with: mem=1g (else bonnie++ will do cached reads!)
 #
 # Copyright (C) 2012 Mirco Bauer <meebey@meebey.net>
@@ -134,7 +134,7 @@ else
     IS_SSD=0
 fi
 
-if [ $(cat /sys/block/$HDD/device/queue_depth 2> /dev/null || echo 0) -gt 32 ] || [ -d /sys/block/$HDD/md/  ]; then
+if [ $(cat /sys/block/$HDD/device/queue_depth 2> /dev/null || echo 0) -gt 32 ] || [ -d /sys/block/$HDD/md/  ] || echo $HDD | grep -q '^drbd[0-9]'; then
     IS_RAID=1
 else
     IS_RAID=0
