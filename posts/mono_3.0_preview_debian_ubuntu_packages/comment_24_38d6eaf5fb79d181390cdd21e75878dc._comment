@@ -1,0 +1,10 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ claimedauthor="Giuliano"
+ subject="Update"
+ date="2013-06-26T21:12:05Z"
+ content="""
+Any thoughts on either updating or providing the scripts which create the package? It looks like there have been some good fixes since 3.0.6 and I'd love to get those.
+
+Thanks for your work into making these packages.
+"""]]

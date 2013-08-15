@@ -1,0 +1,12 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ claimedauthor="KP"
+ subject="Mono 3.0.12"
+ date="2013-06-19T20:26:29Z"
+ content="""
+Today Mono 3.0.12 was released. (http://news.mono-project.com/2013/06/19/new-mono-releases/)
+
+Could you update the PPA to sometime soon?
+
+3.0.6 is working fine at least!
+"""]]

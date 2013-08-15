@@ -1,0 +1,21 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ claimedauthor="Brad"
+ subject="Monodoc Issue"
+ date="2013-07-31T02:31:17Z"
+ content="""
+I just tried this tonight on my Ubuntu 13.04 box without any mono history at all... I got this at the end of the install:
+
+Setting up mono-complete (3.0.6+dfsg-1~exp1~pre1) ...
+Processing triggers for libc-bin ...
+ldconfig deferred processing now taking place
+Processing triggers for dictionaries-common ...
+Processing triggers for monodoc-browser ...
+generating monodoc search index...
+grep: /etc/gre.d/*.conf: No such file or directory
+
+Unhandled Exception:
+System.TypeLoadException: Could not load type 'Monodoc.EditMerger' from assembly 'monodoc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756'.
+[ERROR] FATAL UNHANDLED EXCEPTION: System.TypeLoadException: Could not load type 'Monodoc.EditMerger' from assembly 'monodoc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756'.
+
+"""]]

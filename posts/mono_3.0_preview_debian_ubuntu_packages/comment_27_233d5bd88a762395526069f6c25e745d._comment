@@ -1,0 +1,13 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ claimedauthor="Andrés G. Aragoneses"
+ url="http://knocte.blogspot.com"
+ subject="Is this supposed to work with Ubuntu 13.04?"
+ date="2013-07-07T12:00:44Z"
+ content="""
+I just tested this with Ubuntu 13.04 and I got only one error at the end:
+
+https://gist.github.com/knocte/5943237
+
+Other than that (I don't really use monodoc), all seems to work well.
+"""]]
