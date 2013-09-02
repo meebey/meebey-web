@@ -215,7 +215,7 @@ if [ $DO_WRITE = 1 ]; then
 	parted --script $HDD_DEV mklabel msdos
 	if [ $IS_DRBD = 1 ]; then
 		parted --script $HDD_DEV mkpart p 2048s 64g || true; sleep 3
-		if ! which kpartx > /dev/null; then echo "kpartx!"; exit 1; fi
+		if ! which kpartx > /dev/null; then echo "no kpartx!"; exit 1; fi
 		kpartx -a $HDD_DEV
 	else
 		parted --script $HDD_DEV mkpart p 2048s 64g; sleep 3
