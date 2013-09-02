@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-### Meebey's HDD Benchmark Script v0.9.8 ###
+### Meebey's HDD Benchmark Script v0.9.9 ###
 # Boot with: mem=1g (else bonnie++ will do cached reads!)
 #
 # Copyright (C) 2012 Mirco Bauer <meebey@meebey.net>
@@ -105,12 +105,26 @@ if echo $HDD | grep -q '^drbd[0-9]'; then
 else
 	IS_DRBD=0
 fi
+if grep -q 0 /sys/block/$HDD/queue/rotational; then
+    IS_SSD=1
+else
+    IS_SSD=0
+fi
+
+if [ $(cat /sys/block/$HDD/device/queue_depth 2> /dev/null || echo 0) -gt 32 ] || [ -d /sys/block/$HDD/md/  ] || [ $IS_DRBD = 1 ]; then
+    IS_RAID=1
+else
+    IS_RAID=0
+fi
 if [ "$DEBUG" = 1 ]; then
 	echo DO_WRITE=$DO_WRITE
 	echo TUNE_KERNEL=$TUNE_KERNEL
 	echo HDD=$HDD
 	echo HDD_DEV=$HDD_DEV
 	echo HDD_P1=$HDD_P1
+	echo IS_DRBD=$IS_DRBD
+	echo IS_SSD=$IS_SSD
+	echo IS_RAID=$IS_RAID
 fi
 
 COLUMNS=$(tput cols)
@@ -133,18 +147,6 @@ dd if=/dev/zero of=/dev/null bs=32M count=1000
 lspci | grep AHCI
 egrep -h 'ata[0-9]\.|SATA link up' /var/log/dmesg /var/log/kern.log || dmesg | egrep -h 'ata[0-9]\.|SATA link up' || true
 blockdev --getra $HDD_DEV
-
-if grep -q 0 /sys/block/$HDD/queue/rotational; then
-    IS_SSD=1
-else
-    IS_SSD=0
-fi
-
-if [ $(cat /sys/block/$HDD/device/queue_depth 2> /dev/null || echo 0) -gt 32 ] || [ -d /sys/block/$HDD/md/  ] || [ $IS_DRBD = 1 ]; then
-    IS_RAID=1
-else
-    IS_RAID=0
-fi
 
 # SECURE ERASE
 if [ $IS_SSD = 1 ]; then
