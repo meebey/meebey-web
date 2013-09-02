@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-### Meebey's HDD Benchmark Script v0.9.7 ###
+### Meebey's HDD Benchmark Script v0.9.8 ###
 # Boot with: mem=1g (else bonnie++ will do cached reads!)
 #
 # Copyright (C) 2012 Mirco Bauer <meebey@meebey.net>
@@ -103,7 +103,7 @@ if echo $HDD | grep -q '^drbd[0-9]'; then
 	IS_DRBD=1
 	HDD_P1=/dev/mapper/${HDD}p1
 else
-	IS_DBRD=0
+	IS_DRBD=0
 fi
 if [ "$DEBUG" = 1 ]; then
 	echo DO_WRITE=$DO_WRITE
