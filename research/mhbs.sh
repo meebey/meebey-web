@@ -1,10 +1,10 @@
 #!/bin/sh
 set -e
 
-### Meebey's HDD Benchmark Script v0.9.9 ###
+### Meebey's HDD Benchmark Script v0.9.10 ###
 # Boot with: mem=1g (else bonnie++ will do cached reads!)
 #
-# Copyright (C) 2012 Mirco Bauer <meebey@meebey.net>
+# Copyright (C) 2012-2013 Mirco Bauer <meebey@meebey.net>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -102,6 +102,10 @@ fi
 if echo $HDD | grep -q '^drbd[0-9]'; then
 	IS_DRBD=1
 	HDD_P1=/dev/mapper/${HDD}p1
+	if [ $INSTALL_DEBS  = 1 ]; then
+		apt-get -y install kpartx
+	fi
+	if ! which kpartx > /dev/null; then echo "no kpartx!"; exit 1; fi
 else
 	IS_DRBD=0
 fi
@@ -217,7 +221,6 @@ if [ $DO_WRITE = 1 ]; then
 	parted --script $HDD_DEV mklabel msdos
 	if [ $IS_DRBD = 1 ]; then
 		parted --script $HDD_DEV mkpart p 2048s 64g || true; sleep 3
-		if ! which kpartx > /dev/null; then echo "no kpartx!"; exit 1; fi
 		kpartx -a $HDD_DEV
 	else
 		parted --script $HDD_DEV mkpart p 2048s 64g; sleep 3
