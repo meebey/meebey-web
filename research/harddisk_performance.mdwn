@@ -33,5 +33,6 @@ OCZ Agility 3 240GB    |   | [[AGT3-25SAT3-240G]] | 205 MB/s | ?        | ?     
 
 Benchmark script: [[mhbs.sh]]
 
-S (Stock) = Stock manufactored state
-W (Written) = Disk written once completely with zeros for worst-case wear leveling
+ * S (Stock) = Disk in manufactored stock state
+ * W (Written Once) = Disk written once completely with random data for worst-case
+   wear leveling
