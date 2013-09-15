@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-### Meebey's HDD Benchmark Script v0.9.10 ###
+### Meebey's HDD Benchmark Script v0.10 ###
 # Boot with: mem=1g (else bonnie++ will do cached reads!)
 #
 # Copyright (C) 2012-2013 Mirco Bauer <meebey@meebey.net>
@@ -244,6 +244,8 @@ fi
 
 if [ $DO_WRITE = 1 ]; then
 	# WRITE ONCE
+	fio --filename=$HDD_DEV --direct=1 --rw=write --bs=1M --numjobs=1 --group_reporting --name=file1
+	# WRITE TWICE
 	fio --filename=$HDD_DEV --direct=1 --rw=write --bs=1M --numjobs=1 --group_reporting --name=file1
 	sleep 10
 
