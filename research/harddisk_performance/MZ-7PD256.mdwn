@@ -48,12 +48,12 @@ NCQ:            | Yes
 
 ## Disk Status ##
 
-    egrep 'scsi 0:0:0:0:' /var/log/dmesg
-    scsi 0:0:0:0: Direct-Access     ATA      SAMSUNG SSD 830  3B1Q PQ: 0 ANSI: 6
-    scsi 0:0:0:0: SATA: handle(0x000c), sas_addr(0x4433221103000000), phy(3), device_name(0x5002538043584d30)
-    scsi 0:0:0:0: SATA: enclosure_logical_id(0x500062b00029a984), slot(3)
-    scsi 0:0:0:0: atapi(n), ncq(y), asyn_notify(n), smart(y), fua(y), sw_preserve(y)
-    scsi 0:0:0:0: qdepth(32), tagged(1), simple(1), ordered(0), scsi_level(7), cmd_que(1)
+    egrep 'scsi 0:0:1:0:' /var/log/dmesg
+    scsi 0:0:1:0: Direct-Access     ATA      Samsung SSD 840  4B0Q PQ: 0 ANSI: 6
+    scsi 0:0:1:0: SATA: handle(0x0009), sas_addr(0x4433221100000000), phy(0), device_name(0x50025385501e8ed9)
+    scsi 0:0:1:0: SATA: enclosure_logical_id(0x500062b00029a984), slot(0)
+    scsi 0:0:1:0: atapi(n), ncq(y), asyn_notify(n), smart(y), fua(y), sw_preserve(y)
+    scsi 0:0:1:0: qdepth(32), tagged(1), simple(1), ordered(0), scsi_level(7), cmd_que(1)
 
 ## HDD Performance ##
 
