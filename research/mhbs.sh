@@ -1,7 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 set -e
-
-### Meebey's HDD Benchmark Script v0.10 ###
+### Meebey's HDD Benchmark Script v0.11 ###
 # Boot with: mem=1g (else bonnie++ will do cached reads!)
 #
 # Copyright (C) 2012-2013 Mirco Bauer <meebey@meebey.net>
@@ -19,7 +18,7 @@ set -e
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-if [ "$1" = "--help" ]; then
+if [[ "$1" = "--help" || "$1" = "-h" ]]; then
 	echo "Usage: $0 [--destroy-my-data] [--tune-kernel] [--install-debs] [--verbose] [device-name]"
 	exit 0
 fi
@@ -81,8 +80,8 @@ if ! which blockdev > /dev/null; then echo "no blockdev!"; exit 1; fi
 if ! which fio > /dev/null; then echo "no fio!"; exit 1; fi
 if ! which mkfs.ext3 > /dev/null; then echo "no mkfs.ext3!"; exit 1; fi
 if ! which wget > /dev/null; then echo "no wget!"; exit 1; fi
-if ! which tput > /dev/null; then echo "no wget!"; exit 1; fi
-if ! which gcc > /dev/null; then echo "no wget!"; exit 1; fi
+if ! which tput > /dev/null; then echo "no tput!"; exit 1; fi
+if ! which gcc > /dev/null; then echo "no gcc!"; exit 1; fi
 
 # SETUP
 HDD_DEV=/dev/$HDD
@@ -172,6 +171,7 @@ if [ $IS_SSD = 1 ]; then
 			echo "PERFORMING SECURE ERASE OF $HDD_DEV..."
 		fi
 		if ! which hdparm > /dev/null; then echo "no hdparm!"; exit 1; fi
+		if ! $(hdparm -I $HDD_DEV | grep -P "not\tfrozen" > /dev/null ) ; then echo "device is frozen. Unfreeze it with e.g. Powercycle"; exit 1; fi   
 		hdparm --user-master u --security-set-pass secret $HDD_DEV
 		time hdparm --user-master u --security-erase secret $HDD_DEV
 	fi
