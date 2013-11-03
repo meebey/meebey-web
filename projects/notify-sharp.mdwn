@@ -20,6 +20,7 @@ by the [Desktop Notifications Specification][notification-spec].
  * [Smuxi IRC Client][Smuxi]
  * [Banshee][]
  * [SparkleShare][]
+ * [Tasque][]
  * [Docky][]
  * [GNOME Do][]
 
@@ -31,3 +32,4 @@ by the [Desktop Notifications Specification][notification-spec].
  [SparkleShare]: http://sparkleshare.org/
  [Docky]: http://www.go-docky.com/
  [GNOME Do]: http://do.cooperteam.net/
+ [Tasque]: https://wiki.gnome.org/Apps/Tasque
