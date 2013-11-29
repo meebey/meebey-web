@@ -22,3 +22,29 @@ Peers send and receive messages on that TCP socket.
  * message seperator: 0x0a (LF)
  * decode as string:
    * replace '\r\n' with '\n' then '\n' with "\n" (LF)
+
+## Message Commands ##
+
+### message ###
+
+### status ###
+
+Format:
+
+    status $status
+
+Statuses:
+ * away
+ * available
+ * xa
+
+Example:
+
+    status available
+
+### filename ###
+
+### filedata ###
+
+### filedata_ok ###
+
