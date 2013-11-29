@@ -31,9 +31,10 @@ Peers send and receive messages on that TCP socket.
 
 Format:
 
-    status $status
+    status <status>
 
-Statuses:
+&lt;status&gt; can be one of:
+
  * away
  * available
  * xa
