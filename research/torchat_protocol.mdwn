@@ -28,6 +28,16 @@ Peers send and receive messages on that TCP socket.
 
 ## Message Commands ##
 
+### ping ###
+
+### pong ###
+
+### client ###
+
+### version ####
+
+### add_me ###
+
 ### message ###
 
 ### status ###
