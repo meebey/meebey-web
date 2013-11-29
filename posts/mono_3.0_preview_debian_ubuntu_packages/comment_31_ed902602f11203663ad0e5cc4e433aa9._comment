@@ -1,0 +1,16 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ claimedauthor="Graham Briggs"
+ subject="great work, we want more ... any word on newer versions of mono?"
+ date="2013-11-26T06:10:49Z"
+ content="""
+THank you for this great work.  I was able to install on ubuntu 12 machine with no problems.  I ran program in monodevelop and some of my bugs were fixed (listview double click no longer crashes).  
+
+Some bugs remain for me (having trouble with UDP)
+
+Any idea if you will be able to get newer versions of mono packaged in this way.  apt-get is great for a noob like me.  I notice current version is 3.2.5
+
+Thanks
+
+GB
+"""]]

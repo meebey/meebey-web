@@ -1,0 +1,8 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ claimedauthor="Raven"
+ subject="Assembly not available  Mono 3.0.0.6 / .Net 4.0 Mono 3.0.6"
+ date="2013-09-22T06:38:55Z"
+ content="""
+I am getting this error when trying to compile a server file.  It is making assembly reference and will not process.  What can I do to make Mono use the .Net 4.0 references?
+"""]]
