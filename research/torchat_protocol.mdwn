@@ -49,3 +49,6 @@ Example:
 
 ### filedata_ok ###
 
+## Authentication / Handshake ##
+
+TBD
