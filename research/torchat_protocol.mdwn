@@ -30,6 +30,25 @@ Peers send and receive messages on that TCP socket.
 
 ### ping ###
 
+Format:
+
+    ping <hidden_service_id> <session_token>
+
+&lt;hidden_service_id&gt; is the hash of the public key used in the onion
+network.
+
+&lt;token&gt; is an arbitrary sized session token that the receiver must return
+in the pong command (see below) to prove the autentication of the connection.
+
+***WARNING: this session token has to be kept secret as this is the session key
+of the authenticated connection!*** If this token leaks, anyone can impersonate
+the identity of that hidden service / TorChat peer as long as the TorChat
+application runs.
+
+Example:
+
+    ping mb4bc4jk4cj2fky4 31754944747097474078662100165902771331350515775810664422385852963171834014133
+
 ### pong ###
 
 ### client ###
