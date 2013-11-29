@@ -44,7 +44,7 @@ in the pong command (see below) to prove the autentication of the connection.
 ***WARNING: this session token has to be kept secret as this is the session key
 of the authenticated connection!*** If this token leaks, anyone can impersonate
 the identity of that hidden service / TorChat peer as long as the TorChat
-application runs.
+application which generated this token runs.
 
 Example:
 
