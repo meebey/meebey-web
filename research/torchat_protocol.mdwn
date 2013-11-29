@@ -1,4 +1,7 @@
 [[!meta title="TorChat Protocol Dissection"]]
+[[!sidebar content="""
+[[!toc startlevel=2 levels=2]]
+"""]]
 
 ***DISCLAIMER: This is NOT a specification but an external _analyses_ of the
 TorChat protocol by stuyding the (Java) [source code implementation][source] of
