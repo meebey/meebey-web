@@ -7,16 +7,16 @@ the protocol as correctly as possible but don't cry if it contains errors or is
 incomplete. I am using this as base for a C# based implementation for use in the
 [Smuxi Messenger][smuxi].
 
-  [java-source]: https://github.com/prof7bit/TorChat-Android/blob/master/TorChat/src/prof7bit/torchat/core/
+  [source]: https://github.com/prof7bit/TorChat-Android/blob/master/TorChat/src/prof7bit/torchat/core/
   [smuxi]: https://www.smuxi.org/
- 
-== Transport ==
+
+## Transport ##
 
 Uses TCP sockets to hidden services running on port 11009.
 
 Peers send and receive messages on that TCP socket.
 
-== Message Format ==
+## Message Format ##
 
  * type: byte array
  * message seperator: 0x0a (LF)
