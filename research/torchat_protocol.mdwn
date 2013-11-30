@@ -86,18 +86,18 @@ Example:
 
 TBD
 
-# Potential Security Issues / Weaknesses #
+## Potential Security Issues / Weaknesses ##
 
-## Hidden Services ##
+### Hidden Services ###
 
 Tor's hidden services fully rely on 1024 bit RSA keys. I don't know yet how
 these keys are used to make a conclusion if this is a real weakness or not.
 
-## Authentication Tokens ##
+### Authentication Tokens ###
 
 The TorChat client that wants to authenticate an hidden service hashkey (which
 is a chat buddy / peer in TorChat) has to generate an authentication token that
 the chat peer needs to return. If the client selects a weak token, say a pretty
 short one or one without real random data, then the token could be guessed and
 you could send spoofed TorChat messages that look like they are coming from the
-authenticated peer. 
+authenticated peer.
