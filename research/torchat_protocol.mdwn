@@ -20,6 +20,12 @@ Uses TCP sockets to hidden services running on port 11009.
 
 Peers send and receive messages on that TCP socket.
 
+## Connections ##
+
+### Out-Bound Connections ###
+
+### In-Bound Connections ###
+
 ## Message Format ##
 
  * type: byte array
