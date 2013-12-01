@@ -4,13 +4,15 @@
 """]]
 
 ***DISCLAIMER: This is NOT a specification but an external _analysis_ of the
-TorChat protocol by studying the (Java) [source code implementation][source] of
-it!*** I am _not_ related to the Tor or [TorChat][] projects. I simply try to cover
-the protocol as correctly as possible but don't cry if it contains errors or is
+TorChat protocol by studying the Java and Python source code implementation of
+it which can be found [here][java-source] and [here][python-source].*** I am
+_not_ related to the Tor or [TorChat][] projects. I simply try to cover the
+protocol as correctly as possible but don't cry if it contains errors or is
 incomplete. I am using this as base for a C# based implementation for use in the
 [Smuxi Messenger][smuxi].
 
-  [source]: https://github.com/prof7bit/TorChat-Android/blob/master/TorChat/src/prof7bit/torchat/core/
+  [java-source]: https://github.com/prof7bit/TorChat-Android/blob/master/TorChat/src/prof7bit/torchat/core/ "TorChat's Java source code"
+  [python-source]: https://github.com/prof7bit/TorChat/blob/torchat_py/torchat/src/tc_client.py "TorChat's Python source code"
   [TorChat]: https://github.com/prof7bit/TorChat
   [smuxi]: https://www.smuxi.org/
 
