@@ -1,6 +1,6 @@
 [[!meta title="Harddisk Performance"]]
 [[!table class="harddisk_performance_table" data="""
-Harddisk (S/WO)        |S/W| Model                | dd                 || bonnie++                              ||| seeker_baryluk   || fio                                 |||
+Harddisk (S/WO)        |S/W| Model                | dd                 || bonnie++ (47gb normalized)            ||| seeker_baryluk   || fio                                 |||
                        |   |                      |                    || block                                 |||                  || read 4KB IOPS    || write 4KB IOPS    |
                        |   |                      | read     | write    | read        | write       | rewrite     | seeks/s | ms/seek | seq Q1 | rand Q32 | seq Q1 | rand Q32
 Hitachi A7K1000 500GB  |   | [[HUA721050KLA330]]  | 87 MB/s  | ?        |  78584 KB/s |  73830 KB/s |  36246 KB/s | 81      | 12.320  |        |          |        |
