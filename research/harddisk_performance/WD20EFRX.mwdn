@@ -1,0 +1,229 @@
+root@grml ~ # ./mhbs.sh --destroy-my-data --tune-kernel --install-debs --verbose sdf 
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+libc6-dev is already the newest version.
+fio is already the newest version.
+gcc is already the newest version.
+hdparm is already the newest version.
+ncurses-bin is already the newest version.
+parted is already the newest version.
+smartmontools is already the newest version.
+util-linux is already the newest version.
+wget is already the newest version.
+0 upgraded, 0 newly installed, 0 to remove and 5 not upgraded.
+DO_WRITE=1
+TUNE_KERNEL=1
+HDD=sdf
+HDD_DEV=/dev/sdf
+HDD_P1=/dev/sdf1
+IS_DRBD=0
+IS_SSD=0
+IS_RAID=0
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Model Family:     Western Digital Red (AF)
+Device Model:     WDC WD20EFRX-68AX9N0
+Firmware Version: 80.00A80
+User Capacity:    2,000,398,934,016 bytes [2.00 TB]
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+model name      : AMD A8-5500 APU with Radeon(tm) HD Graphics
+model name      : AMD A8-5500 APU with Radeon(tm) HD Graphics    
+4
+4
+Linux grml 3.10-1-grml-amd64 #1 SMP Debian 3.10.10-1+grml.1 (2013-08-30) x86_64 GNU/Linux
+[    0.000000] Memory: 1009400k/1048576k available (3801k kernel code, 396k absent, 38780k reserved, 2973k data, 932k init)
+1000+0 records in
+1000+0 records out
+33554432000 bytes (34 GB) copied, 7.28344 s, 4.6 GB/s
+00:11.0 SATA controller: Advanced Micro Devices, Inc. [AMD] FCH SATA Controller [AHCI mode] (rev 40)
+egrep: /var/log/kern.log: No such file or directory
+[    3.929066] ata1: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+[    3.929089] ata3: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+[    3.929355] ata1.00: ATA-8: OCZ-VERTEX450, 1.0, max UDMA/133
+[    3.929359] ata1.00: 250069680 sectors, multi 1: LBA48 NCQ (depth 31/32), AA
+[    3.929659] ata3.00: ATA-9: WDC WD30EFRX-68AX9N0, 80.00A80, max UDMA/133
+[    3.929663] ata3.00: 5860533168 sectors, multi 16: LBA48 NCQ (depth 31/32), AA
+[    3.930383] ata3.00: configured for UDMA/133
+[    3.931469] ata1.00: configured for UDMA/133
+[ 1943.833493] ata3: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+[ 1943.835830] ata3.00: configured for UDMA/133
+[ 1948.505982] ata4: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+[ 1948.650895] ata4.00: ATA-9: WDC WD20EFRX-68AX9N0, 80.00A80, max UDMA/133
+[ 1948.650904] ata4.00: 3907029168 sectors, multi 0: LBA48 NCQ (depth 31/32), AA
+     lat (usec): min=50, max=5828, avg=90.99, stdev=51.71
+    clat percentiles (usec):
+     |  1.00th=[   67],  5.00th=[   73], 10.00th=[   75], 20.00th=[   78],
+     | 30.00th=[   80], 40.00th=[   82], 50.00th=[   84], 60.00th=[   86],
+     | 70.00th=[   89], 80.00th=[   91], 90.00th=[   97], 95.00th=[  147],
+     | 99.00th=[  151], 99.50th=[  151], 99.90th=[ 1064], 99.95th=[ 1352],
+     | 99.99th=[ 1448]
+    bw (KB  /s): min=39536, max=48672, per=100.00%, avg=43153.92, stdev=1766.60
+    lat (usec) : 100=90.73%, 250=9.04%, 500=0.01%, 750=0.06%, 1000=0.02%
+    lat (msec) : 2=0.15%, 10=0.01%
+  cpu          : usr=4.13%, sys=24.17%, ctx=648550, majf=0, minf=27
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued    : total=r=0/w=646984/d=0, short=r=0/w=0/d=0
+
+Run status group 0 (all jobs):
+  WRITE: io=2527.3MB, aggrb=43131KB/s, minb=43131KB/s, maxb=43131KB/s, mint=60001msec, maxt=60001msec
+
+Disk stats (read/write):
+  sdf: ios=83/646485, merge=0/0, ticks=4/49512, in_queue=48936, util=81.57%
+file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K/4K-4K, ioengine=libaio, iodepth=32
+fio-2.1.1
+Starting 1 process
+Jobs: 1 (f=1): [w] [100.0% done] [0KB/415KB/0KB /s] [0/103/0 iops] [eta 00m:00s]
+file1: (groupid=0, jobs=1): err= 0: pid=7480: Sat Nov  2 16:57:46 2013
+  write: io=27216KB, bw=462405B/s, iops=112, runt= 60270msec
+    slat (usec): min=4, max=200, avg=51.02, stdev= 9.84
+    clat (usec): min=237, max=587502, avg=283315.50, stdev=53876.10
+     lat (usec): min=248, max=587548, avg=283367.22, stdev=53881.27
+    clat percentiles (usec):
+     |  1.00th=[ 1624],  5.00th=[228352], 10.00th=[244736], 20.00th=[259072],
+     | 30.00th=[268288], 40.00th=[276480], 50.00th=[284672], 60.00th=[296960],
+     | 70.00th=[305152], 80.00th=[317440], 90.00th=[333824], 95.00th=[350208],
+     | 99.00th=[370688], 99.50th=[378880], 99.90th=[528384], 99.95th=[561152],
+     | 99.99th=[585728]
+    bw (KB  /s): min=  233, max= 1606, per=99.84%, avg=450.26, stdev=116.55
+    lat (usec) : 250=0.04%, 500=0.10%, 750=0.09%, 1000=0.09%
+    lat (msec) : 2=1.35%, 10=0.01%, 20=0.06%, 50=0.10%, 100=0.26%
+    lat (msec) : 250=10.96%, 500=86.79%, 750=0.13%
+  cpu          : usr=0.46%, sys=1.07%, ctx=6925, majf=0, minf=24
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.2%, 32=99.5%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.1%, 64=0.0%, >=64=0.0%
+     issued    : total=r=0/w=6804/d=0, short=r=0/w=0/d=0
+
+Run status group 0 (all jobs):
+  WRITE: io=27216KB, aggrb=451KB/s, minb=451KB/s, maxb=451KB/s, mint=60270msec, maxt=60270msec
+
+Disk stats (read/write):
+  sdf: ios=83/6790, merge=0/0, ticks=8/1919656, in_queue=1922792, util=99.85%
+file1: (g=0): rw=read, bs=4K-4K/4K-4K/4K-4K, ioengine=sync, iodepth=1
+fio-2.1.1
+Starting 1 process
+Jobs: 1 (f=1): [R] [100.0% done] [55716KB/0KB/0KB /s] [13.1K/0/0 iops] [eta 00m:00s]
+file1: (groupid=0, jobs=1): err= 0: pid=7548: Sat Nov  2 16:58:56 2013
+  read : io=3292.7MB, bw=56194KB/s, iops=14048, runt= 60001msec
+    clat (usec): min=41, max=12771, avg=69.14, stdev=22.64
+     lat (usec): min=41, max=12772, avg=69.40, stdev=22.65
+    clat percentiles (usec):
+     |  1.00th=[   60],  5.00th=[   63], 10.00th=[   64], 20.00th=[   65],
+     | 30.00th=[   66], 40.00th=[   67], 50.00th=[   68], 60.00th=[   69],
+     | 70.00th=[   70], 80.00th=[   71], 90.00th=[   72], 95.00th=[   74],
+     | 99.00th=[   83], 99.50th=[   96], 99.90th=[  406], 99.95th=[  470],
+     | 99.99th=[  498]
+    bw (KB  /s): min=50288, max=59544, per=100.00%, avg=56202.02, stdev=690.77
+    lat (usec) : 50=0.04%, 100=99.49%, 250=0.24%, 500=0.22%, 750=0.01%
+    lat (msec) : 2=0.01%, 4=0.01%, 10=0.01%, 20=0.01%
+  cpu          : usr=4.82%, sys=30.66%, ctx=844762, majf=0, minf=30
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued    : total=r=842919/w=0/d=0, short=r=0/w=0/d=0
+
+Run status group 0 (all jobs):
+   READ: io=3292.7MB, aggrb=56193KB/s, minb=56193KB/s, maxb=56193KB/s, mint=60001msec, maxt=60001msec
+
+Disk stats (read/write):
+  sdf: ios=842190/0, merge=0/0, ticks=46336/0, in_queue=45464, util=75.78%
+file1: (g=0): rw=randread, bs=4K-4K/4K-4K/4K-4K, ioengine=libaio, iodepth=32
+fio-2.1.1
+Starting 1 process
+Jobs: 1 (f=1): [r] [100.0% done] [375KB/0KB/0KB /s] [93/0/0 iops] [eta 00m:00s]
+file1: (groupid=0, jobs=1): err= 0: pid=7557: Sat Nov  2 16:59:57 2013
+  read : io=22764KB, bw=385990B/s, iops=94, runt= 60391msec
+    slat (usec): min=5, max=122, avg=43.84, stdev= 6.05
+    clat (msec): min=11, max=2067, avg=339.40, stdev=294.33
+     lat (msec): min=11, max=2067, avg=339.44, stdev=294.33
+    clat percentiles (msec):
+     |  1.00th=[   29],  5.00th=[   40], 10.00th=[   57], 20.00th=[   96],
+     | 30.00th=[  143], 40.00th=[  196], 50.00th=[  258], 60.00th=[  338],
+     | 70.00th=[  429], 80.00th=[  545], 90.00th=[  717], 95.00th=[  881],
+     | 99.00th=[ 1385], 99.50th=[ 1582], 99.90th=[ 2057], 99.95th=[ 2057],
+     | 99.99th=[ 2073]
+    bw (KB  /s): min=  171, max=  419, per=99.88%, avg=375.56, stdev=27.82
+    lat (msec) : 20=0.07%, 50=8.24%, 100=12.60%, 250=27.99%, 500=27.97%
+    lat (msec) : 750=14.23%, 1000=5.41%, 2000=3.29%, >=2000=0.19%
+  cpu          : usr=0.34%, sys=0.52%, ctx=5787, majf=0, minf=58
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.3%, 32=99.5%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.1%, 64=0.0%, >=64=0.0%
+     issued    : total=r=5691/w=0/d=0, short=r=0/w=0/d=0
+
+Run status group 0 (all jobs):
+   READ: io=22764KB, aggrb=376KB/s, minb=376KB/s, maxb=376KB/s, mint=60391msec, maxt=60391msec
+
+Disk stats (read/write):
+  sdf: ios=5672/0, merge=0/0, ticks=1916168/0, in_queue=1923224, util=99.82%
+--2013-11-02 16:59:57--  http://debian.gsd-software.net/benchmark/seeker_baryluk.c
+Resolving debian.gsd-software.net (debian.gsd-software.net)... 176.9.178.133
+Connecting to debian.gsd-software.net (debian.gsd-software.net)|176.9.178.133|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 4789 (4.7K) [text/x-csrc]
+Saving to: ‘seeker_baryluk.c’
+
+100%[===========================================================================================================================================>] 4,789       --.-K/s   in 0.03s   
+
+2013-11-02 16:59:58 (143 KB/s) - ‘seeker_baryluk.c’ saved [4789/4789]
+
+Threads: 01 Results: 48 seeks/second, 20.718 ms random access time (1175835528 < offsets < 2000138339899)
+Threads: 02 Results: 52 seeks/second, 19.145 ms random access time (816853638 < offsets < 1998914611800)
+Threads: 04 Results: 63 seeks/second, 15.856 ms random access time (379046580 < offsets < 1999554252497)
+Threads: 08 Results: 72 seeks/second, 13.730 ms random access time (2130240346 < offsets < 2000073804070)
+Threads: 16 Results: 82 seeks/second, 12.077 ms random access time (344060989 < offsets < 1998601546750)
+Threads: 32 Results: 89 seeks/second, 11.173 ms random access time (388112019 < offsets < 1999554181702)
+16000+0 records in
+16000+0 records out
+16777216000 bytes (17 GB) copied, 115.976 s, 145 MB/s
+16000+0 records in
+16000+0 records out
+16777216000 bytes (17 GB) copied, 116.347 s, 144 MB/s
+mke2fs 1.42.8 (20-Jun-2013)
+Filesystem label=
+OS type: Linux
+Block size=4096 (log=2)
+Fragment size=4096 (log=2)
+Stride=0 blocks, Stripe width=0 blocks
+3907584 inodes, 15624704 blocks
+781235 blocks (5.00%) reserved for the super user
+First data block=0
+Maximum filesystem blocks=4294967296
+477 block groups
+32768 blocks per group, 32768 fragments per group
+8192 inodes per group
+Superblock backups stored on blocks: 
+        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208, 
+        4096000, 7962624, 11239424
+
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (32768 blocks): done
+Writing superblocks and filesystem accounting information: done   
+
+Using uid:0, gid:0.
+Writing intelligently...done
+Rewriting...done
+Reading intelligently...done
+start 'em...done...done...done...done...done...
+Create files in sequential order...done.
+Stat files in sequential order...done.
+Delete files in sequential order...done.
+Create files in random order...done.
+Stat files in random order...done.
+Delete files in random order...done.
+Version  1.97       ------Sequential Output------ --Sequential Input- --Random-
+Concurrency   1     -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+grml            47G           92622  30 53268  17           140896  24 126.7   8
+Latency                         611ms     483ms             24639us     336ms
+Version  1.97       ------Sequential Create------ --------Random Create--------
+grml                -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+files:max:min        /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+      128:4096:4096 16223  39   216   1 21021  30 22937  50   219   1 15592  25
+Latency               891ms     216ms     635ms     235ms     226ms     835ms
+1.97,1.97,grml,1,1383411335,47G,,,,92622,30,53268,17,,,140896,24,126.7,8,128,4096,4096,,,16223,39,216,1,21021,30,22937,50,219,1,15592,25,,611ms,483ms,,24639us,336ms,891ms,216ms,635ms,235ms,226ms,835ms
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+./mhbs.sh --destroy-my-data --tune-kernel --install-debs --verbose sdf  29.71s user 525.60s system 14% cpu 1:04:03.39 total
