@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-### Meebey's HDD Benchmark Script v0.11 ###
+### Meebey's HDD Benchmark Script v0.11.1 ###
 # Boot with: mem=1g (else bonnie++ will do cached reads!)
 #
 # Copyright (C) 2012-2013 Mirco Bauer <meebey@meebey.net>
@@ -75,7 +75,7 @@ fi
 
 # REQUIRED TOOLS
 if ! which parted > /dev/null; then echo "no parted!"; exit 1; fi
-if ! which smartctl > /dev/null; then echo "no parted!"; exit 1; fi
+if ! which smartctl > /dev/null; then echo "no smartctl!"; exit 1; fi
 if ! which blockdev > /dev/null; then echo "no blockdev!"; exit 1; fi
 if ! which fio > /dev/null; then echo "no fio!"; exit 1; fi
 if ! which mkfs.ext3 > /dev/null; then echo "no mkfs.ext3!"; exit 1; fi
