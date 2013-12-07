@@ -199,7 +199,7 @@ fi
 
 if [ ! -x /tmp/seeker_baryluk ]; then
 	cd /tmp
-    wget http://debian.gsd-software.net/benchmark/seeker_baryluk.c
+    wget http://www.meebey.net/research/seeker_baryluk.c
     gcc -lpthread -o seeker_baryluk seeker_baryluk.c
 fi
 for threads in 01 02 04 08 16 32; do
