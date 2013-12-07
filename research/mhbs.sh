@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-### Meebey's HDD Benchmark Script v0.11.3 ###
+### Meebey's HDD Benchmark Script v0.11.4 ###
 # Boot with: mem=1g (else bonnie++ will do cached reads!)
 #
 # Copyright (C) 2012-2013 Mirco Bauer <meebey@meebey.net>
@@ -148,7 +148,7 @@ uname -a
 # limited to 1 GB
 grep Memory: /var/log/dmesg || dmesg | grep Memory:
 dd if=/dev/zero of=/dev/null bs=32M count=1000
-lspci | grep AHCI
+lspci | egrep -i 'IDE|SATA|AHCI|SCSI'
 egrep -h 'ata[0-9]\.|SATA link up' /var/log/dmesg /var/log/kern.log || dmesg | egrep -h 'ata[0-9]\.|SATA link up' || true
 blockdev --getra $HDD_DEV
 
