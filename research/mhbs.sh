@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-### Meebey's HDD Benchmark Script v0.11.4 ###
+### Meebey's HDD Benchmark Script v0.11.5 ###
 # Boot with: mem=1g (else bonnie++ will do cached reads!)
 #
 # Copyright (C) 2012-2013 Mirco Bauer <meebey@meebey.net>
@@ -72,17 +72,27 @@ if [ $INSTALL_DEBS  = 1 ]; then
     # TODO: add finnix support which needs special handling for libc6 upgrade
     apt-get -y install parted hdparm smartmontools util-linux pciutils fio wget ncurses-bin gcc libc6-dev
 fi
+if [ -z "$DO_WRITE" ]; then
+	# just in case
+	DO_WRITE=0
+fi
 
 # REQUIRED TOOLS
 if ! which lspci > /dev/null; then echo "no lspci!"; exit 1; fi
-if ! which parted > /dev/null; then echo "no parted!"; exit 1; fi
 if ! which smartctl > /dev/null; then echo "no smartctl!"; exit 1; fi
 if ! which blockdev > /dev/null; then echo "no blockdev!"; exit 1; fi
 if ! which fio > /dev/null; then echo "no fio!"; exit 1; fi
-if ! which mkfs.ext3 > /dev/null; then echo "no mkfs.ext3!"; exit 1; fi
 if ! which wget > /dev/null; then echo "no wget!"; exit 1; fi
 if ! which tput > /dev/null; then echo "no tput!"; exit 1; fi
 if ! which gcc > /dev/null; then echo "no gcc!"; exit 1; fi
+if ! which dd > /dev/null; then echo "no dd!"; exit 1; fi
+if [ $DO_WRITE = 1 ]; then
+	if ! which parted > /dev/null; then echo "no parted!"; exit 1; fi
+	if ! which mkfs.ext3 > /dev/null; then echo "no mkfs.ext3!"; exit 1; fi
+	if ! which bonnie++ > /dev/null; then echo "no bonnie++!"; exit 1; fi
+	if ! which mount > /dev/null; then echo "no mount! are you root?"; exit 1; fi
+	if ! which umount > /dev/null; then echo "no umount! are you root?"; exit 1; fi
+fi
 
 # SETUP
 HDD_DEV=/dev/$HDD
@@ -94,10 +104,6 @@ fi
 if [ -z "$HDD" ]; then
 	echo "No device name defined!"
 	exit 1
-fi
-if [ -z "$DO_WRITE" ]; then
-	# just in case
-	DO_WRITE=0
 fi
 if echo $HDD | grep -q '^drbd[0-9]'; then
 	IS_DRBD=1
@@ -215,8 +221,6 @@ dd if=$HDD_DEV of=/dev/null bs=1M count=16000
 if [ $DO_WRITE = 1 ]; then
 	dd if=/dev/zero of=$HDD_DEV bs=1M count=16000
 	sleep 10
-
-	if ! which bonnie++ > /dev/null; then echo "no bonnie++!"; exit 1; fi
 
 	blockdev --rereadpt $HDD_DEV && sleep 3
 	parted --script $HDD_DEV mklabel msdos
