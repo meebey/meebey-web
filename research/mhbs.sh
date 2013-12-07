@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-### Meebey's HDD Benchmark Script v0.11.1 ###
+### Meebey's HDD Benchmark Script v0.11.2 ###
 # Boot with: mem=1g (else bonnie++ will do cached reads!)
 #
 # Copyright (C) 2012-2013 Mirco Bauer <meebey@meebey.net>
@@ -200,7 +200,7 @@ fi
 if [ ! -x /tmp/seeker_baryluk ]; then
 	cd /tmp
     wget http://www.meebey.net/research/seeker_baryluk.c
-    gcc -lpthread -o seeker_baryluk seeker_baryluk.c
+    gcc -pthread -o seeker_baryluk seeker_baryluk.c
 fi
 for threads in 01 02 04 08 16 32; do
     echo -n "Threads: $threads "
