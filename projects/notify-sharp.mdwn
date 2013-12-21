@@ -11,7 +11,9 @@ by the [Desktop Notifications Specification][notification-spec].
 ## Download ##
 
  * Source tarball: [notify-sharp-3.0.0.tar.gz][]
- * Git repository on github: [meebey/notify-sharp][github]
+ * Git repository
+   * GitHub: [meebey/notify-sharp][github repo]
+   * GNOME: [git.gnome.org/notify-sharp][gnome repo]
 
  [notify-sharp-3.0.0.tar.gz]: /projects/notify-sharp/downloads/notify-sharp-3.0.0.tar.gz
 
@@ -26,7 +28,8 @@ by the [Desktop Notifications Specification][notification-spec].
 
  [D-Bus]: http://dbus.freedesktop.org/
  [notification-spec]: http://developer.gnome.org/notification-spec/
- [github]: https://github.com/meebey/notify-sharp
+ [github repo]: https://github.com/meebey/notify-sharp
+ [gnome repo]: https://git.gnome.org/browse/notify-sharp/
  [Smuxi]: http://www.smuxi.org/ "Smuxi IRC Client"
  [Banshee]: http://banshee.fm/
  [SparkleShare]: http://sparkleshare.org/
