@@ -1,3 +1,3 @@
 [[!aggregate name="Smuxi - IRC Client" dir="projects/smuxi/posts"
-feedurl="http://www.smuxi.org/main/data/xml/blog.rss"
-url="http://www.smuxi.org/" updateinterval="15"]]
+feedurl="https://www.smuxi.org/main/data/xml/blog.rss"
+url="https://www.smuxi.org/" updateinterval="15"]]
