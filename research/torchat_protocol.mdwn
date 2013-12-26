@@ -126,3 +126,8 @@ the chat peer needs to return. If the client selects a weak token, say a pretty
 short one or one without real random data, then the token could be guessed and
 you could send spoofed TorChat messages that look like they are coming from the
 authenticated peer.
+
+### Message Size ###
+
+The protocol doesn't seem to specify or enforce a maximum message size. This
+could potentially easily be abused to consume all memory of the client.
