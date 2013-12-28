@@ -52,6 +52,14 @@ the _Authentication_ section below.
  * decode as string:
    * replace '\r\n' with '\n' then '\n' with "\n" (LF)
 
+## [Command Format][cmd fmt] ##
+ 
+ * command: a-z or \_
+ * seperator: 0x20 (SP)
+ * payload: byte array
+
+ [cmd fmt]: https://github.com/meebey/TorChat/blob/master/torchat/src/tc_client.py#L1091
+
 ## Message Commands ##
 
 ### ping ###
