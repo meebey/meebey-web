@@ -3,8 +3,8 @@
 [[!toc startlevel=2 levels=2]]
 """]]
 
-_This page is also reachable within the Tor network:_
-http://vb75uj2ap3hyyava.onion/research/torchat_protocol/
+**This page is also reachable within the Tor network:**
+[[http://vb75uj2ap3hyyava.onion/research/torchat_protocol/]]
 
 ***DISCLAIMER: This is NOT a specification but an external _analysis_ of the
 TorChat protocol by studying the Java and Python source code implementation of
