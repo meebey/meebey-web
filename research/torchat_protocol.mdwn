@@ -71,26 +71,27 @@ the _Authentication_ section below.
 
 ## Message Commands ##
 
-### ping ###
+### [ping][ping cmd] ###
 
 Format:
 
-    ping <hidden_service_id> <session_token>
+    ping <origin_hidden_service_id> <authentication_token>
 
-&lt;hidden_service_id&gt; is the hash of the public key used in the onion
-network.
+&lt;origin_hidden_service_id&gt; is the hash of the public key used in the onion
+network (also known as onion address). This is the address the peer needs to
+contact to return the authentication_token. This way the origin knows on which
+*in*-bound connection the peer sits on as the authentication_token was only sent
+to a single hidden service.
 
-&lt;token&gt; is an arbitrary sized session token that the receiver must return
-in the pong command (see below) to prove the autentication of the connection.
-
-***WARNING: this session token has to be kept secret as this is the session key
-of the authenticated connection!*** If this token leaks, anyone can impersonate
-the identity of that hidden service / TorChat peer as long as the TorChat
-application which generated this token runs.
+***WARNING: this authentication token has to be kept secret!*** If this token
+leaks, anyone can impersonate the identity of that TorChat peer as long as the
+TorChat application which generated this token runs.
 
 Example:
 
     ping mb4bc4jk4cj2fky4 31754944747097474078662100165902771331350515775810664422385852963171834014133
+
+ [ping cmd]: https://github.com/meebey/TorChat/blob/master/torchat/src/tc_client.py#L1245
 
 ### pong ###
 
