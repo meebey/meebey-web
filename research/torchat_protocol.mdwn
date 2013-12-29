@@ -131,10 +131,16 @@ TBD
 
 ## Potential Security Issues / Weaknesses ##
 
-### Hidden Services ###
+### Hidden Services Keys ###
 
 Tor's hidden services fully rely on 1024 bit RSA keys. I don't know yet how
 these keys are used to make a conclusion if this is a real weakness or not.
+
+### Hidden Services Guessing ###
+
+Hidden services are stored on a DHT and can be iterated (?) to find existing
+hidden services. As TorChat uses a static port this can be used to find TorChat
+users.
 
 ### Authentication Tokens ###
 
@@ -149,3 +155,4 @@ authenticated peer.
 
 The protocol doesn't seem to specify or enforce a maximum message size. This
 could potentially easily be abused to consume all memory of the client.
+
