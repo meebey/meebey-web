@@ -70,7 +70,7 @@ the _Authentication_ section below.
  * seperator: 0x20 (SP)
  * payload: byte array
 
- [cmd fmt]: https://github.com/meebey/TorChat/blob/master/torchat/src/tc_client.py#L1091
+ [cmd fmt]: https://github.com/meebey/TorChat/blob/ac33fc0a0a721ff835cca62979097bbe2f4b4ed0/torchat/src/tc_client.py#L1091
 
 ## Message Commands ##
 
@@ -94,7 +94,7 @@ Example:
 
     ping mb4bc4jk4cj2fky4 31754944747097474078662100165902771331350515775810664422385852963171834014133
 
- [ping cmd]: https://github.com/meebey/TorChat/blob/master/torchat/src/tc_client.py#L1245
+ [ping cmd]: https://github.com/meebey/TorChat/blob/ac33fc0a0a721ff835cca62979097bbe2f4b4ed0/torchat/src/tc_client.py#L1245
 
 ### pong ###
 
