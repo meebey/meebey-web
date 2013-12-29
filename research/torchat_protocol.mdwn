@@ -86,9 +86,9 @@ contact to return the authentication_token. This way the origin knows on which
 *in*-bound connection the peer sits on as the authentication_token was only sent
 to a single hidden service.
 
-***WARNING: this authentication token has to be kept secret!*** If this token
-leaks, anyone can impersonate the identity of that TorChat peer as long as the
-TorChat application which generated this token runs.
+***WARNING: this authentication token has to be unique and kept secret!*** If
+this token leaks, anyone can impersonate the identity of that TorChat peer as
+long as the TorChat application which generated this token runs.
 
 Example:
 
