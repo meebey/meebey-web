@@ -70,15 +70,19 @@ the _Authentication_ section below.
  * seperator: 0x20 (SP)
  * payload: byte array
 
+Example:
+
+    ping <payload>
+
  [cmd fmt]: https://github.com/meebey/TorChat/blob/ac33fc0a0a721ff835cca62979097bbe2f4b4ed0/torchat/src/tc_client.py#L1091
 
 ## Message Commands ##
 
 ### [ping][ping cmd] ###
 
-Format:
-
-    ping <origin_hidden_service_id> <authentication_token>
+ * command: ping
+ * seperator: 0x20 (SP)
+ * payload: &lt;origin_hidden_service_id&gt;&lt;seperator&gt;&lt;authentication_token&gt;
 
 &lt;origin_hidden_service_id&gt; is the hash of the public key used in the onion
 network (also known as onion address). This is the address the peer needs to
@@ -86,9 +90,13 @@ contact to return the authentication_token. This way the origin knows on which
 *in*-bound connection the peer sits on as the authentication_token was only sent
 to a single hidden service.
 
-***WARNING: this authentication token has to be unique and kept secret!*** If
-this token leaks, anyone can impersonate the identity of that TorChat peer as
-long as the TorChat application which generated this token runs.
+&lt;authentication_token&gt; is a string of no specific length, but should be
+7-bit-only to avoid charset conversion issues.
+
+***WARNING: this authentication token has to be unique, cryptographically random
+and kept secret!*** If this token leaks, anyone can impersonate the identity of
+that TorChat peer as long as the TorChat application which generated this token
+runs.
 
 Example:
 
