@@ -19,7 +19,7 @@ incomplete. I am using this as base for a C# based implementation for use in the
   [TorChat]: https://github.com/prof7bit/TorChat
   [smuxi]: https://www.smuxi.org/
 
-## Design Goals ##
+## (Assumed) Design Goals ##
 
  * p2p (decentral)
  * encrypted
