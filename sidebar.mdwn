@@ -20,6 +20,7 @@
  * [[messagingmenu-sharp|projects/messagingmenu-sharp]]
 
 ### Research ####
+ * [[TorChat Protocol|research/torchat_protocol]]
  * [[Harddisk Performance|research/harddisk_performance]]
  * [[RAID Performance|research/raid_performance]]
 
