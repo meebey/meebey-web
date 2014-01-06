@@ -1,0 +1,12 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ claimedauthor="Nicholas Terry"
+ subject="Agreed, there are LOT of improvements in 3.2.5"
+ date="2013-12-24T04:55:41Z"
+ content="""
+This needs to be bumped to 3.2.5.  3.0 to 3.2 was not a minor release.  It encompasses many months of hard work, and id love to see this go to debian main. 
+
+2.10 is archaic and needs to be deprecated.  2.10 and 3.0 branches are no longer maintained or supported by Xamarin.
+
+Also, where can I get the source for this package you've made?
+"""]]
