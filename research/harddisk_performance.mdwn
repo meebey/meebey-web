@@ -3,7 +3,7 @@
 Harddisk (S/WO)        |S/W| Model                | dd                 || bonnie++ (47gb normalized)            ||| seeker_baryluk   || fio                                 |||
                        |   |                      |                    || block                                 |||                  || read 4KB IOPS    || write 4KB IOPS    |
                        |   |                      | read     | write    | read        | write       | rewrite     | seeks/s | ms/seek | seq Q1 | rand Q32 | seq Q1 | rand Q32
-Hitachi A7K1000 500GB  |   | [[HUA721050KLA330]]  | 87 MB/s  | ?        |  78584 KB/s |  73830 KB/s |  36246 KB/s | 81      | 12.320  |        |          |        |
+[Hitachi A7K1000 500GB][HUA721050KLA330]  |   |   | 87 MB/s  | ?        |  78584 KB/s |  73830 KB/s |  36246 KB/s | 81      | 12.320  |        |          |        |
 Hitachi A7K2000 1000GB |   | [[HUA722010CLA330]]  | 138 MB/s | 134 MB/s | 120256 KB/s | 126000 KB/s |  61271 KB/s | 77      | 12.965  |        |          |        |
 WD Scorpio Blue 250GB  |   | [[WD2500BEVT]]       |  81 MB/s | ?        |  71634 KB/s |  54478 KB/s |  26960 KB/s | 54      | 18.248  |        |          |        |
 WD Caviar Green 500GB  |   | [[WD5000AAVS]]       |  91 MB/s |  95 MB/s |  85354 KB/s |  65404 KB/s |  36764 KB/s | 66      | 15.091  |        |          |        |
@@ -39,6 +39,8 @@ OCZ Agility 3 240GB    |   | [[AGT3-25SAT3-240G]] | 205 MB/s | ?        | ?     
 OCZ Vertex 450 128GB   | S | [[VTX450-25SAT3-128G]] | 386 MB/s | 283 MB/s | 416083 KB/s | 274602 KB/s | 146763 KB/s | 11503 |  0.087  | 9521   | 68617    | 16776  | 57761
 OCZ Vertex 450 128GB   | T | [[VTX450-25SAT3-128G]] | 448 MB/s |  66 MB/s | 431143 KB/s | 146962 KB/s | 114158 KB/s | 5511  |  0.181  | 12113  | 64449    | 16515  | 28111
 """]]
+
+  [HUA721050KLA330]: ./HUA722010CLA330/ "HUA722010CLA330"
 
 Benchmark script: [[mhbs.sh]]
 
