@@ -1,0 +1,3 @@
+[[!aggregate name="Smuxi - IRC Client" dir="projects/smuxi/news"
+feedurl="https://smuxi.im/news/index.rss"
+url="https://smuxi.im/" updateinterval="60"]]
