@@ -1,3 +1,3 @@
 [[!meta title="""Smuxi 0.11 "Distractions" Release"""]]
 [[!tag smuxi]]
-[[!inline pages="""internal(projects/smuxi/posts/_Smuxi_0__46__11_with_multi_identity_support__44___message_patterns__44___fixed_Twitter_and_new_website_)"""]]
+[[!inline pages="""internal(projects/smuxi/posts/Smuxi_0__46__11_with_multi_identity_support__44___message_patterns__44___fixed_Twitter_and_new_website)"""]]
