@@ -1,2 +1,2 @@
 [[!meta title="""Smuxi 1.0 "Finally" Release"""]]
-[[!inline pages="""internal(projects/smuxi/posts/Smuxi_1__46__0_with_message_persistence__44___counters)"""]]
+[[!inline pages="""internal(projects/smuxi/posts/Smuxi_1__46__0_with_message_persistence__44___counters_)"""]]
