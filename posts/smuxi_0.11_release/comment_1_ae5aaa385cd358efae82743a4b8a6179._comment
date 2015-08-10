@@ -1,0 +1,12 @@
+[[!comment format=mdwn
+ ip="169.254.0.2"
+ claimedauthor="Najmi"
+ url="http://elhilal.blogspot.com"
+ subject="Smuxi on FreeBSD"
+ date="2015-05-10T03:49:45Z"
+ content="""
+Hi,
+
+I found out that FreeBSD's port for Smuxi is deprecated.
+In any way we could compile in FreeBSD from source without depending on the ports?
+"""]]
