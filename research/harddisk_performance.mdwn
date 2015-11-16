@@ -12,9 +12,9 @@ Harddisk (S/WO)                             |S/W|  dd                 || bonnie+
 [[WD Caviar Black 500GB|WD5001AALS]]        |   |   95 MB/s |  99 MB/s |  93080 KB/s |  73037 KB/s |  40964 KB/s | 81      | 12.230  |        |          |        |
 [[WD Caviar Black 640GB|WD6401AALS]]        |   |  115 MB/s | 114 MB/s | 113695 KB/s |  85924 KB/s |  47178 KB/s | 81      | 12.336  |        |          |        |
 [[WD Caviar Black 1TB|WD1002FAEX]]          |   |  134 MB/s | ?        | 113383 KB/s |  78411 KB/s |  45664 KB/s | 76      | 13.038  |        |          |        |
-[[WD Red AF 2TB|WD20EFRX]]                  |   |  145 MB/s | 144 MB/s | 140896 KB/s |  92622 KB/s |  53268 KB/s | 48      | 20.718  | 14048  | 94       |        | 112
-[[WD Red AF 3TB|WD30EFRX]]                  |   |  155 MB/s | 155 MB/s | 150935 KB/s |  96831 KB/s |  56314 KB/s | 47      | 21.097  | 14252  | 94       | 10362  | 110
-[[WD Red AF Pro 3TB|WD3001FFSX]]            |   |  183 MB/s | 183 MB/s | 177523 KB/s | 167855 KB/s |  75897 KB/s | 82      | 12.180  | 33756  | 178      | 34405  | 203
+[[WD Red 2TB AF|WD20EFRX]]                  |   |  145 MB/s | 144 MB/s | 140896 KB/s |  92622 KB/s |  53268 KB/s | 48      | 20.718  | 14048  | 94       |        | 112
+[[WD Red 3TB AF|WD30EFRX]]                  |   |  155 MB/s | 155 MB/s | 150935 KB/s |  96831 KB/s |  56314 KB/s | 47      | 21.097  | 14252  | 94       | 10362  | 110
+[[WD Red Pro 3TB AF|WD3001FFSX]]            |   |  183 MB/s | 183 MB/s | 177523 KB/s | 167855 KB/s |  75897 KB/s | 82      | 12.180  | 33756  | 178      | 34405  | 203
 [[WD RE3 500GB|WD5002ABYS]]                 |   |  118 MB/s | 116 MB/s | 121418 KB/s |  87859 KB/s |  48113 KB/s | 83      | 12.010  |        |          |        |
 [[WD RE4 500GB|WD5003ABYX]]                 |   |  139 MB/s | 137 MB/s | 134882 KB/s | 104358 KB/s |  57363 KB/s | 81      | 12.225  |        |          |        |
 [[WD RE4 1000GB|WD1003FBYX]]                |   |  138 MB/s | 137 MB/s | 141690 KB/s |  99667 KB/s |  55828 KB/s | 83      | 12.039  |        |          |        |
