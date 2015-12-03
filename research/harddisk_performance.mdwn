@@ -25,6 +25,8 @@ Harddisk (S/WO)                             |S/W|  dd                 || bonnie+
 [[WD VelociRaptor 1 TB|WD1000DHTZ]]         |   |  201 MB/s | 210 MB/s | 196387 KB/s | 139418 KB/s |  82770 KB/s | 147     |  6.800  |        |          |        |
 [[Intel SSD 520 120GB|SSDSC2CW120A3]]       | S |  415 MB/s | 516 MB/s | 409311 KB/s | 465053 KB/s | 211663 KB/s | 9022    |  0.111  | 16300  | 31361    |        | 35594
 [[Intel SSD 520 120GB|SSDSC2CW120A3]]       | W |  349 MB/s | 392 MB/s |             | 364438 KB/s |             |         |         |        | 30704    |        | 19735
+[[Intel SSD DC S3500 120GB|SSDSC2BB120G4]]  | S |  242 MB/s | 137 MB/s | 317315 KB/s | 126170 KB/s |  84854 KB/s | 20011   |  0.050  | 25507  | 50564    | 22346  | 34037
+[[Intel SSD DC S3500 120GB|SSDSC2BB120G4]]  | T |  220 MB/s | 136 MB/s | 319899 KB/s | 124705 KB/s |  83916 KB/s |  7943   |  0.126  | 25954  | 50398    | 22278  | 33510
 [[Samsung SSD 830 128GB|MZ-7PC128]]         | S |  275 MB/s | ?        | ?           | ?           | ?           | ?       | ?       | 15021  | 63325    |        |
 [[Samsung SSD 830 128GB|MZ-7PC128_2]]       | S |  251 MB/s | 310 MB/s | 448005 KB/s | 306406 KB/s | 156598 KB/s | 8776    |  0.114  | 24673  | 75082    | 21613  | 33513
 [[Samsung SSD 830 128GB|MZ-7PC128_2]]       | W |  ?        | ?        | ?           | ?           | ?           | ?       |  ?      | 24693  | 75895    | 21700  | 12116
