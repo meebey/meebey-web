@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-### Meebey's HDD Benchmark Script v0.11.5 ###
+### Meebey's HDD Benchmark Script v0.11.6 ###
 # Boot with: mem=1g (else bonnie++ will do cached reads!)
 #
 # Copyright (C) 2012-2013 Mirco Bauer <meebey@meebey.net>
@@ -70,7 +70,7 @@ if [ $INSTALL_DEBS  = 1 ]; then
         umount /tmp/root
     fi
     # TODO: add finnix support which needs special handling for libc6 upgrade
-    apt-get -y install parted hdparm smartmontools util-linux pciutils fio wget ncurses-bin gcc libc6-dev
+    apt-get -y install bonnie++ parted hdparm smartmontools util-linux pciutils fio wget ncurses-bin gcc libc6-dev
 fi
 if [ -z "$DO_WRITE" ]; then
 	# just in case
