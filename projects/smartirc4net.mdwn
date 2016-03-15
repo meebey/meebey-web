@@ -64,8 +64,8 @@ using a webinterface or a git client directly.
   [Examples]: https://github.com/meebey/SmartIrc4net/tree/master/examples
   [DeveloperLand Article]: http://www.developerland.net/Web/General/245.aspx
   [ASP Free Article]: http://www.aspfree.com/c/a/.NET/Using-SmartIrc4net/
-  [Known Issues]: http://projects.qnetp.net/projects/smartirc4net/issues
-  [Report Bug]: http://projects.qnetp.net/projects/smartirc4net/issues/new
+  [Known Issues]: https://github.com/meebey/SmartIrc4net/issues
+  [Report Bug]: https://github.com/meebey/SmartIrc4net/issues/new
   [Help Forum]: http://sourceforge.net/forum/forum.php?forum_id=390839
   [Smuxi IRC Client]: http://www.smuxi.org/
   [U-Lyss IRC-Bot]: http://ulyssircbot.sourceforge.net/
