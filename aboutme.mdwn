@@ -1,0 +1,59 @@
+About Me / CV
+=============
+
+     1983: Spawned in Hamburg, Germany
+
+     1989: Written first program in GW-BASIC
+           The national flag of Germany in 3 colors displayed on a Commodore PC
+           with an Intel 8088 processor and a CGA monitor
+
+     1998: Launched a Counter-Strike fan website (csworld.net)
+    -2001  Developed a dynamic website for Counter-Strike news and other
+           resources using HTML, PHP4 and MySQL. Website had a peak of 20,000
+           unique visitors per day
+
+     2000: Apprenticeship as Fachinformatiker (IT specialist)
+    -2003  GSD Software Design GmbH, Hamburg, Germany
+           Network support and system administration
+
+     2002: Became Open-source Developer (phpSmartIRCclass)
+           Written and released an open-source IRC client library written in PHP
+           to communicate with IRC servers
+           https://github.com/pear/Net_SmartIRC/commit/473a48d1700e9e82b69d240b8d60fde5f984dec5
+
+     2002: Official PHP- / PEAR Developer (meebey@php.net)
+    -2003  Incubated written IRC library phpSmartIRCclass into PEAR
+           https://pear.php.net/package/Net_SmartIRC/
+
+     2003: Profession: System-Engineer
+           GSD Software Design GmbH, Hamburg, Germany
+
+     2004: Package Maintainer in the Debian project
+    -2006  Founded the „Debian Mono Group“ with the goal of bringing Mono into
+           the Debian archive
+
+     2006: Profession: Chief System Engineer
+           GSD Software Design GmbH, Hamburg, Germany
+
+     2006: IRC-Library and graphical IRC client for GNOME
+           Development of an IRC-Library in C# (SmartIrc4net)
+           Development of a graphical IRC cient in C# with GTK+ (Smuxi)
+
+     2007: Official Debian Developer (meebey@debian.org)
+           Maintaining the Mono-, MonoDevelop-, GTK#- and other packages:
+           http://qa.debian.org/developer.php?login=meebey@debian.org
+
+     2010: GNOME Foundation Member (mmmbauer@gnome.org)
+           Development of Smuxi and maintenance of the Notify# library
+
+     2010: Profession: Chief System Engineer / CTO
+           GSD Software Design GmbH, Hamburg, Germany
+
+     2013: GNOME .NET Hackfest 2013 in Vienna, Austria
+           Porting Smuxi to GTK# 3.0, packaging GTK# 3.0 for Debian
+
+     2015: .NET Foundation Advisory Council Member
+           Advising, communication and policy development for the
+           foundation and open-source .NET projects
+           https://www.dotnetfoundation.org/
+
