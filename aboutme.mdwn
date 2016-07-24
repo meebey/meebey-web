@@ -12,6 +12,10 @@ About Me / CV
            resources using HTML, PHP4 and MySQL. Website had a peak of 20,000
            unique visitors per day
 
+     2000: Became ISP in Frankfurt, Germany (qNETp)
+    -2001  Operation of Linux based servers for Netbrain AG sponsored websites:
+           csworld.net, mogelpower.de, 3dcenter.de, hardtecs4u.de
+
      2000: Apprenticeship as Fachinformatiker (IT specialist)
     -2003  GSD Software Design GmbH, Hamburg, Germany
            Network support and system administration
