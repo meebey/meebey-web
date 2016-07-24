@@ -1,7 +1,7 @@
 About Me / CV
 =============
 
-     1983: Spawned in Hamburg, Germany
+     1983: Spawned in Hamburg, Germany as Mirco Bauer
 
      1989: Written first program in GW-BASIC
            The national flag of Germany in 3 colors displayed on a Commodore PC
@@ -17,12 +17,12 @@ About Me / CV
            Network support and system administration
 
      2002: Became Open-source Developer (phpSmartIRCclass)
-           Written and released an open-source IRC client library written in PHP
+           Released an open-source IRC client library written in PHP
            to communicate with IRC servers
            https://github.com/pear/Net_SmartIRC/commit/473a48d1700e9e82b69d240b8d60fde5f984dec5
 
      2002: Official PHP- / PEAR Developer (meebey@php.net)
-    -2003  Incubated written IRC library phpSmartIRCclass into PEAR
+    -2003  Incubated developed IRC library phpSmartIRCclass into PEAR
            https://pear.php.net/package/Net_SmartIRC/
 
      2003: Profession: System-Engineer
