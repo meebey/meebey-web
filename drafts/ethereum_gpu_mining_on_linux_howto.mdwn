@@ -169,6 +169,7 @@ a new block faster than the others to receive the reward.
 
 If you want to mine Ethereum Classic (ETC) use one of the pools listed
 [here][etc-pools] (at the bottom of the page).
+
 If you want to mine Ethereum One / Core (ETH) use one of the pools listed
 [here][eth-pools].
 
@@ -184,5 +185,11 @@ program, but here is an example of the pool that I use (because pony!):
 
 ## Profit ##
 
-Keep mining!
+If this guide was helpful for you, you can tip me at
+[[ethereum:0x9ec1220d2f2fadd3f0c96e3007daa827bc83fbd6]]
+or simply run the ethminer using my wallet address for a day or two:
+
+    ethminer -G -F http://yolo.ethclassic.faith:9999/0xx9ec1220d2f2fadd3f0c96e3007daa827bc83fbd6 --farm-recheck 200
+
+Happy mining!
 
