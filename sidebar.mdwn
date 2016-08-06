@@ -12,7 +12,6 @@
  * [[meebey @ Google+|https://plus.google.com/110845017456159195460]]
  * [[meebey @ LinkedIn|https://de.linkedin.com/in/mirco-bauer-151a198a]]
  * [[meebey @ Xing|https://www.xing.com/profile/Mirco_Bauer3]]
- * [[meebey @ Flattr|https://flattr.com/profile/meebey/things]]
 
 ### Projects ####
  * [Debian]
@@ -29,11 +28,6 @@
  * [[Harddisk Performance|research/harddisk_performance]]
  * [[RAID Performance|research/raid_performance]]
 
-### Good * ###
- * Music: [Welle:Erdball]
- * Connectivity: [SixXS]
- * Security: [StartSSL]
- 
 ### [[Tags]] ###
 [[!pagestats style="list" pages="./tags/* and !./tags/planet-*" among="./posts/*"]]
 
@@ -42,6 +36,3 @@
   [GNOME]: http://www.gnome.org/
   [Smuxi]: http://www.smuxi.org/
   [SmartIrc4net]: http://smartirc4net.meebey.net/
-  [Welle:Erdball]: http://www.welle-erdball.info/ "German bitpop band"
-  [SixXS]: https://www.sixxs.net/ "Go IPv6 today!"
-  [StartSSL]: https://www.startssl.com/ "Get SSL for free!"
