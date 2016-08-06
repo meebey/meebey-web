@@ -46,7 +46,7 @@ MH/s (megahashes per second) while the same hardware does 25 MH/s on Linux. The
 hashrate multiplied by 4 by using Linux instead of Windows. Sounds good? Keep
 reading and follow this guide.
 
-[[!img images/screenshot_of_linux_vs_windows_mining_hashrate.png size="400x"
+[[!img images/screenshot_of_linux_vs_windows_mining_hashrate.png size="600x"
        title="Screenshot of mining hashrate using Windows (green line) and Linux (blue line)"]]
 
 You have to pick a Linux distro to use for mining. As I am a Debian developer,
