@@ -1,5 +1,6 @@
 [[!meta title="""Ethereum GPU Mining on Linux How-To"""]]
 [[!tag ethereum cryptocurrency mining howto debian ubuntu]]
+[[!tag planet-debian]]
 
 ## TL;DR ##
 
