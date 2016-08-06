@@ -189,7 +189,7 @@ If this guide was helpful for you, you can tip me at
 [ethereum:0x9ec1220d2f2fadd3f0c96e3007daa827bc83fbd6](ethereum:0x9ec1220d2f2fadd3f0c96e3007daa827bc83fbd6)
 or simply run the ethminer using my wallet address for a day or two:
 
-    ethminer -G -F http://yolo.ethclassic.faith:9999/0xx9ec1220d2f2fadd3f0c96e3007daa827bc83fbd6 --farm-recheck 200
+    ethminer -G -F http://yolo.ethclassic.faith:9999/0x9ec1220d2f2fadd3f0c96e3007daa827bc83fbd6 --farm-recheck 200
 
 Happy mining!
 
