@@ -5,6 +5,7 @@
 * Install/use Debian 8 or Ubuntu 16.0.4
 * Execute:
 
+
     sudo apt-get install software-properties-common
     sudo add-apt-repository ppa:ethereum/ethereum
     sudo sed 's/jessie/vivid/' -i /etc/apt/sources.list.d/ethereum-ethereum-*.list
