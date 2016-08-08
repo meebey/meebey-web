@@ -1,4 +1,5 @@
 [[!meta title="""Ethereum GPU Mining on Linux How-To"""]]
+[[!meta link="https://www.meebey.net/posts/ethereum_gpu_mining_on_linux_howto/600x-screenshot_of_linux_vs_windows_mining_hashrate.png" rel="image_src"]]
 [[!tag ethereum cryptocurrency mining howto debian ubuntu]]
 [[!tag planet-debian]]
 
