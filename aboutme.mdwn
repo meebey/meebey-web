@@ -62,6 +62,6 @@ About Me / CV
            https://www.dotnetfoundation.org/
 
      2016: Chief Technology Officer (CTO)
-           Gate Digital Service Limited, Hong Kong
+           Gate Digital Services Limited, Hong Kong
            Trading platform for crypto-currencies and blockchain assets
            https://gatecoin.com/
