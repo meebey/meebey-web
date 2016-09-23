@@ -16,9 +16,9 @@ About Me / CV
     -2001  Operation of Linux based servers for Netbrain AG sponsored websites:
            csworld.net, mogelpower.de, 3dcenter.de, hardtecs4u.de
 
-     2000: Apprenticeship as Fachinformatiker (IT specialist)
+     2000: Professional Education: Fachinformatiker (IT specialist)
     -2003  GSD Software Design GmbH, Hamburg, Germany
-           Network support and system administration
+           Business and Engineering
 
      2002: Became Open-source Developer (phpSmartIRCclass)
            Released an open-source IRC client library written in PHP
@@ -29,14 +29,14 @@ About Me / CV
     -2003  Incubated developed IRC library phpSmartIRCclass into PEAR
            https://pear.php.net/package/Net_SmartIRC/
 
-     2003: Profession: System-Engineer
+     2003: System Engineer
            GSD Software Design GmbH, Hamburg, Germany
 
      2004: Package Maintainer in the Debian project
     -2006  Founded the „Debian Mono Group“ with the goal of bringing Mono into
            the Debian archive
 
-     2006: Profession: Chief System Engineer
+     2006: Chief System Engineer
            GSD Software Design GmbH, Hamburg, Germany
 
      2006: IRC-Library and graphical IRC client for GNOME
@@ -50,7 +50,7 @@ About Me / CV
      2010: GNOME Foundation Member (mmmbauer@gnome.org)
            Development of Smuxi and maintenance of the Notify# library
 
-     2010: Profession: Chief System Engineer / CTO
+     2010: Chief System Engineer / CTO
            GSD Software Design GmbH, Hamburg, Germany
 
      2013: GNOME .NET Hackfest 2013 in Vienna, Austria
@@ -61,3 +61,7 @@ About Me / CV
            foundation and open-source .NET projects
            https://www.dotnetfoundation.org/
 
+     2016: Chief Technology Officer (CTO)
+           Gate Digital Service Limited, Hong Kong
+           Trading platform for crypto-currencies and blockchain assets
+           https://www.gatecoin.com/
