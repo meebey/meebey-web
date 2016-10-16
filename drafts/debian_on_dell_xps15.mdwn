@@ -6,12 +6,13 @@ to write a blog post of how to install Debian 8 "Jessie" on the laptop but since
 it wasn't just install and use, I will share what is needed to get the wifi and
 graphics card to work.
 
-So first download the DVD-1 AMD64 image of Debian 8 from your favorite download
-mirror. I have used the [Hong Kong mirror][deb-mirror]. You do not need to
-download the other DVDs, just the first one is sufficient. The netinstaller and
-CD images will not provide a good experience since they need a working
-network/internet connection. With the DVD image you can do a full default
-desktop install and most things will just work out-of-the-box.
+So first download the DVD-1 AMD64 image of Debian 8 from your favorite [download
+mirror][deb-mirrors]. The closest one for me is the [Hong Kong
+mirror][deb-hk-mirror]. You do not need to download the other DVDs, just the
+first one is sufficient. The netinstaller and CD images will not provide a good
+experience since they need a working network/internet connection. With the DVD
+image you can do a full default desktop install and most things will just work
+out-of-the-box.
 
 Now you can do a regular install, no special procedure or anything will be
 needed. Depending on your desktop selection it will boot right into lovely
@@ -54,5 +55,6 @@ Have fun with your Dell XPS and Debian!
 PS: if this does not work for you, leave a comment or write to meebey at meebey
 . net
 
-  [deb-mirror]: http://ftp.hk.debian.org/pub/Linux/debian-cd/current/amd64/iso-dvd/
+  [deb-mirrors]: https://www.debian.org/CD/http-ftp/#mirrors
+  [deb-hk-mirror]: http://ftp.hk.debian.org/pub/Linux/debian-cd/current/amd64/iso-dvd/
   [deb-bpo]: https://backports.debian.org/
