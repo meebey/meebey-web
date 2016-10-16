@@ -1,0 +1,57 @@
+[[!meta title="""Debian 8 on Dell XPS 15"""]]
+[[!tag hardware howto debian]]
+
+It was time for a new work laptop so I got a Dell XPS 15 9950. I wasn't planning
+to write a blog post of how to install Debian 8 "Jessie" on the laptop but since
+it wasn't just install and use, I will share what is needed to get the wifi and
+graphics card to work.
+
+So first download the DVD-1 AMD64 image of Debian 8 from your favorite download
+mirror. I have used the [Hong Kong mirror][deb-mirror]. You do not need to
+download the other DVDs, just the first one is sufficient. The netinstaller and
+CD images will not provide a good experience since they need a working
+network/internet connection. With the DVD image you can do a full default
+desktop install and most things will just work out-of-the-box.
+
+Now you can do a regular install, no special procedure or anything will be
+needed. Depending on your desktop selection it will boot right into lovely
+GNOME3.
+
+You will quickly notice that the wifi is not working out-of-the-box though. It
+is a Qualcomm Atheros QCA6174 and the Linux kernel version 3.16 shipped with
+Debian 8 does not support that wifi card. This card needs the ath10k_driver
+kernel module. So we need a newer Linux kernel package from the Debian backports
+archive. If you don't have the Dell docking station as neither I do, then there
+is no wired ethernet that you can use for getting a temporary Internet
+connection. So use a different computer with Internet access to download the
+following packages from the Debian backports archive manually and put them on a
+USB disk.
+
+ * [linux-base](https://packages.debian.org/jessie-backports/all/linux-base/download)
+ * [linux-image-4.7.0](https://packages.debian.org/jessie-backports/amd64/linux-image-4.7.0-0.bpo.1-amd64/download)
+ * [firmware-atheros](https://packages.debian.org/jessie-backports/all/firmware-atheros/download)
+ * [firmware-misc-nonfree](https://packages.debian.org/jessie-backports/all/firmware-misc-nonfree/download)
+ * [xserver-xorg-video-intel](https://packages.debian.org/jessie-backports/amd64/xserver-xorg-video-intel/download)
+
+After that connect the USB disk to the new Dell laptop and mount the disk using
+the GNOME3 file browser (nautilus). It will mount the USB disk to
+/media/$your_username/$volume_name. Become root using sudo or su. Then install
+all downloaded package from USB with like this:
+
+    cd /media/$your_username/$volume_name
+    dpkg -i linux-base_*.deb
+    dpkg -i linux-image-4.7.0-0.bpo.1-amd64_*.deb
+    dpkg -i firmware-atheros_*.deb
+    dpkg -i firmware-misc-nonfree_*.deb
+    dpkg -i xserver-xorg-video-intel_*.deb
+
+That's it. If dpkg finished without error message then you can reboot and your
+wifi and graphics card should just work! After reboot you can verify the wifi
+card is recognized by running "/sbin/iwconfig" and see if wlan0 shows up.
+
+Have fun with your Dell XPS and Debian!
+
+PS: if this does not work for you, leave a comment or write to meebey at meebey
+. net
+
+  [deb-mirror]: http://ftp.hk.debian.org/pub/Linux/debian-cd/current/amd64/iso-dvd/
