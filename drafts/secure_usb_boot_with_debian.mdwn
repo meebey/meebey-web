@@ -95,7 +95,7 @@ match the key id we found in the signature file from above.
 
 	Key fingerprint = DF9B 9C49 EAA9 2984 3258  9D76 DA87 E80D 6294 BE9B
 
-*DA87E80D6294BE9B* matches Key fingerprint = DF9B 9C49 EAA9 2984 3258  9D76 *DA87 E80D 6294 BE9B*
+**DA87E80D6294BE9B** matches Key fingerprint = DF9B 9C49 EAA9 2984 3258  9D76 **DA87 E80D 6294 BE9B**
 
   [debian-cd-keys]: https://www.debian.org/CD/verify
 
