@@ -20,7 +20,7 @@ the behavior of the operating system we are going to install.
 
   [0]: https://support.lenovo.com/hk/en/solutions/LEN-8324
 
-## Download Debian or $Distro ISO ##
+## Download Debian Install ISO ##
 
 Feel free to use any Debian mirror and install flavor. For this guide I am using
 the download mirror in Germany and the DVD install flavor.
