@@ -16,7 +16,7 @@ the real threat to your system, really. If someone has physical access to your
 hardware, he can get a root shell in less than a second by passing
 *init=/bin/bash* as parameter to the Linux kernel in the boot loader regardless
 if cryptsetup is used or not! The attacker can also use other ways like booting
-a live system from CD/USB etc.  The real insecurity here is that the *uncrypted*
+a live system from CD/USB etc.  The real insecurity here is the *uncrypted*
 boot partition and not some script that gets executed from it. So how to prevent
 this physical access attack vector? Just keep reading this guide.
 
