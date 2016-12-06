@@ -1,4 +1,25 @@
+[[!meta title="""Secure USB boot with Debian"""]]
+[[!tag security howto debian]]
+
 ## Foreword ##
+
+The moment you leave your laptop, say in a hotel room, you can no longer trust
+your system as it could have been modified while you were away. Think you are
+safe because you have a crypted disk? Well, if the boot partition is on the
+laptop itself, it can be manipulated and you will not notice because the boot
+partition can't be encrypted. The BIOS needs to access the MBR and boot loader
+and that loads the Linux kernel, all uncrypted. There has been
+[some reports][slashdot] lately that the Linux cryptsetup is insecure because
+you can spawn a root shell by hitting the enter key for 70 seconds. This is not
+the real threat to your system, really. If someone has physical access to your
+hardware, he can get a root shell in less than a second by passing
+*init=/bin/bash* as parameter to the Linux kernel in the boot loader regardless
+if cryptsetup is used or not! The attacker can also use other ways like booting
+a live system from CD/USB etc.  The real insecurity here is that the *uncrypted*
+boot partition and not some script that gets executed from it. So how to prevent
+this physical access attack vector? Just keep reading this guide.
+
+  [slashdot]: https://linux.slashdot.org/story/16/11/15/2150225/cryptsetup-vulnerability-grants-root-shell-access-on-some-linux-systems
 
 This guide explains how to install Debian securely on your laptop with using an
 external USB boot disk. The disk inside the laptop should not contain your
@@ -263,4 +284,17 @@ safely unplug the USB stick.
 
 ## Final Words ##
 
-WRITEME
+From time to time you need to upgrade your Linux kernel of course which is on
+the /boot partition. This can still be done the regular way using apt-get
+upgrade, except that you need to mount /boot before that and unmount it again
+after the kernel upgrade.
+
+Enjoy your secured laptop. Now you can leave it in a hotel room without the
+possibility of someone trying you obtain your passphrase by putting a key logger
+in your boot partition. All the attacker will see is a fully encrypted harddisk.
+If he tries to mess with your crypted disk, you will notice as the decryption
+will fail.
+
+Disclaimer: there are still other attack vectors possible, but they are much
+harder to do. Your hardware or BIOS can still be modified. But not by holding
+down the enter key for 70 seconds or by booting a live system.
