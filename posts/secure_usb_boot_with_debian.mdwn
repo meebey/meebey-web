@@ -1,5 +1,6 @@
 [[!meta title="""Secure USB boot with Debian"""]]
-[[!tag security howto debian]]
+[[!tag security howto debian hardware]]
+[[!tag planet-debian planet-mono]]
 
 ## Foreword ##
 
