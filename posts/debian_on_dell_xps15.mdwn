@@ -2,7 +2,7 @@
 [[!tag hardware howto debian]]
 [[!tag planet-debian]]
 
-It was time for a new work laptop so I got a Dell XPS 15 9950. I wasn't planning
+It was time for a new work laptop so I got a Dell XPS 15 9550. I wasn't planning
 to write a blog post of how to install Debian 8 "Jessie" on the laptop but since
 it wasn't just install and use, I will share what is needed to get the wifi and
 graphics card to work.
