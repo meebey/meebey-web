@@ -23,14 +23,14 @@ this physical access attack vector? Just keep reading this guide.
   [slashdot]: https://linux.slashdot.org/story/16/11/15/2150225/cryptsetup-vulnerability-grants-root-shell-access-on-some-linux-systems
 
 This guide explains how to install Debian securely on your laptop with using an
-external USB boot disk. The disk inside the laptop should not contain your
-/boot partition since that is an easy target for manipulation. An attacker
-could for example change the boot scripts inside the initrd image to capture
-your passphrase of your crypted volume. With an USB boot partition, you can
-unplug the USB stick after the operating system has booted. Best practice here
-is to have the USB stick together with your bunch of keys. That way you will
-disconnect your USB stick early after the boot as finished so you can put it
-back into your pocket.
+external USB boot disk, such as a standard USB memory stick. The disk inside the
+laptop should not contain your /boot partition since that is an easy target for
+manipulation. An attacker could for example change the boot scripts inside the
+initrd image to capture your passphrase of your crypted volume. With an USB boot
+partition, you can unplug the USB stick after the operating system has booted.
+Best practice here is to have the USB stick together with your bunch of keys.
+That way you will disconnect your USB stick early after the boot as finished so
+you can put it back into your pocket.
 
 ## Secure Hardware Assumptions ##
 
