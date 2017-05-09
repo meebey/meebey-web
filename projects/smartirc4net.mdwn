@@ -12,7 +12,7 @@ syncing and is split in 3 layers: IrcConnection, IrcCommands and IrcClient.
 
 ## Download ##
 
- * Source Tarball: [smartirc4net-1.0.tar.gz]
+ * Source Tarball: [smartirc4net-1.1.tar.gz]
 
 ## [[Criticism]] ##
 
@@ -59,7 +59,7 @@ using a webinterface or a git client directly.
  * [Prelude Chatbot]
  * [VandalSniper]
 
-  [smartirc4net-1.0.tar.gz]: https://smuxi.im/jaws/data/files/smartirc4net-1.0.tar.gz
+  [smartirc4net-1.1.tar.gz]: https://smuxi.im/jaws/data/files/smartirc4net-1.1.tar.gz
   [API Documentation]: http://smartirc4net.meebey.net/docs/0.4.0/html/
   [Examples]: https://github.com/meebey/SmartIrc4net/tree/master/examples
   [DeveloperLand Article]: http://www.developerland.net/Web/General/245.aspx
