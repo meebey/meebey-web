@@ -12,6 +12,7 @@ syncing and is split in 3 layers: IrcConnection, IrcCommands and IrcClient.
 
 ## Download ##
 
+ * [Official package on NuGet](https://www.nuget.org/packages/SmartIrc4net/)
  * Source Tarball: [smartirc4net-1.1.tar.gz]
 
 ## [[Criticism]] ##
