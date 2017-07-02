@@ -17,7 +17,7 @@ Install/use Debian 8 or Ubuntu 16.0.4 then execute:
     # if you lose the passphrase, you lose your coins!
     sudo apt-get install linux-headers-amd64 build-essential
     chmod +x NVIDIA-Linux-x86_64-367.35.run
-    sudo NVIDIA-Linux-x86_64-367.35.run
+    sudo ./NVIDIA-Linux-x86_64-367.35.run
     ethminer -G -F http://yolo.ethclassic.faith:9999/0x<YOUR_WALLET_ADDRESS> --farm-recheck 200
     echo done
 
@@ -122,7 +122,7 @@ Install the dependencies using this command:
 Now we can make the installer executable and run it like this:
 
     chmod +x NVIDIA-Linux-x86_64-367.35.run
-    sudo NVIDIA-Linux-x86_64-367.35.run
+    sudo ./NVIDIA-Linux-x86_64-367.35.run
 
 If that step completed without error, then we should be able to run the mining
 benchmark!
