@@ -194,5 +194,10 @@ or simply run the ethminer using my wallet address for a day or two:
 
     ethminer -G -F http://yolo.ethclassic.faith:9999/0x9ec1220d2f2fadd3f0c96e3007daa827bc83fbd6 --farm-recheck 200
 
+If you need a crypto exchange to cash out your mined ether or to buy other
+crypto currencies, have a look at [gatecoin.com](https://gatecoin.com/)
+When signing up enter WETFAL as referral code and you will get 10 USD after your
+first deposit.
+
 Happy mining!
 
