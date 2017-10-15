@@ -5,7 +5,7 @@
 
 ## TL;DR ##
 
-Install/use Debian 8 or Ubuntu 16.0.4 then execute:
+Install/use Debian 8 or Ubuntu 16.04 then execute:
 
     sudo apt-get install software-properties-common
     sudo add-apt-repository ppa:ethereum/ethereum
