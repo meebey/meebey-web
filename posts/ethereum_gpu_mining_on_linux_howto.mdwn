@@ -16,8 +16,9 @@ Install/use Debian 8 or Ubuntu 16.04 then execute:
     # copy long character sequence within {}, that is your <YOUR_WALLET_ADDRESS>
     # if you lose the passphrase, you lose your coins!
     sudo apt-get install linux-headers-amd64 build-essential
-    chmod +x NVIDIA-Linux-x86_64-367.35.run
-    sudo ./NVIDIA-Linux-x86_64-367.35.run
+    wget https://us.download.nvidia.com/XFree86/Linux-x86_64/384.90/NVIDIA-Linux-x86_64-384.90.run
+    chmod +x NVIDIA-Linux-x86_64-384.90.run
+    sudo ./NVIDIA-Linux-x86_64-384.90.run
     ethminer -G -F http://yolo.ethclassic.faith:9999/0x<YOUR_WALLET_ADDRESS> --farm-recheck 200
     echo done
 
@@ -105,14 +106,14 @@ for the mining pool later.
 
 ## Install (proprietary) nvidia driver ##
 
-For OpenCL to work with nvidia graphics cards, like my GTX 1070, you need to
-install this proprietary driver from nvidia. If you have an older card maybe the
-opensource drivers will work for you. For the nvidia pascal cards numbers 10xx
-you will need [this driver package][linux-64].
+For OpenCL or CUDA to work with nvidia graphics cards, like my GTX 1070, you
+need to install this proprietary driver from nvidia. If you have an older card
+maybe the opensource drivers will work for you. For the GTX 9xx or 10xx you will
+need [this driver package][linux-64].
 
- [linux-64]: http://www.geforce.com/drivers/results/105343
+ [linux-64]: https://www.geforce.com/drivers/results/123918
 
-After you have agreed the terms, download the *NVIDIA-Linux-x86_64-367.35.run*
+After you have agreed the terms, download the *NVIDIA-Linux-x86_64-XXX.XX.run*
 file. But before we can use that installer we need to install some dependencies
 that installer needs as it will have to compile a Linux kernel module for you.
 Install the dependencies using this command:
@@ -121,8 +122,8 @@ Install the dependencies using this command:
 
 Now we can make the installer executable and run it like this:
 
-    chmod +x NVIDIA-Linux-x86_64-367.35.run
-    sudo ./NVIDIA-Linux-x86_64-367.35.run
+    chmod +x NVIDIA-Linux-x86_64-384.90.run
+    sudo ./NVIDIA-Linux-x86_64-384.90.run
 
 If that step completed without error, then we should be able to run the mining
 benchmark!
