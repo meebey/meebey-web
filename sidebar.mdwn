@@ -11,7 +11,7 @@
  * [[meebey @ Facebook|https://www.facebook.com/mmmbauer]]
  * [[meebey @ Google+|https://plus.google.com/110845017456159195460]]
  * [[meebey @ Keybase|https://keybase.io/meebey]]
- * [[meebey @ nostr|nostr:npub1sjdhu6h4h9qz7uvjg69n6nchmzkjs9ee0uw2gszmvwdzdk6j4xqqk5l4sc]]
+ * [[meebey @ nostr|https://nostr.directory/p/meebey]]
  * [[meebey @ LinkedIn|https://de.linkedin.com/in/mirco-bauer-151a198a]]
  * [[meebey @ Xing|https://www.xing.com/profile/Mirco_Bauer3]]
 
