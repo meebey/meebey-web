@@ -38,7 +38,9 @@ use IkiWiki::Setup::Standard {
 	# rcs backend to use
 	rcs => 'git',
 	# plugins to add to the default configuration
-	add_plugins => [qw{goodstuff websetup comments moderatedcomments opendiscussion blogspam calendar sidebar theme search google localstyle copyright license aggregate headinganchors flattr}],
+    # MB: no comments, moderatedcomments or search plugins as they need CGI!
+    # "comments moderatedcomments search"
+    add_plugins => [qw{goodstuff websetup opendiscussion blogspam calendar sidebar theme google localstyle copyright license aggregate headinganchors flattr}],
 	# plugins to disable
 	disable_plugins => [],
 	# additional directory to search for template files
