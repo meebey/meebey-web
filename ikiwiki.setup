@@ -16,32 +16,32 @@ use IkiWiki::Setup::Standard {
 	# users who are banned from the wiki
 	banned_users => [],
 	# where the source of the wiki is located
-    # MB: inside the GitHub Action "." is the working copy (clone) of the repo
-    srcdir => '.',
+	# MB: inside the GitHub Action "." is the working copy (clone) of the repo
+	srcdir => '.',
 	# where to build the wiki (public resources; htdocs)
 	#destdir => '/home/meebey/public_html/meebey-web',
-    #destdir => '/srv/booster/web/www.meebey.net/htdocs',
-    destdir => './meebey-web.public_html',
-    # base url to the wiki
+	#destdir => '/srv/booster/web/www.meebey.net/htdocs',
+	destdir => './meebey-web.public_html',
+	# base url to the wiki
 	#url => 'http://booster.qnetp.net/~meebey/meebey-web',
 	#url => 'http://www.meebey.net',
 	url => 'https://www.meebey.net',
-    # MB: no CGI, static site only for now
-    # url to the ikiwiki.cgi
+	# MB: no CGI, static site only for now
+	# url to the ikiwiki.cgi
 	#cgiurl => 'http://booster.qnetp.net/~meebey/meebey-web/ikiwiki.cgi',
 	#cgiurl => 'http://www.meebey.net/ikiwiki3.cgi',
-    #cgiurl => 'https://www.meebey.net/ikiwiki3.cgi',
+	#cgiurl => 'https://www.meebey.net/ikiwiki3.cgi',
 	# filename of cgi wrapper to generate
 	#cgi_wrapper => '/home/meebey/public_html/meebey-web/ikiwiki.cgi',
-    #cgi_wrapper => '/srv/booster/web/www.meebey.net/htdocs/ikiwiki3.cgi',
+	#cgi_wrapper => '/srv/booster/web/www.meebey.net/htdocs/ikiwiki3.cgi',
 	# mode for cgi_wrapper (can safely be made suid)
 	cgi_wrappermode => '06755',
 	# rcs backend to use
 	rcs => 'git',
 	# plugins to add to the default configuration
-    # MB: no comments, moderatedcomments or search plugins as they need CGI!
-    # "comments moderatedcomments search"
-    add_plugins => [qw{goodstuff websetup opendiscussion blogspam calendar sidebar theme google localstyle copyright license aggregate headinganchors flattr}],
+	# MB: no comments, moderatedcomments or search plugins as they need CGI!
+	# "comments moderatedcomments search"
+	add_plugins => [qw{goodstuff websetup opendiscussion blogspam calendar sidebar theme google localstyle copyright license aggregate headinganchors flattr}],
 	# plugins to disable
 	disable_plugins => [],
 	# additional directory to search for template files
@@ -86,8 +86,8 @@ use IkiWiki::Setup::Standard {
 	#wrappergroup => 'ikiwiki',
 	# extra library and plugin directory
 	#libdir => '/home/meebey/.ikiwiki',
-    #libdir => '/srv/booster/web/www.meebey.net/meebey-web.libdir',
-    libdir => $ENV{PWD},
+	#libdir => '/srv/booster/web/www.meebey.net/meebey-web.libdir',
+	libdir => $ENV{PWD},
 	# environment variables
 	ENV => {},
 	# regexp of normally excluded files to include
@@ -106,9 +106,9 @@ use IkiWiki::Setup::Standard {
 
 	# git plugin
 	# git hook to generate
-    # MB: not used/needed for GitHub Actions
-    #git_wrapper => '/home/meebey/meebey-web.git/hooks/post-update',
-    #git_wrapper => '/srv/booster/vcs/git/meebey-web.git/hooks/post-update',
+	# MB: not used/needed for GitHub Actions
+	#git_wrapper => '/home/meebey/meebey-web.git/hooks/post-update',
+	#git_wrapper => '/srv/booster/vcs/git/meebey-web.git/hooks/post-update',
 	# shell command for git_wrapper to run, in the background
 	#git_wrapper_background_command => 'git push github',
 	# mode for git_wrapper (can safely be made suid)
@@ -341,7 +341,7 @@ use IkiWiki::Setup::Standard {
 	# underlay plugin
 	# extra underlay directories to add
 	#add_underlays => [qw{/home/meebey/wiki.underlay}],
-	
+
 	# flattr plugin
 	flattr_userid => 'meebey',
 }
