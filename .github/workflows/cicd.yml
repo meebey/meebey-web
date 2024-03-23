@@ -1,0 +1,35 @@
+name: cicd
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: debian:stable
+    steps:
+    - uses: actions/checkout@v1
+    - name: check Debian version
+      run: |
+        cat /etc/debian_version
+    - name: install sudo and moreutils (for chronic)
+      run: |
+        echo "Detected APT sources:"
+        grep deb /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -v ":#"
+        apt update
+        apt install --yes sudo moreutils
+    - name: workaround failing git ownership check
+      run: |
+        sudo apt install --yes git > /dev/null
+        git config --global --add safe.directory '*'
+    - name: install ikiwiki package
+      run: |
+        sudo apt install --yes ikiwiki
+    - name: build
+      run: |
+        echo $PWD
+        echo $HOME
+        mkdir -p $HOME/meebey-web.src
+        ikiwiki --setup $PWD/ikiwiki.setup
+        #ikiwiki --rebuild --setup $PWD/ikiwiki.setup
