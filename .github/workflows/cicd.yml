@@ -5,11 +5,15 @@ on:
   - pull_request
 
 jobs:
-  build:
+  build_and_deploy:
     runs-on: ubuntu-latest
     container: debian:stable
     steps:
     - uses: actions/checkout@v1
+    - name: check effective user/groups and $HOME
+      run: |
+        whoami
+        echo $HOME
     - name: check Debian version
       run: |
         cat /etc/debian_version
@@ -21,11 +25,11 @@ jobs:
         apt install --yes sudo moreutils
     - name: workaround failing git ownership check
       run: |
-        sudo apt install --yes git > /dev/null
+        apt install --yes git > /dev/null
         git config --global --add safe.directory '*'
     - name: install ikiwiki package
       run: |
-        sudo apt install --yes ikiwiki
+        apt install --install-recommends --yes ikiwiki libimage-magick-perl
     - name: build
       run: |
         echo $PWD
@@ -33,3 +37,26 @@ jobs:
         mkdir -p $HOME/meebey-web.src
         ikiwiki --setup $PWD/ikiwiki.setup
         #ikiwiki --rebuild --setup $PWD/ikiwiki.setup
+    - name: seed SSH host pub key
+      run: |
+        mkdir -p $HOME/.ssh
+        # fetch SSH host pub keys with 'ssh-keyscan nos.eu1.meebey.net'
+        echo "nos.eu1.meebey.net ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCOmszqwtjW/wYHqtE9iYAVLdlZjTv7YC4vXmYCXrcB6BBVQdecg/v1cjzjRmBedAy/L4Woyg4ADEBlyW+hr704VPjgt8zY1SmF4nh7CzOOvV0n34cup6iplq1bzdjJvlS+xZYdG9lGyfu74hVu9OJCzXVbEBnhcgjfyhgVrqnvVtodr6vPIMvKKl05nHWDAZB01HKCLUE0zJ+VKTI5uAC7jDNqybmOyVTsw4vITiKukbwsD1ny+kiZeu6amGx3VdCQKgiz4cRx7QVTZoaD2IDWopENv4+yElR3cwlk7nq6VhUjAoN2l7/gvqhm2aN8q01Q4eQkfmDrGKrHMiLF/0KrY8TwNB+Kk5To9mNicPUkTd8TWDHgbGFkx5Li5tvuichUlelSdib7+V6AiWRS7l3I7MDNGLcQ6M/b+b/RKXNQ3aF87oOECfsjS+wUiiCHfl6NkMPr/qou6q8P1FAyBsw5Twn9aA3B5/6wrx/sH60fAoH0zKdCEruJYqj6MjOH7mPDKqRqeBvb3yuAIlDod4rsFWKrvgHR9KAQASUQFLYaAIWtp4yx07OLxFgCKRhrErJSgwk8PqYNFE3DxFlG3k+QzPXv0ZZlOk+vjcK/7wXfvCG1CoT8Tqu9JK7e/2Z9fIY9P8Z8ZfW42jXUvsKoF3Xe49eS6zYFr9EVZ7Qcy4RIow==" >> $HOME/.ssh/known_hosts
+        echo "nos.eu1.meebey.net ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPLLQmqhJzVkJcN2lDo1jum90Y6S6HO4XNBRHRiSuiLb" >> $HOME/.ssh/known_hosts
+    - name: make SSH private key available
+      env: # expose variables via env block to prevent script injection
+        GH_ACTION_DEPLOYMENT_SSH_PRIVATE_KEY: ${{ secrets.GH_ACTION_DEPLOYMENT_SSH_PRIVATE_KEY }}
+      run: |
+        touch $HOME/.ssh/id
+        chmod 600 $HOME/.ssh/id
+        echo "$GH_ACTION_DEPLOYMENT_SSH_PRIVATE_KEY" >> $HOME/.ssh/id
+    - name: install rsync
+      run: |
+        apt install --yes rsync > /dev/null
+    - name: deploy to nos
+      run: |
+        # -o UserKnownHostsFile=... is needed as ssh picks up /root as $HOME, while GitHub sets $HOME to /github/home, so ssh then looks for the wrong location
+        #rsync -e "ssh -l github-actions_meebey-web -i $HOME/.ssh/id -o UserKnownHostsFile=$HOME/.ssh/known_hosts" -a $PWD/meebey-web.public_html/ nos.eu1.meebey.net:/srv/local/websites/www.meebey.net/htdocs/
+        # protocol version mismatch -- is your shell clean?
+        # Debian 12's rsync 3.2.7 is not compatible with Nix's rsync? :(
+        scp -r -i $HOME/.ssh/id -o UserKnownHostsFile=$HOME/.ssh/known_hosts $PWD/meebey-web.public_html/* github-actions_meebey-web@nos.eu1.meebey.net:/srv/local/websites/www.meebey.net/htdocs/
