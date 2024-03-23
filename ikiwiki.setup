@@ -16,11 +16,12 @@ use IkiWiki::Setup::Standard {
 	# users who are banned from the wiki
 	banned_users => [],
 	# where the source of the wiki is located
-	srcdir => '$HOME/meebey-web.src',
+    # MB: inside the GitHub Action "." is the working copy (clone) of the repo
+    srcdir => '.',
 	# where to build the wiki (public resources; htdocs)
 	#destdir => '/home/meebey/public_html/meebey-web',
     #destdir => '/srv/booster/web/www.meebey.net/htdocs',
-    #destdir => '$HOME/meebey-web.public_html',
+    destdir => './meebey-web.public_html',
     # base url to the wiki
 	#url => 'http://booster.qnetp.net/~meebey/meebey-web',
 	#url => 'http://www.meebey.net',
