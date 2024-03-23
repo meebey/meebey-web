@@ -19,12 +19,13 @@ use IkiWiki::Setup::Standard {
 	srcdir => '$HOME/meebey-web.src',
 	# where to build the wiki (public resources; htdocs)
 	#destdir => '/home/meebey/public_html/meebey-web',
-	destdir => '/srv/booster/web/www.meebey.net/htdocs',
-	# base url to the wiki
+    #destdir => '/srv/booster/web/www.meebey.net/htdocs',
+    #destdir => '$HOME/meebey-web.public_html',
+    # base url to the wiki
 	#url => 'http://booster.qnetp.net/~meebey/meebey-web',
 	#url => 'http://www.meebey.net',
 	url => 'https://www.meebey.net',
-    # no cgi, static only for now
+    # MB: no CGI, static site only for now
     # url to the ikiwiki.cgi
 	#cgiurl => 'http://booster.qnetp.net/~meebey/meebey-web/ikiwiki.cgi',
 	#cgiurl => 'http://www.meebey.net/ikiwiki3.cgi',
@@ -83,7 +84,7 @@ use IkiWiki::Setup::Standard {
 	# extra library and plugin directory
 	#libdir => '/home/meebey/.ikiwiki',
     #libdir => '/srv/booster/web/www.meebey.net/meebey-web.libdir',
-    #libdir => '$HOME/meebey-web.libdir',
+    libdir => $ENV{PWD},
 	# environment variables
 	ENV => {},
 	# regexp of normally excluded files to include
@@ -102,8 +103,9 @@ use IkiWiki::Setup::Standard {
 
 	# git plugin
 	# git hook to generate
-	#git_wrapper => '/home/meebey/meebey-web.git/hooks/post-update',
-	git_wrapper => '/srv/booster/vcs/git/meebey-web.git/hooks/post-update',
+    # MB: not used/needed for GitHub Actions
+    #git_wrapper => '/home/meebey/meebey-web.git/hooks/post-update',
+    #git_wrapper => '/srv/booster/vcs/git/meebey-web.git/hooks/post-update',
 	# shell command for git_wrapper to run, in the background
 	#git_wrapper_background_command => 'git push github',
 	# mode for git_wrapper (can safely be made suid)
