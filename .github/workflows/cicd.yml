@@ -56,7 +56,8 @@ jobs:
     - name: deploy to nos
       run: |
         # -o UserKnownHostsFile=... is needed as ssh picks up /root as $HOME, while GitHub sets $HOME to /github/home, so ssh then looks for the wrong location
-        #rsync -e "ssh -l github-actions_meebey-web -i $HOME/.ssh/id -o UserKnownHostsFile=$HOME/.ssh/known_hosts" -a $PWD/meebey-web.public_html/ nos.eu1.meebey.net:/srv/local/websites/www.meebey.net/htdocs/
-        # protocol version mismatch -- is your shell clean?
-        # Debian 12's rsync 3.2.7 is not compatible with Nix's rsync? :(
-        scp -r -i $HOME/.ssh/id -o UserKnownHostsFile=$HOME/.ssh/known_hosts $PWD/meebey-web.public_html/* github-actions_meebey-web@nos.eu1.meebey.net:/srv/local/websites/www.meebey.net/htdocs/
+        #scp -r -i $HOME/.ssh/id -o UserKnownHostsFile=$HOME/.ssh/known_hosts $PWD/meebey-web.public_html/* github-actions_meebey-web@nos.eu1.meebey.net:/srv/local/websites/www.meebey.net/htdocs/
+        rsync -e "ssh -l github-actions_meebey-web -i $HOME/.ssh/id -o UserKnownHostsFile=$HOME/.ssh/known_hosts" \
+          --stats -a \
+          $PWD/meebey-web.public_html/ \
+          nos.eu1.meebey.net:
