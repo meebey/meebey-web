@@ -5,21 +5,23 @@
 ## Foreword ##
 
 The moment you leave your laptop, say in a hotel room, you can no longer trust
-your system as it could have been modified while you were away. Think you are
-safe because you have a crypted disk? Well, if the boot partition is on the
-laptop itself, it can be manipulated and you will not notice because the boot
+your system as it could have been modified while you were away, which is also
+known as the ["evil maid" attack][evil maid wp]. Think you are safe because
+you have a crypted disk? Well, if the boot partition is on the laptop itself,
+it can be manipulated and you will not notice because the boot
 partition can't be encrypted. The BIOS needs to access the MBR and boot loader
 and that loads the Linux kernel, all unencrypted. There has been
 [some reports][slashdot] lately that the Linux cryptsetup is insecure because
 you can spawn a root shell by hitting the enter key for 70 seconds. This is not
-the real threat to your system, really. If someone has physical access to your
+the threat to your system, really. If someone has physical access to your
 hardware, he can get a root shell in less than a second by passing
 *init=/bin/bash* as parameter to the Linux kernel in the boot loader regardless
-if cryptsetup is used or not! The attacker can also use other ways like booting
-a live system from CD/USB etc.  The real insecurity here is the *unencrypted*
+if cryptsetup is used or not. The attacker can also use other ways like booting
+a live system from CD/USB etc.  The actual insecurity here is the *unencrypted*
 boot partition and not some script that gets executed from it. So how to prevent
 this physical access attack vector? Just keep reading this guide.
 
+  [evil maid wp]: https://en.wikipedia.org/wiki/Evil_maid_attack
   [slashdot]: https://linux.slashdot.org/story/16/11/15/2150225/cryptsetup-vulnerability-grants-root-shell-access-on-some-linux-systems
 
 This guide explains how to install Debian securely on your laptop with using an
