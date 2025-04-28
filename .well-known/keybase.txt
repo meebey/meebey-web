@@ -1,0 +1,64 @@
+==================================================================
+https://keybase.io/meebey
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://www.meebey.net
+  * I am meebey (https://keybase.io/meebey) on keybase.
+  * I have a public key with fingerprint ABE1 95E1 50A8 DBE7 809D  3F42 7127 E5AB EEF9 46C8
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "0101b5cfcc10fe6329c62998c9fa1e58290c98ae49b38b425c3f639f4d4b2010ed430a",
+            "fingerprint": "abe195e150a8dbe7809d3f427127e5abeef946c8",
+            "host": "keybase.io",
+            "key_id": "7127e5abeef946c8",
+            "kid": "0101b5cfcc10fe6329c62998c9fa1e58290c98ae49b38b425c3f639f4d4b2010ed430a",
+            "uid": "b839780eaf6be5a21a1b74db26732c19",
+            "username": "meebey"
+        },
+        "service": {
+            "hostname": "www.meebey.net",
+            "protocol": "https:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1459376640,
+    "expire_in": 157680000,
+    "prev": "8939c25d51499a2405cd2ef393e3565d10083b38837acaf9df62dad46e04ba93",
+    "seqno": 3,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v1
+
+owGtUktIFVEYHh8JSYFBrXosBguC6+W85nGu1ipo4U4jCqvbefyj42PmNjO+EoPM
+RQsJEYQgIaIkCpIiAiOKNGpRhEiLaF0YoYsKWgQtOnOzXcvO5nD+//u+//s/zvT2
+Oqu2pjJ7/XNr81FR8+aLtI7/6tg2ZstYj9qlMbsPqhf0a0izcl+o7ZKNMMLSUYFS
+GAXgUsKVSzj3FQ8EBscnHCnuC2BcUl8y4igauJQHTDNJDBk0o0jYBTsIo25IKkkY
+ZUZWSMDcAewg4WsJno+4pgEjHiYeOKYLAWeu8g2xJ05zhjEnRQrFMDY18yhX7f0D
+/599D1blpE+5MQkicKWZR7DA0mNaEtejRGGeA1NIIjEABj0AIE2W4wXb1IZCBXms
++R6b/eHh4eIfTDGCzHArSZzFKu43vZ4sq6SlnJuNVqpgkOVNmbIMI21yNIwhSNIw
+juwSNkiVhbkuZg6nnusyVLBhpBImUA5zhOO5PjInnwNDRtLnlCvinNAOZpwLwpCj
+NIGAcgrUcR2NEfKpCcannlAi4DpwiRaauYCYFJza+WbnotguUeNTdBvNNOyORDaY
+gD3eeHmu3qqptRq21OYfzGrc2vT31+04VW9d+9EyYy0uzcyLjosLR9pOT9xin262
+Hs7uL04+azm7Mb3SU7fR+Y4vjkzdubu8tq+l/cr6nraXTbvOND96eu9na2F9eW3y
+++zzGw9uF893ve19fKHr64Tee2z+0MGNhtX9M3M7+1bCpUsf0Hhv18OTLxoPLLx/
+/eRbPOW+Wr36sb1zd/Ab
+=ONct
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/meebey
+
+==================================================================
