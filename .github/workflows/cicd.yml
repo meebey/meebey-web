@@ -58,6 +58,7 @@ jobs:
         # -o UserKnownHostsFile=... is needed as ssh picks up /root as $HOME, while GitHub sets $HOME to /github/home, so ssh then looks for the wrong location
         #scp -r -i $HOME/.ssh/id -o UserKnownHostsFile=$HOME/.ssh/known_hosts $PWD/meebey-web.public_html/* github-actions_meebey-web@nos.eu1.meebey.net:/srv/local/websites/www.meebey.net/htdocs/
         rsync -e "ssh -l github-actions_meebey-web -i $HOME/.ssh/id -o UserKnownHostsFile=$HOME/.ssh/known_hosts" \
-          --stats -a \
+          --stats --progress --recursive --links --itemize-changes \
           $PWD/meebey-web.public_html/ \
-          nos.eu1.meebey.net:
+          nos.eu1.meebey.net: \
+          | egrep '^(>|Number)'
