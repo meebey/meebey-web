@@ -19,17 +19,13 @@ use IkiWiki::Setup::Standard {
 	# MB: inside the GitHub Action "." is the working copy (clone) of the repo
 	srcdir => '.',
 	# where to build the wiki (public resources; htdocs)
-	#destdir => '/home/meebey/public_html/meebey-web',
 	#destdir => '/srv/booster/web/www.meebey.net/htdocs',
 	destdir => './meebey-web.public_html',
 	# base url to the wiki
-	#url => 'http://booster.qnetp.net/~meebey/meebey-web',
 	#url => 'http://www.meebey.net',
 	url => 'https://www.meebey.net',
-	# MB: no CGI, static site only for now
 	# url to the ikiwiki.cgi
-	#cgiurl => 'http://booster.qnetp.net/~meebey/meebey-web/ikiwiki.cgi',
-	#cgiurl => 'http://www.meebey.net/ikiwiki3.cgi',
+	# MB: no CGI -> static site only: no spam and reduced attack-surface
 	#cgiurl => 'https://www.meebey.net/ikiwiki3.cgi',
 	# filename of cgi wrapper to generate
 	#cgi_wrapper => '/home/meebey/public_html/meebey-web/ikiwiki.cgi',
@@ -39,11 +35,10 @@ use IkiWiki::Setup::Standard {
 	# rcs backend to use
 	rcs => 'git',
 	# plugins to add to the default configuration
-	# MB: no comments, moderatedcomments or search plugins as they need CGI!
-	# "comments moderatedcomments search"
 	add_plugins => [qw{goodstuff websetup opendiscussion blogspam calendar sidebar theme google localstyle copyright license aggregate headinganchors flattr}],
 	# plugins to disable
-	disable_plugins => [],
+	# MB: no comments, moderatedcomments or search plugins as they need CGI!
+	disable_plugins => [qw{editpage recentchanges comments search}],
 	# additional directory to search for template files
 	templatedir => '/usr/share/ikiwiki/templates',
 	# base wiki source location
