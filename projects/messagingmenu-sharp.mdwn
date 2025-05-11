@@ -10,10 +10,8 @@ of Ubuntu's [Ayatana] project.
 
 ## Download ##
 
- * Source tarball: [messagingmenu-sharp-1.0.1.tar.gz][]
- * Git repository on github: [meebey/messagingmenu-sharp][github]
-
- [messagingmenu-sharp-1.0.1.tar.gz]: /projects/messagingmenu-sharp/downloads/messagingmenu-sharp-1.0.1.tar.gz
+ * Source tarballs: [github.com/meebey/messagingmenu-sharp/tags][github releases]
+ * Git repository: [github.com/meebey/messagingmenu-sharp][github]
 
 ## Projects using MessagingMenu\# ##
 
@@ -22,4 +20,5 @@ of Ubuntu's [Ayatana] project.
  [MessagingMenu library]: https://launchpad.net/ubuntu/+source/indicator-messages
  [Ayatana]: https://wiki.ubuntu.com/Ayatana
  [github]: https://github.com/meebey/messagingmenu-sharp
+ [github releases]: https://github.com/meebey/messagingmenu-sharp/tags
  [Smuxi]: http://www.smuxi.org/ "Smuxi IRC Client"
