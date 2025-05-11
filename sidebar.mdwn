@@ -36,4 +36,3 @@
   [Mono]: http://www.mono-project.org/
   [GNOME]: http://www.gnome.org/
   [Smuxi]: https://smuxi.im/
-  [SmartIrc4net]: http://smartirc4net.meebey.net/
