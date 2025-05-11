@@ -35,5 +35,5 @@
   [Debian]: http://www.debian.org/
   [Mono]: http://www.mono-project.org/
   [GNOME]: http://www.gnome.org/
-  [Smuxi]: http://www.smuxi.org/
+  [Smuxi]: https://smuxi.im/
   [SmartIrc4net]: http://smartirc4net.meebey.net/
